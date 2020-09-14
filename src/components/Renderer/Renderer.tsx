@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '../../Styled';
 
 import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema } from '../../types/ComponentSchema';
@@ -29,61 +29,61 @@ type RendererProps = {
     options?: RendererOptions;
 }
 
-const Renderer: React.FC<RendererProps> = (props) => {
-    const [state, setState] = useState(props.data || {});
+class Renderer extends React.Component<RendererProps> {
+    state: any = {};
 
-    const validateComponentName = (_componentName: string) => true;
+    validateComponentName = (_componentName: string) => true;
 
-    const handleChange = (component: ComponentSchema, value: any) => {
-        setState((prevState: any) => ({
-            ...prevState,
+    handleChange = (component: ComponentSchema, value: any) => {
+        this.setState({
+            ...this.state,
             [component.name]: value,
-        }));
+        })
     };
 
-    const handleClick = () => {
-        alert(JSON.stringify(state));
+    handleClick = () => {
+        alert(JSON.stringify(this.state));
     }
 
-    const renderComponent = (component: ComponentSchema): JSX.Element => {
+    renderComponent = (component: ComponentSchema): JSX.Element => {
         const componentType = component.type.toLowerCase();
         switch(componentType) {
             case Types.TextField: 
                 return ( 
                     <TextField 
-                        value={state[component.name]} 
-                        onValueChange={(value: any) => handleChange(component, value)} 
+                        value={this.state[component.name]} 
+                        onValueChange={(value: any) => this.handleChange(component, value)} 
                         className='thora-component'
                         {...component as TextFieldSchema} /> 
                 );
             case Types.TextArea: 
                 return ( 
                     <TextArea 
-                        value={state[component.name]} 
-                        onValueChange={(value: any) => handleChange(component, value)}  
+                        value={this.state[component.name]} 
+                        onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
                         {...component as TextAreaSchema}/> 
                 );
             case Types.Email:  
                 return (
                     <Email 
-                        value={state[component.name]} 
-                        onValueChange={(value: any) => handleChange(component, value)}  
+                        value={this.state[component.name]} 
+                        onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
                         {...component as EmailSchema} /> 
                 );
             case Types.Number: 
                 return ( 
                     <Number
-                        value={state[component.name]} 
-                        onValueChange={(value: any) => handleChange(component, value)}  
+                        value={this.state[component.name]} 
+                        onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
                         {...component as NumberSchema}/> 
                 );
             case Types.Button: 
                 return ( 
                     <Button 
-                        onClick={handleClick} 
+                        onClick={this.handleClick} 
                         className='thora-component'
                         {...component as ButtonSchema}/> 
                 );
@@ -93,7 +93,7 @@ const Renderer: React.FC<RendererProps> = (props) => {
                 const childComponents = (component as PanelSchema).components || [];
                 return (
                     <Panel className='thora-component' {...component as PanelSchema}>
-                        { childComponents.map(panelChild => renderComponent(panelChild)) }
+                        { childComponents.map(panelChild => this.renderComponent(panelChild)) }
                     </Panel>
                 );
             }
@@ -102,15 +102,17 @@ const Renderer: React.FC<RendererProps> = (props) => {
         return <p className='thora-component'>Unknown component '{component.type}'</p>;
     }
 
-    props.schema.forEach(component => {
-        validateComponentName(component.name);
-    });
+    render () {
+        this.props.schema.forEach(component => {
+            this.validateComponentName(component.name);
+        });
 
-    return (
-    <StyledPage>
-        { props.schema.map(component => renderComponent(component)) }
-    </StyledPage>
-    );
+        return (
+        <StyledPage>
+            { this.props.schema.map(component => this.renderComponent(component)) }
+        </StyledPage>
+        );
+    }
 }
 
 export default Renderer;

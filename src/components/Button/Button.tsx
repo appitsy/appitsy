@@ -31,4 +31,4 @@ Button.validateSchema = (_component: any) => {
 // Needed because we get stale closure if we don't
 export default React.memo<ThoraButtonProps>(
     props => <Button {...props} />, 
-    (prevProps, nextProps) => prevProps.text === nextProps.text && prevProps.onClick === nextProps.onClick);
+    (prevProps, nextProps) => prevProps.text === nextProps.text);
