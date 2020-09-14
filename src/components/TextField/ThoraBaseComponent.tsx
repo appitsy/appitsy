@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { TextFieldSchema, ThoraComponent } from '../../types/ComponentSchema';
+import { BaseTextComponentSchema } from '../../types/ComponentSchema';
 import Label from '../Labels/Label';
 import ErrorLabel from '../Labels/ErrorLabel';
 import { Flex } from '../Flex/Flex';
-import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import { errorPositionToFlexDirection, labelPositionToFlexDirection } from '../../utilities/FlexPositions';
 
-interface ThoraBaseComponentProps extends TextFieldSchema {
-    inputType?: 'textfield' | 'textarea' | 'email';
+interface ThoraBaseComponentProps<T> extends BaseTextComponentSchema<T> {
+    inputType?: 'textfield' | 'textarea' | 'email' | 'number';
     className: string;
-    value: string;
-    validate?(value: string, baseValidate: () => string | null): string | null;
-    onValueChange(value: string): void;
+    value: T;
+    validate(value: T): string | null;
+    onValueChange(value: T): void;
 }
 
 interface ThoraBaseComponentState {
     touched?: boolean;
 }
 
-const ThoraBaseComponent: ThoraComponent<ThoraBaseComponentProps> = (props) => {
+const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponentProps<T>) => {
     const [state, setState] = useState<ThoraBaseComponentState>({});
     let validationError = '';
 
-    const onChange = (value: string) => {
+    const onChange = (value: T) => {
         setState((prevState: any) => ({
             ...prevState,
             touched: true,
@@ -31,26 +30,27 @@ const ThoraBaseComponent: ThoraComponent<ThoraBaseComponentProps> = (props) => {
         return props.onValueChange(value);
     }
 
-    const validate = (): string | null => ValidateRequired(props.validations!, props.value) || ValidateMinMaxLength(props.validations!, props.value);
-
     useEffect(() => {
-        props.onValueChange(props.value || props.data?.defaultValue || '');
+        const defaultVal = (typeof props.value === 'number' ? 0 : '') as T;
+        props.onValueChange(props.value || props.data?.defaultValue || defaultVal);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (props.validations && state.touched) {
-        validationError = (props.validate ? props.validate(props.value, validate) : validate()) || '';
+        validationError = (props.validate(props.value)) || '';
     }
 
     let childEl;
     switch (props.inputType) {
         case 'textfield':
         case 'email':
-            childEl = <input type={props.inputType} name={props.name} value={ props.value || '' } onChange={(evt) => onChange(evt.target.value)} />;
+            childEl = <input type={props.inputType} name={props.name} value={ props.value || '' } onChange={(evt) => onChange(evt.target.value as T)} />;
             break;
         case 'textarea':
-            childEl = <textarea name={props.name} value={ props.value } onChange={(evt) => onChange(evt.target.value)} />;
+            childEl = <textarea name={props.name} value={ props.value || ''} onChange={(evt) => onChange(evt.target.value as T)} />;
             break;
+        case 'number':
+            childEl = <input type={props.inputType} name={props.name} value={ props.value || 0 } onChange={(evt) => onChange(evt.target.value as T)} />
     }
 
     return (

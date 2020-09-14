@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThoraComponent, EmailSchema } from '../../types/ComponentSchema';
-import { ValidateEmail } from '../../utilities/Validations';
+import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../utilities/Validations';
 import ThoraBaseComponent from '../TextField/ThoraBaseComponent';
 
 interface EmailProps extends EmailSchema {
@@ -10,8 +10,10 @@ interface EmailProps extends EmailSchema {
 }
 
 const Email: ThoraComponent<EmailProps> = (props) => {
-    const emailValidate = (value: string, validate: () => string | null): string | null => {
-        return ValidateEmail(value) || validate();
+    const emailValidate = (value: string): string | null => {
+        return  ValidateRequired(props.validations!, value) || 
+                ValidateMinMaxLength(props.validations!, value) || 
+                ValidateEmail(value);
     }
 
     return (

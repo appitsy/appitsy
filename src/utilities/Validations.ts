@@ -16,8 +16,9 @@ export interface RegexValidations {
     regex: RegExp;
 }
 
-export interface TextFieldValidations extends RequiredValidations, MinMaxLengthValidations { }
-export interface TextAreaValidations extends RequiredValidations, MinMaxLengthValidations { }
+export interface BaseTextComponentValidations extends RequiredValidations, MinMaxLengthValidations {}
+export interface TextFieldValidations extends BaseTextComponentValidations { }
+export interface TextAreaValidations extends BaseTextComponentValidations { }
 export interface NumberValidations extends RequiredValidations, MinMaxLengthValidations, MinMaxNumberValidations { }
 
 export const ValidateRequired = (validations: RequiredValidations, value: string): string | null => {

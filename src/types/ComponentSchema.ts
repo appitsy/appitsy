@@ -1,4 +1,4 @@
-import { TextFieldValidations, TextAreaValidations, NumberValidations } from "../utilities/Validations";
+import { TextFieldValidations, TextAreaValidations, NumberValidations, BaseTextComponentValidations } from "../utilities/Validations";
 
 export interface BaseComponentSchema {
     name: string;
@@ -22,52 +22,35 @@ export type ButtonType ='button';
 
 export type PanelType = 'panel';
 
-export interface TextFieldSchema extends BaseComponentSchema {
+export interface BaseTextComponentSchema<T> extends BaseComponentSchema {
+    display?: {
+        labelPosition?: LabelPosition;
+        errorPosition?: ErrorPosition;
+    }
+    data?: {
+        defaultValue?: T;
+    }
+    validations?: BaseTextComponentValidations;
+}
+
+export interface TextFieldSchema extends BaseTextComponentSchema<string> {
     type: TextFieldType;
-    display?: {
-        labelPosition?: LabelPosition;
-        errorPosition?: ErrorPosition;
-    }
-    data?: {
-        defaultValue?: string;
-    }
     validations?: TextFieldValidations;
 }
 
-export interface NumberSchema extends BaseComponentSchema {
-    type: NumberType;
-    display?: {
-        labelPosition?: LabelPosition;
-        errorPosition?: ErrorPosition;
-    }
-    data?: {
-        defaultValue?: number;
-    }
-    validations?: NumberValidations;
-}
-
-export interface EmailSchema extends BaseComponentSchema {
+export interface EmailSchema extends BaseTextComponentSchema<string> {
     type: EmailType;
-    display?: {
-        labelPosition?: LabelPosition;
-        errorPosition?: ErrorPosition;
-    }
-    data?: {
-        defaultValue?: string;
-    }
     validations?: TextFieldValidations;
 }
 
-export interface TextAreaSchema extends BaseComponentSchema {
+export interface TextAreaSchema extends BaseTextComponentSchema<string> {
     type: TextAreaType;
-    display?: {
-        labelPosition?: LabelPosition;
-        errorPosition?: ErrorPosition;
-    }
-    data?: {
-        defaultValue?: string;
-    }
     validations?: TextAreaValidations;
+}
+
+export interface NumberSchema extends BaseTextComponentSchema<number> {
+    type: NumberType;
+    validations?: NumberValidations;
 }
 
 export interface ButtonSchema extends BaseComponentSchema {
