@@ -20,11 +20,6 @@ const TextArea: ThoraComponent<ThoraTextAreaProps> = (props) => {
     const [state, setState] = useState<TextAreaState>({});
     let validationError = '';
 
-    useEffect(() => {
-        props.onValueChange(props.value || props.data?.defaultValue || '');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const onChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
         setState((prevState: any) => ({
             ...prevState,
@@ -33,6 +28,12 @@ const TextArea: ThoraComponent<ThoraTextAreaProps> = (props) => {
 
         return props.onValueChange(evt.target.value);
     }
+
+    useEffect(() => {
+        props.onValueChange(props.value || props.data?.defaultValue || '');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     if (props.validations && state.touched) {
         validationError = 
@@ -56,4 +57,4 @@ TextArea.validateSchema = (_component: any) => {
     return true;
 };
 
-export default React.memo<ThoraTextAreaProps>(props => <TextArea {...props}/>, (prevProps, nextProps) => prevProps.value === nextProps.value);
+export default TextArea;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThoraComponent, EmailSchema } from '../../types/ComponentSchema';
-import TextField from '../TextField/TextField';
 import { ValidateEmail } from '../../utilities/Validations';
+import ThoraBaseComponent from '../TextField/ThoraBaseComponent';
 
 interface EmailProps extends EmailSchema {
     className: string;
@@ -15,15 +15,11 @@ const Email: ThoraComponent<EmailProps> = (props) => {
     }
 
     return (
-        <TextField 
-            type='textfield' 
+        <ThoraBaseComponent
+            {...props} 
+            type='textfield'
             inputType='email' 
-            className={props.className} 
-            name={props.name} 
-            value={props.value} 
-            validate={emailValidate} 
-            validations={props.validations || {}}
-            onValueChange={props.onValueChange} /> 
+            validate={emailValidate} /> 
     );
 }
 
@@ -31,4 +27,4 @@ Email.validateSchema = (_component: any) => {
     return true;
 };
 
-export default React.memo<EmailProps>(props => <Email {...props}/>, (prevProps, nextProps) => prevProps.value === nextProps.value);
+export default Email;
