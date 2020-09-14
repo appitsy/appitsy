@@ -27,4 +27,7 @@ Email.validateSchema = (_component: any) => {
     return true;
 };
 
-export default Email;
+export default React.memo<EmailProps>(
+    props => <Email {...props}/>, 
+    (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display
+);

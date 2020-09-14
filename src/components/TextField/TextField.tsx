@@ -19,4 +19,7 @@ TextField.validateSchema = (_component: any) => {
     return true;
 };
 
-export default TextField;
+export default React.memo<ThoraTextFieldProps>(
+    props => <TextField {...props}/>, 
+    (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display
+);

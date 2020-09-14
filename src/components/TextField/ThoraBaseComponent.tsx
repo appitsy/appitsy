@@ -7,11 +7,11 @@ import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validati
 import { errorPositionToFlexDirection, labelPositionToFlexDirection } from '../../utilities/FlexPositions';
 
 interface ThoraBaseComponentProps extends TextFieldSchema {
-    inputType?: 'textfield' | 'textarea' | 'email' | 'number';
+    inputType?: 'textfield' | 'textarea' | 'email';
     className: string;
     value: string;
     validate?(value: string, baseValidate: () => string | null): string | null;
-    onValueChange(value: string | number): void;
+    onValueChange(value: string): void;
 }
 
 interface ThoraBaseComponentState {
@@ -22,7 +22,7 @@ const ThoraBaseComponent: ThoraComponent<ThoraBaseComponentProps> = (props) => {
     const [state, setState] = useState<ThoraBaseComponentState>({});
     let validationError = '';
 
-    const onChange = (value: string | number) => {
+    const onChange = (value: string) => {
         setState((prevState: any) => ({
             ...prevState,
             touched: true,
@@ -51,8 +51,6 @@ const ThoraBaseComponent: ThoraComponent<ThoraBaseComponentProps> = (props) => {
         case 'textarea':
             childEl = <textarea name={props.name} value={ props.value } onChange={(evt) => onChange(evt.target.value)} />;
             break;
-        case 'number':
-            childEl = <input type='number' name={props.name} value={ props.value || 0 } onChange={(evt) => onChange(+evt.target.value)} />
     }
 
     return (
@@ -74,4 +72,4 @@ ThoraBaseComponent.defaultProps = {
     inputType: 'textfield',
 }
 
-export default React.memo<ThoraBaseComponentProps>(props => <ThoraBaseComponent {...props}/>, (prevProps, nextProps) => prevProps.value === nextProps.value);
+export default ThoraBaseComponent;

@@ -57,4 +57,7 @@ TextArea.validateSchema = (_component: any) => {
     return true;
 };
 
-export default TextArea;
+export default React.memo<ThoraTextAreaProps>(
+    props => <TextArea {...props}/>, 
+    (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display
+);
