@@ -58,7 +58,7 @@ const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponent
             <Label text={props.name} />
             <Flex flexDirection={errorPositionToFlexDirection(props.display?.errorPosition)} margin={false}>
                 { childEl }
-                <ErrorLabel text={validationError} />
+                <ErrorLabel error={validationError} />
             </Flex>
         </Flex>
     );
