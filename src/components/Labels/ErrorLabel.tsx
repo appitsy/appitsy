@@ -8,12 +8,10 @@ type LabelProps = {
 
 const StyledErrorLabel = Styled.span`
     color: ${({ theme }) => theme.colors.errors.foreground};
-    font-size: ${({ theme }) => theme.colors.errors.fontSize};
-    margin: 0px;
 `;
 
 const ErrorLabel = (props: LabelProps) => (
-    <StyledErrorLabel className={props.className}>
+    <StyledErrorLabel className={'thora-error ' + (props.className || '')}>
         { props.error }
     </StyledErrorLabel>
 );

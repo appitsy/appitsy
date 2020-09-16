@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.thora-error {
+  color: #ff0000;
+  font-size: 14px;
+}
