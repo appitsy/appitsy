@@ -103,11 +103,15 @@ const mySchema: ComponentSchema[] = [
   }
 ];
 
+const data = {
+  textField1: 'my custom textField1',
+  textField2: 'my custom textarea2'
+}
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Renderer schema={mySchema} />
+      <Renderer schema={mySchema} data={data}/>
     </ThemeProvider>
   );
 }

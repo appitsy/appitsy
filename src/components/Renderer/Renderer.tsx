@@ -30,7 +30,7 @@ type RendererProps = {
 }
 
 class Renderer extends React.Component<RendererProps> {
-    state: any = {};
+    state: any = this.props.data || {};
 
     validateComponentName = (_componentName: string) => true;
 
