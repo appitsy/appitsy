@@ -1,7 +1,7 @@
 import React, {  } from 'react';
 import { NumberSchema, ThoraComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxNumber } from '../../utilities/Validations';
-import ThoraBaseComponent from '../TextField/ThoraBaseComponent';
+import ThoraBaseComponent from '../ThoraBaseComponent';
 
 interface ThoraNumberProps extends NumberSchema {
     className: string;

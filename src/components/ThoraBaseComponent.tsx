@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BaseTextComponentSchema } from '../../types/ComponentSchema';
-import Label from '../Labels/Label';
-import ErrorLabel from '../Labels/ErrorLabel';
-import { Flex } from '../Flex/Flex';
-import { errorPositionToFlexDirection, labelPositionToFlexDirection } from '../../utilities/FlexPositions';
+import { BaseTextComponentSchema } from '../types/ComponentSchema';
+import Label from './BasicComponents/Label';
+import ErrorLabel from './BasicComponents/ErrorLabel';
+import { Flex } from './Layout/Flex';
+import { errorPositionToFlexDirection, labelPositionToFlexDirection } from '../utilities/FlexPositions';
 
 interface ThoraBaseComponentProps<T> extends BaseTextComponentSchema<T> {
-    inputType?: 'textfield' | 'textarea' | 'email' | 'number';
+    inputType?: 'textfield' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
     validate(value: T): string | null;

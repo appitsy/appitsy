@@ -2,13 +2,9 @@ import React from 'react';
 import styled from '../../Styled';
 
 import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema } from '../../types/ComponentSchema';
-import TextField from '../TextField/TextField';
-import TextArea from '../TextArea/TextArea';
-import Number from '../Number/Number';
-import Button from '../Button/Button';
+import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
-import Email from '../Email/Email';
-import Panel from '../Panel/Panel';
+import Panel from '../Layout/Panel';
 import { RendererOptions } from './RendererOptions';
 
 const StyledPage = styled.div`
@@ -87,7 +83,13 @@ class Renderer extends React.Component<RendererProps> {
                         className='thora-component'
                         {...component as ButtonSchema}/> 
                 );
-
+            case Types.Password:
+                return (
+                    <Password value={this.state[component.name]} 
+                        onValueChange={(value: any) => this.handleChange(component, value)}  
+                        className='thora-component'
+                        {...component as NumberSchema}/>
+                )
 
             case Types.Panel: {
                 const childComponents = (component as PanelSchema).components || [];
