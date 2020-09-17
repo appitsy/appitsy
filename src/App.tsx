@@ -101,6 +101,9 @@ const mySchema: ComponentSchema[] = [
       {
         name: 'textField+1',
         type: 'textfield',
+        display: {
+          tooltip: 'Hola!',
+        },
         data: { defaultValue: 'hello textfield+1!' },
       },
       {
