@@ -11,9 +11,9 @@ const StyledErrorLabel = Styled.span`
 `;
 
 const ErrorLabel = (props: LabelProps) => (
+    props.error ?
     <StyledErrorLabel className={'thora-error ' + (props.className || '')}>
         { props.error }
-    </StyledErrorLabel>
-);
+    </StyledErrorLabel>: null);
 
 export default ErrorLabel;

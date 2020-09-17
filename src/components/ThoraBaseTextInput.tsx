@@ -4,7 +4,7 @@ import Label from './BasicComponents/Label';
 import ErrorLabel from './BasicComponents/ErrorLabel';
 import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
-import Styled from '../Styled';
+import Description from './BasicComponents/Description';
 
 interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
     inputType?: 'textfield' | 'textarea' | 'email' | 'number' | 'password';
@@ -17,10 +17,6 @@ interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
 interface ThoraBaseTextInputState {
     touched?: boolean;
 }
-
-const Description = Styled.span`
-    color: grey
-`;
 
 const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInputProps<T>) => {
     const [state, setState] = useState<ThoraBaseTextInputState>({});
@@ -57,15 +53,23 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
             break;
         case 'number':
             childEl = <input type={props.inputType} name={props.name} value={ props.value || 0 } placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />
-        }
+    }
 
+    const wrapInPrefixSuffix = (elem?: JSX.Element) => (
+        <div>
+            { props.display?.prefix ? <span>{ props.display?.prefix }</span> : null }
+            { elem }
+            { props.display?.suffix ? <span>{ props.display?.suffix }</span> : null }
+        </div>
+    )
+    
     return (
         <Flex className={props.className} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
             <Label text={props.name} tooltip={props.display?.tooltip} />
             {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
             <Flex flexDirection={'column'} margin={false}>
-                { childEl }
-                <Description>{ props.display?.description }</Description>
+                { props.display?.prefix || props.display?.suffix ? wrapInPrefixSuffix(childEl) : childEl }
+                <Description text={props.display?.description}/>
                 <ErrorLabel error={validationError} />
             </Flex>
         </Flex>

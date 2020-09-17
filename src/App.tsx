@@ -17,7 +17,9 @@ const mySchema: ComponentSchema[] = [
     display: {
       labelPosition: 'top',
       description: 'wow a description',
-      tooltip: 'hello?'
+      tooltip: 'hello?',
+      prefix: 'pre',
+      suffix: 'suf',
     },
     data: {
       defaultValue: 'hello textfield!',
