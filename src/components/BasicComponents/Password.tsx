@@ -1,7 +1,7 @@
 import React, {  } from 'react';
 import { PasswordSchema, ThoraComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
-import ThoraBaseComponent from '../ThoraBaseComponent';
+import ThoraBaseTextInput from '../ThoraBaseTextInput';
 
 interface ThoraPasswordProps extends PasswordSchema {
     className: string;
@@ -16,7 +16,7 @@ const Password: ThoraComponent<ThoraPasswordProps> = (props) => {
     }
 
     return (
-        <ThoraBaseComponent inputType='password' {...props} validate={passwordValidate}/>
+        <ThoraBaseTextInput inputType='password' {...props} validate={passwordValidate}/>
     );
 }
 

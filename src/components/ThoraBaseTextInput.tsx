@@ -6,7 +6,7 @@ import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Styled from '../Styled';
 
-interface ThoraBaseComponentProps<T> extends BaseTextInputComponentSchema<T> {
+interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
     inputType?: 'textfield' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
@@ -14,7 +14,7 @@ interface ThoraBaseComponentProps<T> extends BaseTextInputComponentSchema<T> {
     onValueChange(value: T): void;
 }
 
-interface ThoraBaseComponentState {
+interface ThoraBaseTextInputState {
     touched?: boolean;
 }
 
@@ -22,8 +22,8 @@ const Description = Styled.span`
     color: grey
 `;
 
-const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponentProps<T>) => {
-    const [state, setState] = useState<ThoraBaseComponentState>({});
+const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInputProps<T>) => {
+    const [state, setState] = useState<ThoraBaseTextInputState>({});
     let validationError = '';
 
     const onChange = (value: T) => {
@@ -72,12 +72,12 @@ const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponent
     );
 }
 
-ThoraBaseComponent.validateSchema = (_component: any) => {
+ThoraBaseTextInput.validateSchema = (_component: any) => {
     return true;
 };
 
-ThoraBaseComponent.defaultProps = {
+ThoraBaseTextInput.defaultProps = {
     inputType: 'textfield',
 }
 
-export default ThoraBaseComponent;
+export default ThoraBaseTextInput;

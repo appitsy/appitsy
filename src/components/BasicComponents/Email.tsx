@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThoraComponent, EmailSchema } from '../../types/ComponentSchema';
 import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../utilities/Validations';
-import ThoraBaseComponent from '../ThoraBaseComponent';
+import ThoraBaseTextInput from '../ThoraBaseTextInput';
 
 interface EmailProps extends EmailSchema {
     className: string;
@@ -17,7 +17,7 @@ const Email: ThoraComponent<EmailProps> = (props) => {
     }
 
     return (
-        <ThoraBaseComponent
+        <ThoraBaseTextInput
             {...props} 
             type='textfield'
             inputType='email' 

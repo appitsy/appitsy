@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextAreaSchema, ThoraComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
-import ThoraBaseComponent from '../ThoraBaseComponent';
+import ThoraBaseTextInput from '../ThoraBaseTextInput';
 
 interface ThoraTextAreaProps extends TextAreaSchema {
     className: string;
@@ -17,7 +17,7 @@ const TextArea: ThoraComponent<ThoraTextAreaProps> = (props) => {
     }
 
     return (
-        <ThoraBaseComponent {...props} validate={textAreaValidate}/>
+        <ThoraBaseTextInput {...props} validate={textAreaValidate}/>
     );
 }
 
