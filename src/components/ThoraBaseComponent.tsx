@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BaseTextComponentSchema } from '../types/ComponentSchema';
+import { BaseTextInputComponentSchema } from '../types/ComponentSchema';
 import Label from './BasicComponents/Label';
 import ErrorLabel from './BasicComponents/ErrorLabel';
 import { Flex } from './Layout/Flex';
-import { errorPositionToFlexDirection, labelPositionToFlexDirection } from '../utilities/FlexPositions';
+import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
+import Styled from '../Styled';
 
-interface ThoraBaseComponentProps<T> extends BaseTextComponentSchema<T> {
+interface ThoraBaseComponentProps<T> extends BaseTextInputComponentSchema<T> {
     inputType?: 'textfield' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
@@ -16,6 +17,10 @@ interface ThoraBaseComponentProps<T> extends BaseTextComponentSchema<T> {
 interface ThoraBaseComponentState {
     touched?: boolean;
 }
+
+const Description = Styled.span`
+    color: grey
+`;
 
 const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponentProps<T>) => {
     const [state, setState] = useState<ThoraBaseComponentState>({});
@@ -44,20 +49,23 @@ const ThoraBaseComponent = <T extends string | number>(props: ThoraBaseComponent
     switch (props.inputType) {
         case 'textfield':
         case 'email':
-            childEl = <input type={props.inputType} name={props.name} value={ props.value || '' } onChange={(evt) => onChange(evt.target.value as T)} />;
+        case 'password':
+            childEl = <input type={props.inputType} name={props.name} value={ props.value || '' } placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />;
             break;
         case 'textarea':
-            childEl = <textarea name={props.name} value={ props.value || ''} onChange={(evt) => onChange(evt.target.value as T)} />;
+            childEl = <textarea name={props.name} value={ props.value || ''} placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />;
             break;
         case 'number':
-            childEl = <input type={props.inputType} name={props.name} value={ props.value || 0 } onChange={(evt) => onChange(evt.target.value as T)} />
-    }
+            childEl = <input type={props.inputType} name={props.name} value={ props.value || 0 } placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />
+        }
 
     return (
         <Flex className={props.className} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
-            <Label text={props.name} />
-            <Flex flexDirection={errorPositionToFlexDirection(props.display?.errorPosition)} margin={false}>
+            <Label text={props.name} tooltip={props.display?.tooltip} />
+            {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
+            <Flex flexDirection={'column'} margin={false}>
                 { childEl }
+                <Description>{ props.display?.description }</Description>
                 <ErrorLabel error={validationError} />
             </Flex>
         </Flex>

@@ -15,7 +15,9 @@ const mySchema: ComponentSchema[] = [
     name: 'textField1',
     type: 'textfield',
     display: {
-      labelPosition: 'top'
+      labelPosition: 'top',
+      description: 'wow a description',
+      tooltip: 'hello?'
     },
     data: {
       defaultValue: 'hello textfield!',
@@ -46,6 +48,18 @@ const mySchema: ComponentSchema[] = [
       required: true,
       minLength: 2,
       maxLength: 4,
+      min: 100,
+      max: 200
+    }
+  },
+  {
+    name: 'password',
+    type: 'password',
+    display: {
+      placeholder: 'Hola. ENtre Passwordo!',
+    },
+    validations: {
+      required: true,
       min: 100,
       max: 200
     }

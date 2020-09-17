@@ -1,18 +1,18 @@
 import React, {  } from 'react';
-import { NumberSchema, ThoraComponent } from '../../types/ComponentSchema';
-import { ValidateRequired, ValidateMinMaxNumber } from '../../utilities/Validations';
+import { PasswordSchema, ThoraComponent } from '../../types/ComponentSchema';
+import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import ThoraBaseComponent from '../ThoraBaseComponent';
 
-interface ThoraPasswordProps extends NumberSchema {
+interface ThoraPasswordProps extends PasswordSchema {
     className: string;
-    value: number;
-    onValueChange(value: number): void;
+    value: string;
+    onValueChange(value: string): void;
 }
 
 const Password: ThoraComponent<ThoraPasswordProps> = (props) => {
-    const passwordValidate = (value: number): string | null => {
-        return  ValidateRequired(props.validations!, value.toString()) || 
-                ValidateMinMaxNumber(props.validations!, value);
+    const passwordValidate = (value: string): string | null => {
+        return  ValidateRequired(props.validations!, value) || 
+                ValidateMinMaxLength(props.validations!, value);
     }
 
     return (

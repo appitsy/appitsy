@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../Styled';
 
-import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema } from '../../types/ComponentSchema';
+import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
@@ -88,7 +88,7 @@ class Renderer extends React.Component<RendererProps> {
                     <Password value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as NumberSchema}/>
+                        {...component as PasswordSchema}/>
                 )
 
             case Types.Panel: {
