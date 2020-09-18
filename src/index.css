@@ -16,3 +16,7 @@ code {
   color: #ff0000;
   font-size: 14px;
 }
+
+.thora-hidden {
+  display: none !important;
+}

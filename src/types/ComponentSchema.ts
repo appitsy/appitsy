@@ -28,8 +28,10 @@ export interface BaseInputComponentDisplaySchema {
     errorPosition?: ErrorPosition;
     description?:  string;
     tooltip?: string;
-    prefix: string;
-    suffix: string;
+    prefix?: string;
+    suffix?: string;
+    disabled?: boolean;
+    hidden?: boolean;
 }
 
 export interface BaseTextInputComponentDisplaySchema extends BaseInputComponentDisplaySchema {

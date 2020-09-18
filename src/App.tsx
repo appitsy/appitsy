@@ -36,6 +36,10 @@ const mySchema: ComponentSchema[] = [
     data: {
       defaultValue: 'abc@a.com1',
     },
+    display: {
+      disabled: true,
+      hidden: true,
+    },
     validations: {
       required: true,
     }
@@ -43,6 +47,9 @@ const mySchema: ComponentSchema[] = [
   {
     name: 'numberfield1',
     type: 'number',
+    display: {
+      disabled: true,
+    },
     data: {
       defaultValue: 0,
     },

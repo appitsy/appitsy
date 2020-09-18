@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
+
 import { BaseTextInputComponentSchema } from '../types/ComponentSchema';
 import Label from './BasicComponents/Label';
 import ErrorLabel from './BasicComponents/ErrorLabel';
@@ -46,13 +48,33 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
         case 'textfield':
         case 'email':
         case 'password':
-            childEl = <input type={props.inputType} name={props.name} value={ props.value || '' } placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />;
+            childEl = 
+                <input  type={props.inputType} 
+                        name={props.name} 
+                        value={ props.value || '' } 
+                        placeholder={props.display?.placeholder} 
+                        onChange={(evt) => onChange(evt.target.value as T)}
+                        disabled={props.display?.disabled} 
+                />;
             break;
         case 'textarea':
-            childEl = <textarea name={props.name} value={ props.value || ''} placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />;
+            childEl = 
+                <textarea   name={props.name} 
+                            value={ props.value || ''} 
+                            placeholder={props.display?.placeholder} 
+                            onChange={(evt) => onChange(evt.target.value as T)} 
+                            disabled={props.display?.disabled} 
+                />;
             break;
         case 'number':
-            childEl = <input type={props.inputType} name={props.name} value={ props.value || 0 } placeholder={props.display?.placeholder} onChange={(evt) => onChange(evt.target.value as T)} />
+            childEl = 
+                <input  type={props.inputType} 
+                        name={props.name} 
+                        value={ props.value || 0 } 
+                        placeholder={props.display?.placeholder} 
+                        onChange={(evt) => onChange(evt.target.value as T)} 
+                        disabled={props.display?.disabled} 
+                />;
     }
 
     const wrapInPrefixSuffix = (elem?: JSX.Element) => (
@@ -63,8 +85,10 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
         </div>
     )
     
+    const classes = classNames(props.className, { 'thora-hidden': props.display?.hidden });
+
     return (
-        <Flex className={props.className} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
+        <Flex className={classes} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
             <Label text={props.name} tooltip={props.display?.tooltip} />
             {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
             <Flex flexDirection={'column'} margin={false}>
