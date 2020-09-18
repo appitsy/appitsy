@@ -22,8 +22,14 @@ interface ThoraBaseTextInputState {
 
 const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInputProps<T>) => {
     const [state, setState] = useState<ThoraBaseTextInputState>({});
-    let validationError = '';
 
+    useEffect(() => {
+        const defaultVal = (typeof props.value === 'number' ? 0 : '') as T;
+        props.onValueChange(props.value || props.data?.defaultValue || defaultVal);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    let validationError = '';
     const onChange = (value: T) => {
         setState((prevState: any) => ({
             ...prevState,
@@ -32,12 +38,6 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
 
         return props.onValueChange(value);
     }
-
-    useEffect(() => {
-        const defaultVal = (typeof props.value === 'number' ? 0 : '') as T;
-        props.onValueChange(props.value || props.data?.defaultValue || defaultVal);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     if (props.validations && state.touched) {
         validationError = (props.validate(props.value)) || '';

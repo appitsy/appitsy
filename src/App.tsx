@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 
 import Renderer from './components/Renderer/Renderer';
-import { ComponentSchema } from './types/ComponentSchema';
+import { ComponentSchema, PanelDisplaySchema, PanelSchema } from './types/ComponentSchema';
 
 import { theme } from './Theme';
 
@@ -22,7 +22,7 @@ const mySchema: ComponentSchema[] = [
       suffix: 'suf',
     },
     data: {
-      defaultValue: 'hello textfield!',
+      defaultValue: 'hello',
     },
     validations: {
       required: true,
@@ -37,8 +37,11 @@ const mySchema: ComponentSchema[] = [
       defaultValue: 'abc@a.com1',
     },
     display: {
-      disabled: true,
-      hidden: true,
+      condition: {
+        field: 'textField1',
+        op: 'eq',
+        value: 'hello'
+      }
     },
     validations: {
       required: true,
@@ -49,6 +52,11 @@ const mySchema: ComponentSchema[] = [
     type: 'number',
     display: {
       disabled: true,
+      condition: {
+        field: 'textField1',
+        op: 'eq',
+        value: 'hello'
+      }
     },
     data: {
       defaultValue: 0,
@@ -100,9 +108,10 @@ const mySchema: ComponentSchema[] = [
     name: 'panel1',
     type: 'panel',
     display: {
+      collapsed: false,
       header: {
         background: 'blue',
-        color: 'white',
+        color: 'white', 
       },
       border: '5px solid grey',
     },
@@ -130,7 +139,7 @@ const mySchema: ComponentSchema[] = [
 ];
 
 const data = {
-  textField1: 'my custom textField1',
+  textField1: 'hello',
   textField2: 'my custom textarea2'
 }
 

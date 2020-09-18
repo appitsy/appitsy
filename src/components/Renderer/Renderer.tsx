@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../../Styled';
 
-import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema } from '../../types/ComponentSchema';
+import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema, BaseComponentSchema } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
@@ -41,7 +41,24 @@ class Renderer extends React.Component<RendererProps> {
         alert(JSON.stringify(this.state));
     }
 
-    renderComponent = (component: ComponentSchema): JSX.Element => {
+    renderComponent = (component: BaseComponentSchema): JSX.Element => {
+        const condition = component.display?.condition;
+        if (condition) {
+            var show = false;
+            switch(condition.op) {
+                // could be comparing a string to a number too, which is ok
+                // eslint-disable-next-line eqeqeq
+                case 'eq': show = (this.state[condition.field] == condition.value); break;
+                // could be comparing a string to a number too, which is ok
+                // eslint-disable-next-line eqeqeq
+                case 'neq': show = (this.state[condition.field] != condition.value); break;
+            }
+
+            if (!show) {
+                return <></>;
+            }
+        }
+    
         const componentType = component.type.toLowerCase();
         switch(componentType) {
             case Types.TextField: 

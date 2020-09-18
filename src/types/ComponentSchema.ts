@@ -3,6 +3,7 @@ import { TextFieldValidations, TextAreaValidations, NumberValidations, BaseTextC
 export interface BaseComponentSchema {
     name: string;
     type: string;
+    display?: BaseComponentDisplaySchema;
 }
 
 export enum Types {
@@ -17,13 +18,23 @@ export type ErrorPosition = 'right' | 'bottom';
 export type TextFieldType ='textfield';
 export type TextAreaType ='textarea';
 export type PasswordType ='password';
-export type NumberType ='textarea';
+export type NumberType ='number';
 export type EmailType = 'email';
 export type ButtonType ='button';
 
 export type PanelType = 'panel';
 
-export interface BaseInputComponentDisplaySchema {
+interface Condition {
+    field: string;
+    op: 'eq' | 'neq';
+    value: string;
+}
+
+export interface BaseComponentDisplaySchema {
+    condition?: Condition;
+}
+
+export interface BaseInputComponentDisplaySchema extends BaseComponentDisplaySchema {
     labelPosition?: LabelPosition;
     errorPosition?: ErrorPosition;
     description?:  string;
@@ -89,18 +100,18 @@ export interface PanelHeader {
     background?: string;
 }
 
-export interface PanelDisplayOptions {
+export interface PanelDisplaySchema extends BaseComponentDisplaySchema {
     header?: PanelHeader;
     border?: string;
     borderRadius?: string;
+    collapsible?: boolean;
+    collapsed?: boolean;
 }
 
 export interface PanelSchema extends BaseComponentSchema {
     type: PanelType;
-    components: BaseComponentSchema[]
-    collapsible?: boolean;
-    collapsed?: boolean;
-    display?: PanelDisplayOptions;
+    components?: ComponentSchema[]
+    display?: PanelDisplaySchema;
 }
 
 export interface CustomComponentSchema extends BaseComponentSchema {
