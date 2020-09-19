@@ -38,9 +38,11 @@ const mySchema: ComponentSchema[] = [
     },
     display: {
       condition: {
-        field: 'textField1',
-        op: 'eq',
-        value: 'hello'
+        dependency: {
+          field: 'textField1',
+          op: 'eq',
+          value: 'hello'
+        }
       }
     },
     validations: {
@@ -53,9 +55,7 @@ const mySchema: ComponentSchema[] = [
     display: {
       disabled: true,
       condition: {
-        field: 'textField1',
-        op: 'eq',
-        value: 'hello'
+        expression: 'state.textField1 === "hello"'
       }
     },
     data: {

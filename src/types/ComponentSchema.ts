@@ -24,10 +24,13 @@ export type ButtonType ='button';
 
 export type PanelType = 'panel';
 
-interface Condition {
-    field: string;
-    op: 'eq' | 'neq';
-    value: string;
+export interface Condition {
+    dependency?: {
+        field: string;
+        op: 'eq' | 'neq';
+        value: string;
+    };
+    expression?: string;
 }
 
 export interface BaseComponentDisplaySchema {

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '../../Styled';
 
-import { ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema, BaseComponentSchema } from '../../types/ComponentSchema';
+import { Condition, ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema, BaseComponentSchema } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import { RendererOptions } from './RendererOptions';
+import evaluate from '../../utilities/Evaluator';
 
 const StyledPage = styled.div`
     display: flex;
@@ -41,22 +42,32 @@ class Renderer extends React.Component<RendererProps> {
         alert(JSON.stringify(this.state));
     }
 
+    shouldShow = (condition: Condition) => {
+        if (condition.expression) {
+            return evaluate(condition.expression, { state: this.state });
+        }
+
+        if (condition.dependency) {
+            var show = false;
+            switch(condition.dependency.op) {
+                // could be comparing a string to a number too, which is ok
+                // eslint-disable-next-line eqeqeq
+                case 'eq': show = (this.state[condition.dependency.field] == condition.dependency.value); break;
+                // could be comparing a string to a number too, which is ok
+                // eslint-disable-next-line eqeqeq
+                case 'neq': show = (this.state[condition.dependency.field] != condition.dependency.value); break;
+            }
+    
+            return show;
+        }
+
+        return true;
+    }
+
     renderComponent = (component: BaseComponentSchema): JSX.Element => {
         const condition = component.display?.condition;
-        if (condition) {
-            var show = false;
-            switch(condition.op) {
-                // could be comparing a string to a number too, which is ok
-                // eslint-disable-next-line eqeqeq
-                case 'eq': show = (this.state[condition.field] == condition.value); break;
-                // could be comparing a string to a number too, which is ok
-                // eslint-disable-next-line eqeqeq
-                case 'neq': show = (this.state[condition.field] != condition.value); break;
-            }
-
-            if (!show) {
-                return <></>;
-            }
+        if (condition && !this.shouldShow(condition)) {
+            return <></>;
         }
     
         const componentType = component.type.toLowerCase();
