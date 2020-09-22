@@ -7,6 +7,7 @@ import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import { RendererOptions } from './RendererOptions';
 import evaluate from '../../utilities/Evaluator';
+import EvaluateLogic from '../../utilities/Logic';
 
 const StyledPage = styled.div`
     display: flex;
@@ -69,6 +70,15 @@ class Renderer extends React.Component<RendererProps> {
         if (condition && !this.shouldShow(condition)) {
             return <></>;
         }
+
+        // check for logic
+        let logicResult = EvaluateLogic(component, this.state);
+        if (logicResult.value && logicResult.value !== this.state[component.name]) {
+            this.setState({
+                ...this.state,
+                [component.name]: logicResult.value,
+            })
+        }
     
         const componentType = component.type.toLowerCase();
         switch(componentType) {
@@ -78,7 +88,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)} 
                         className='thora-component'
-                        {...component as TextFieldSchema} /> 
+                        {...component as TextFieldSchema} {...logicResult.schema as TextFieldSchema} /> 
                 );
             case Types.TextArea: 
                 return ( 
@@ -86,7 +96,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as TextAreaSchema}/> 
+                        {...component as TextAreaSchema} {...logicResult.schema as TextAreaSchema}/> 
                 );
             case Types.Email:  
                 return (
@@ -94,7 +104,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as EmailSchema} /> 
+                        {...component as EmailSchema} {...logicResult.schema as EmailSchema} /> 
                 );
             case Types.Number: 
                 return ( 
@@ -102,27 +112,27 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as NumberSchema}/> 
+                        {...component as NumberSchema} {...logicResult.schema as NumberSchema}/> 
                 );
             case Types.Button: 
                 return ( 
                     <Button 
                         onClick={this.handleClick} 
                         className='thora-component'
-                        {...component as ButtonSchema}/> 
+                        {...component as ButtonSchema} {...logicResult.schema as ButtonSchema}/> 
                 );
             case Types.Password:
                 return (
                     <Password value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as PasswordSchema}/>
+                        {...component as PasswordSchema} {...logicResult.schema as PasswordSchema}/>
                 )
 
             case Types.Panel: {
                 const childComponents = (component as PanelSchema).components || [];
                 return (
-                    <Panel className='thora-component' {...component as PanelSchema}>
+                    <Panel className='thora-component' {...component as PanelSchema} {...logicResult.schema as PanelSchema}>
                         { childComponents.map(panelChild => this.renderComponent(panelChild)) }
                     </Panel>
                 );

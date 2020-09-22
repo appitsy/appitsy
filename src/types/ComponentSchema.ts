@@ -5,6 +5,7 @@ export interface BaseComponentSchema {
     name: string;
     type: string;
     display?: BaseComponentDisplaySchema;
+    logic?: LogicSchema[];
 }
 
 export enum Types {
@@ -121,6 +122,18 @@ export interface PanelSchema extends BaseComponentSchema {
 export interface CustomComponentSchema extends BaseComponentSchema {
     type: string;
     [x: string]: any;
+}
+
+export interface LogicSchema {
+    name: string;
+    value: string;
+    actions: ActionSchema[];
+}
+
+export interface ActionSchema {
+    type: 'value' | 'updateComponent'
+    value?: string;
+    schema?: any;
 }
 
 export type ComponentSchema = TextFieldSchema | TextAreaSchema | NumberSchema | EmailSchema | ButtonSchema | PasswordSchema | PanelSchema | CustomComponentSchema;

@@ -36,14 +36,26 @@ const mySchema: ComponentSchema[] = [
     data: {
       defaultValue: 'abc@a.com1',
     },
-    display: {
-      condition: {
-        dependency: {
-          field: 'textField1',
-          op: 'eq',
-          value: 'hello'
-        }
+    logic: [
+      {
+        name: 'logic1',
+        value: 'state.textField1 === "bye"',
+        actions: [
+          {
+            schema: { display: { disabled: true }},
+            type: 'updateComponent'
+          }
+        ]
       }
+    ],
+    display: {
+      // condition: {
+      //   dependency: {
+      //     field: 'textField1',
+      //     op: 'eq',
+      //     value: 'hello'
+      //   }
+      // }
     },
     validations: {
       required: true,
