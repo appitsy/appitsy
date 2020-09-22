@@ -108,6 +108,7 @@ const mySchema: ComponentSchema[] = [
     name: 'panel1',
     type: 'panel',
     display: {
+      collapsible: true,
       collapsed: false,
       header: {
         background: 'blue',

@@ -1,4 +1,5 @@
 import { TextFieldValidations, TextAreaValidations, NumberValidations, BaseTextComponentValidations, PasswordValidations } from "../utilities/Validations";
+import { PropsWithChildren } from "react";
 
 export interface BaseComponentSchema {
     name: string;
@@ -126,4 +127,5 @@ export type ComponentSchema = TextFieldSchema | TextAreaSchema | NumberSchema | 
 
 export interface ThoraComponent<T> extends React.FC<T> {
     validateSchema(component: any): boolean;
+    checkRerender(prevProps: Readonly<PropsWithChildren<T>>, nextProps: Readonly<PropsWithChildren<T>>): boolean;
 }

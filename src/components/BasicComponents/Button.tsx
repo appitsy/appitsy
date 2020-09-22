@@ -27,8 +27,10 @@ Button.validateSchema = (_component: any) => {
     return true;
 };
 
+Button.checkRerender = (prevProps, nextProps) => {
+    return prevProps.text === nextProps.text && prevProps.display === nextProps.display;
+}
+
 // Update Button when onClick also changes.
 // Needed because we get stale closure if we don't
-export default React.memo<ThoraButtonProps>(
-    props => <Button {...props} />, 
-    (prevProps, nextProps) => prevProps.text === nextProps.text);
+export default React.memo<ThoraButtonProps>(props => <Button {...props} />, Button.checkRerender);

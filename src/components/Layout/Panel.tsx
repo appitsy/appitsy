@@ -22,7 +22,7 @@ const PanelBody = Styled.div<{border?: string; borderRadius?: string;}>`
 const Panel: ThoraComponent<ThoraPanelProps> = (props) => {
     const [ state, setState ] = useState({
         collapsible: props.display?.collapsible,
-        collapsed: props.display?.collapsible || false,
+        collapsed: props.display?.collapsed || false,
     });
 
     const toggleCollapse = () => {
@@ -48,6 +48,8 @@ Panel.validateSchema = (_component: any) => {
     return true;
 };
 
+Panel.checkRerender = (prevProps, nextProps) => false;
+
 Panel.defaultProps = {
     display: {
         collapsible: true,
@@ -55,4 +57,4 @@ Panel.defaultProps = {
     }
 }
 
-export default React.memo<ThoraPanelProps>(props => <Panel {...props}/>);
+export default React.memo<ThoraPanelProps>(props => <Panel {...props}/>, Panel.checkRerender);

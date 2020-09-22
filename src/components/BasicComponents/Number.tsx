@@ -9,7 +9,7 @@ interface ThoraNumberProps extends NumberSchema {
     onValueChange(value: number): void;
 }
 
-const TextField: ThoraComponent<ThoraNumberProps> = (props) => {
+const Number: ThoraComponent<ThoraNumberProps> = (props) => {
     const textFieldValidate = (value: number): string | null => {
         return  ValidateRequired(props.validations!, value.toString()) || 
                 ValidateMinMaxNumber(props.validations!, value);
@@ -20,11 +20,12 @@ const TextField: ThoraComponent<ThoraNumberProps> = (props) => {
     );
 }
 
-TextField.validateSchema = (_component: any) => {
+Number.validateSchema = (_component: any) => {
     return true;
 };
 
-export default React.memo<ThoraNumberProps>(
-    props => <TextField {...props}/>, 
-    (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display
-);
+Number.checkRerender = (prevProps, nextProps) => {
+    return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
+}
+
+export default React.memo<ThoraNumberProps>(props => <Number {...props}/>, Number.checkRerender);

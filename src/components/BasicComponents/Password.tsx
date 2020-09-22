@@ -24,7 +24,8 @@ Password.validateSchema = (_component: any) => {
     return true;
 };
 
-export default React.memo<ThoraPasswordProps>(
-    props => <Password {...props}/>, 
-    (prevProps, nextProps) => prevProps.value === nextProps.value
-);
+Password.checkRerender = (prevProps, nextProps) => {
+    return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
+}
+
+export default React.memo<ThoraPasswordProps>(props => <Password {...props}/>, Password.checkRerender);

@@ -29,7 +29,8 @@ Email.validateSchema = (_component: any) => {
     return true;
 };
 
-export default React.memo<EmailProps>(
-    props => <Email {...props}/>, 
-    (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display
-);
+Email.checkRerender = (prevProps, nextProps) => {
+    return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
+}
+
+export default React.memo<EmailProps>(props => <Email {...props}/>, Email.checkRerender);
