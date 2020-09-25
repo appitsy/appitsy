@@ -39,7 +39,7 @@ const mySchema: ComponentSchema[] = [
     logic: [
       {
         name: 'logic1',
-        value: 'state.textField1 === "bye"',
+        trigger: 'state.textField1 === "bye"',
         actions: [
           {
             schema: { display: { disabled: true }},

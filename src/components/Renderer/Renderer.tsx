@@ -79,6 +79,8 @@ class Renderer extends React.Component<RendererProps> {
                 [component.name]: logicResult.value,
             })
         }
+
+        const componentSchema = {...component, ...logicResult.schema};
     
         const componentType = component.type.toLowerCase();
         switch(componentType) {
@@ -88,7 +90,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)} 
                         className='thora-component'
-                        {...component as TextFieldSchema} {...logicResult.schema as TextFieldSchema} /> 
+                        {...componentSchema as TextFieldSchema} /> 
                 );
             case Types.TextArea: 
                 return ( 
@@ -96,7 +98,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as TextAreaSchema} {...logicResult.schema as TextAreaSchema}/> 
+                        {...componentSchema as TextAreaSchema} /> 
                 );
             case Types.Email:  
                 return (
@@ -104,7 +106,7 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as EmailSchema} {...logicResult.schema as EmailSchema} /> 
+                        {...componentSchema as EmailSchema} /> 
                 );
             case Types.Number: 
                 return ( 
@@ -112,27 +114,27 @@ class Renderer extends React.Component<RendererProps> {
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as NumberSchema} {...logicResult.schema as NumberSchema}/> 
+                        {...componentSchema as NumberSchema} /> 
                 );
             case Types.Button: 
                 return ( 
                     <Button 
                         onClick={this.handleClick} 
                         className='thora-component'
-                        {...component as ButtonSchema} {...logicResult.schema as ButtonSchema}/> 
+                        {...componentSchema as ButtonSchema} /> 
                 );
             case Types.Password:
                 return (
                     <Password value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
                         className='thora-component'
-                        {...component as PasswordSchema} {...logicResult.schema as PasswordSchema}/>
+                        {...componentSchema as PasswordSchema} />
                 )
 
             case Types.Panel: {
                 const childComponents = (component as PanelSchema).components || [];
                 return (
-                    <Panel className='thora-component' {...component as PanelSchema} {...logicResult.schema as PanelSchema}>
+                    <Panel className='thora-component' {...componentSchema as PanelSchema}>
                         { childComponents.map(panelChild => this.renderComponent(panelChild)) }
                     </Panel>
                 );

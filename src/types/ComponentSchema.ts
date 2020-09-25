@@ -126,7 +126,7 @@ export interface CustomComponentSchema extends BaseComponentSchema {
 
 export interface LogicSchema {
     name: string;
-    value: string;
+    trigger: string;
     actions: ActionSchema[];
 }
 
