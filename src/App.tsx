@@ -10,7 +10,7 @@ interface Page {
 const mySchema: ComponentSchema[] = [
   {
     name: 'textField1',
-    type: 'textfield',
+    type: 'text',
     display: {
       labelPosition: 'top',
       description: 'wow a description',
@@ -123,7 +123,7 @@ const mySchema: ComponentSchema[] = [
     components: [
       {
         name: 'textField+1',
-        type: 'textfield',
+        type: 'text',
         display: {
           tooltip: 'Hola!',
         },
@@ -131,7 +131,7 @@ const mySchema: ComponentSchema[] = [
       },
       {
         name: 'textField+2',
-        type: 'textfield',
+        type: 'text',
         data: { defaultValue: 'hello textfield+2!' },
       }
     ]

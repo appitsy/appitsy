@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+const theme = window.localStorage['thora-theme'];
+
+if (theme === 'bootstrap') {
+  import('./bootstrap');
+} else if (theme === 'foundation') {
+  import ('./foundation');
+}
 
 ReactDOM.render(
   <React.StrictMode>

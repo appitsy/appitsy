@@ -21,7 +21,7 @@ const Email: ThoraComponent<EmailProps> = (props) => {
         <ThoraBaseTextInput
             {...props} 
             className={classNames(['thora-email', props.className])}
-            type='textfield'
+            type='text'
             inputType='email' 
             validate={emailValidate} /> 
     );

@@ -1,5 +1,5 @@
 export const Types = {
-    TextField: 'textfield',
+    TextField: 'text',
     TextArea: 'textarea',
     Email: 'email',
     Number: 'number',

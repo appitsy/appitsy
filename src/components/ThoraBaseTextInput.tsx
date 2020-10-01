@@ -9,7 +9,7 @@ import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './BasicComponents/Description';
 
 interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
-    inputType?: 'textfield' | 'textarea' | 'email' | 'number' | 'password';
+    inputType?: 'text' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
     validate(value: T): string | null;
@@ -45,7 +45,7 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
 
     let childEl;
     switch (props.inputType) {
-        case 'textfield':
+        case 'text':
         case 'email':
         case 'password':
             childEl = 
@@ -111,7 +111,7 @@ ThoraBaseTextInput.validateSchema = (_component: any) => {
 };
 
 ThoraBaseTextInput.defaultProps = {
-    inputType: 'textfield',
+    inputType: 'text',
 }
 
 export default ThoraBaseTextInput;

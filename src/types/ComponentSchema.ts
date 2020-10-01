@@ -17,7 +17,7 @@ export enum Types {
 export type LabelPosition = 'left' | 'top';
 export type ErrorPosition = 'right' | 'bottom';
 
-export type TextFieldType ='textfield';
+export type TextFieldType ='text';
 export type TextAreaType ='textarea';
 export type PasswordType ='password';
 export type NumberType ='number';
