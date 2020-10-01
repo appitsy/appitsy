@@ -53,10 +53,10 @@ module.exports = (env) => ({
   ],
   module: {
     rules: [
-      { 
-        test: /\.(ts|tsx)$/, 
-        exclude: /node_modules/, 
-        loader: 'ts-loader' 
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader'
       },
       {
         enforce: "pre",
@@ -75,6 +75,10 @@ module.exports = (env) => ({
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ['file-loader'],
       },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ],
   },
 });

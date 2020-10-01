@@ -1,10 +1,7 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming';
 
 import Renderer from './components/Renderer/Renderer';
-import { ComponentSchema, PanelDisplaySchema, PanelSchema } from './types/ComponentSchema';
-
-import { theme } from './Theme';
+import { ComponentSchema } from './types/ComponentSchema';
 
 interface Page {
   schema: ComponentSchema[]
@@ -122,11 +119,6 @@ const mySchema: ComponentSchema[] = [
     display: {
       collapsible: true,
       collapsed: false,
-      header: {
-        background: 'blue',
-        color: 'white', 
-      },
-      border: '5px solid grey',
     },
     components: [
       {
@@ -148,6 +140,12 @@ const mySchema: ComponentSchema[] = [
     name: 'button1',
     type: 'button',
     text: 'Submit',
+  },
+  {
+    name: 'errorButton',
+    type: 'button',
+    text: 'Error!',
+    style: "warning",
   }
 ];
 
@@ -158,9 +156,7 @@ const data = {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Renderer schema={mySchema} data={data}/>
-    </ThemeProvider>
+    <Renderer schema={mySchema} data={data}/>
   );
 }
 

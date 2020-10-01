@@ -2,6 +2,7 @@ import React from 'react';
 import { TextFieldSchema, ThoraComponent } from '../../types/ComponentSchema';
 import ThoraBaseTextInput from '../ThoraBaseTextInput';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
+import classNames from 'classnames';
 
 interface ThoraTextFieldProps extends TextFieldSchema {
     className: string;
@@ -17,7 +18,7 @@ const TextField: ThoraComponent<ThoraTextFieldProps> = (props) => {
     }
 
     return (
-        <ThoraBaseTextInput {...props} validate={textFieldValidate}/>
+        <ThoraBaseTextInput {...props} className={classNames(['thora-textfield', props.className])} validate={textFieldValidate}/>
     );
 }
 

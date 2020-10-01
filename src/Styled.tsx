@@ -1,6 +1,3 @@
-import { theme } from "./Theme";
-import styled, { CreateStyled } from "@emotion/styled";
+import styled from "@emotion/styled";
 
-export type ThemeType = typeof theme;
-
-export default styled as CreateStyled<ThemeType>;
+export default styled;

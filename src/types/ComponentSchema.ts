@@ -95,20 +95,15 @@ export interface NumberSchema extends BaseTextInputComponentSchema<number> {
     validations?: NumberValidations;
 }
 
+export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
+
 export interface ButtonSchema extends BaseComponentSchema {
     type: ButtonType;
     text: string;
-}
-
-export interface PanelHeader {
-    color?: string;
-    background?: string;
+    style?: ButtonStyle;
 }
 
 export interface PanelDisplaySchema extends BaseComponentDisplaySchema {
-    header?: PanelHeader;
-    border?: string;
-    borderRadius?: string;
     collapsible?: boolean;
     collapsed?: boolean;
 }

@@ -1,0 +1,101 @@
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.thora-error {
+  @extend .text-danger;
+  font-size: 14px;
+}
+
+.thora-hidden {
+  display: none !important;
+}
+
+.thora-label {
+  @extend .text-dark;
+}
+
+.thora-description {
+  @extend .text-secondary;
+}
+
+.thora-panel {
+  @extend .card;
+}
+
+.thora-panel-heading {
+  @extend .card-header;
+}
+
+.thora-panel-body {
+  @extend .card-body;
+  padding: 0.4rem 0.7rem;
+
+  &.thora-panel-body-collapsed {
+    display: none;
+  }
+}
+
+.thora-input {
+  @extend .input-group;
+}
+
+.thora-input-prefix {
+  @extend .input-group-prepend;
+}
+
+.thora-input-suffix {
+  @extend .input-group-append;
+}
+
+.thora-input-prefix-text, .thora-input-suffix-text {
+  @extend .input-group-text;
+}
+
+.thora-form-control {
+  @extend .form-control;
+}
+
+.thora-input-group {
+  @extend .input-group;
+}
+
+.thora-button {
+  @extend .btn;
+}
+
+.thora-button-primary {
+  @extend .btn-primary;
+}
+
+.thora-button-secondary {
+  @extend .btn-secondary;
+}
+
+.thora-button-success {
+  @extend .btn-success;
+}
+
+.thora-button-danger {
+  @extend .btn-danger;
+}
+
+.thora-button-warning {
+  @extend .btn-warning;
+}
+
+.thora-button-info {
+  @extend .btn-info;
+}

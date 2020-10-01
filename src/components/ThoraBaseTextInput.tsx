@@ -49,49 +49,55 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
         case 'email':
         case 'password':
             childEl = 
-                <input  type={props.inputType} 
+                <input  id={props.name}
+                        type={props.inputType} 
                         name={props.name} 
                         value={ props.value || '' } 
                         placeholder={props.display?.placeholder} 
                         onChange={(evt) => onChange(evt.target.value as T)}
-                        disabled={props.display?.disabled} 
+                        disabled={props.display?.disabled}
+                        className='thora-form-control' 
                 />;
             break;
         case 'textarea':
             childEl = 
-                <textarea   name={props.name} 
+                <textarea   id={props.name}
+                            name={props.name} 
                             value={ props.value || ''} 
                             placeholder={props.display?.placeholder} 
                             onChange={(evt) => onChange(evt.target.value as T)} 
                             disabled={props.display?.disabled} 
+                            className='thora-form-control' 
                 />;
             break;
         case 'number':
             childEl = 
-                <input  type={props.inputType} 
+                <input  id={props.name}
+                        type={props.inputType} 
                         name={props.name} 
                         value={ props.value || 0 } 
                         placeholder={props.display?.placeholder} 
                         onChange={(evt) => onChange(evt.target.value as T)} 
                         disabled={props.display?.disabled} 
+                        className='thora-form-control' 
                 />;
     }
 
     const wrapInPrefixSuffix = (elem?: JSX.Element) => (
-        <div>
-            { props.display?.prefix ? <span>{ props.display?.prefix }</span> : null }
+        <Flex flexDirection='row' className={'thora-input-group'}>
+            { props.display?.prefix ? <div className='thora-input-prefix'><span className='thora-input-prefix-text'>{ props.display?.prefix }</span></div> : null }
             { elem }
-            { props.display?.suffix ? <span>{ props.display?.suffix }</span> : null }
-        </div>
+            { props.display?.suffix ? <div className='thora-input-suffix'><span className='thora-input-suffix-text'>{ props.display?.suffix }</span></div> : null }
+        </Flex>
     )
     
-    const classes = classNames(props.className, { 'thora-hidden': props.display?.hidden });
+    const classes = classNames(props.className, { 'thora-hidden': props.display?.hidden }, 'thora-input');
 
     return (
         <Flex className={classes} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
-            <Label text={props.name} tooltip={props.display?.tooltip} />
+            <Label for={props.name} text={props.name} tooltip={props.display?.tooltip} />
             {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
-            <Flex flexDirection={'column'} margin={false}>
+            <Flex flexDirection={'column'}>
                 { props.display?.prefix || props.display?.suffix ? wrapInPrefixSuffix(childEl) : childEl }
                 <Description text={props.display?.description}/>
                 <ErrorLabel error={validationError} />

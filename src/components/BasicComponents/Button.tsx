@@ -1,9 +1,10 @@
 import React from 'react';
 import { ButtonSchema, ThoraComponent } from '../../types/ComponentSchema';
 import styled from '../../Styled';
+import classNames from 'classnames';
 
 const StyledButton = styled.button`
-    width: 100px;
+    width: fit-content !important;
 `;
 
 interface ThoraButtonProps extends ButtonSchema {
@@ -16,8 +17,24 @@ const Button: ThoraComponent<ThoraButtonProps> = (props) => {
         props.onClick();
     }
 
+    const buttonTypeClass = () => {
+        switch(props.style) {
+            case 'primary': return 'thora-button-primary';
+            case 'secondary': return 'thora-button-secondary';
+            case 'success': return 'thora-button-success';
+            case 'danger': return 'thora-button-danger';
+            case 'warning': return 'thora-button-warning';
+            case 'info': return 'thora-button-info';
+            default: 
+                if (props.style !== undefined) {
+                    console.error(`Bad style name for button - '${props.style!}'`)
+                }
+                return 'thora-button-primary';
+        }
+    }
+
     return (
-        <StyledButton className={props.className} name={props.name} onClick={onClick}>
+        <StyledButton name={props.name} onClick={onClick} className={classNames(['thora-button', buttonTypeClass(), props.className])}>
             { props.text }
         </StyledButton>
     );

@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-import { PanelSchema, ThoraComponent, PanelHeader } from '../../types/ComponentSchema';
+import { PanelSchema, ThoraComponent } from '../../types/ComponentSchema';
 import Styled from '../../Styled';
+import classNames from 'classnames';
 
 interface ThoraPanelProps extends PanelSchema {
     children: JSX.Element[];
     className: string;
 }
 
-const PanelHeading = Styled.h4<{ header?: PanelHeader }>`
-    background-color: ${({header, theme}) => header?.background || theme.components.panel.background};
-    color: ${({header, theme}) => header?.color || theme.components.panel.color};
+const PanelHeading = Styled.h6`
     margin: 0px;
     padding: 10px;
-`;
-
-const PanelBody = Styled.div<{border?: string; borderRadius?: string;}>`
-    border: ${({border, theme}) => border || theme.components.panel.border};
-    border-radius: ${({borderRadius, theme}) => borderRadius || theme.components.panel.borderRadius};
 `;
 
 const Panel: ThoraComponent<ThoraPanelProps> = (props) => {
@@ -37,10 +31,10 @@ const Panel: ThoraComponent<ThoraPanelProps> = (props) => {
     }
 
     return (
-        <PanelBody className={props.className} border={props.display?.border} borderRadius={props.display?.borderRadius}>
-            <PanelHeading header={props.display?.header} onClick={toggleCollapse}>Panel - { props.name }</PanelHeading>
-            { state.collapsed ? null : props.children }
-        </PanelBody>
+        <div className={classNames(['thora-panel', props.className])}>
+            <PanelHeading onClick={toggleCollapse} className='thora-panel-heading' >Panel - { props.name }</PanelHeading>
+            <div className={classNames(['thora-panel-body', state.collapsed ? 'thora-panel-body-collapsed' : 'thora-panel-body-expanded'])}>{ state.collapsed ? null : props.children }</div>
+        </div>
     );
 }
 

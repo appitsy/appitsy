@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '../../Styled';
+import Styled from '../../Styled';
 
 import { Condition, ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema, BaseComponentSchema } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
@@ -9,15 +9,13 @@ import { RendererOptions } from './RendererOptions';
 import evaluate from '../../utilities/Evaluator';
 import EvaluateLogic from '../../utilities/Logic';
 
-const StyledPage = styled.div`
+const StyledPage = Styled.div`
     display: flex;
     flex-direction: column;
-    background: ${({theme}) => theme.colors.bg};
-    .thora-element {
-        margin: ${({theme}) => theme.layout.componentInternalMargin};
-    }
+    padding: 7px;
     .thora-component {
-        margin: ${({theme}) => theme.layout.componentMargin};
+        margin: 7px;
+        width: calc(100% - 14px);
     }
 `;
 
