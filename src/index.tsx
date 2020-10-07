@@ -6,9 +6,9 @@ import * as serviceWorker from './serviceWorker';
 const theme = window.localStorage['thora-theme'];
 
 if (theme === 'bootstrap') {
-  import('./bootstrap');
+  import('./bootstrap/bootstrap');
 } else if (theme === 'foundation') {
-  import ('./foundation');
+  import ('./foundation/foundation');
 }
 
 ReactDOM.render(
