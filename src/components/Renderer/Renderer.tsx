@@ -13,7 +13,7 @@ const StyledPage = Styled.div`
     display: flex;
     flex-direction: column;
     padding: 7px;
-    .thora-component {
+    .appitsy-component {
         margin: 7px;
         width: calc(100% - 14px);
     }
@@ -87,7 +87,7 @@ class Renderer extends React.Component<RendererProps> {
                     <TextField 
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)} 
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as TextFieldSchema} /> 
                 );
             case Types.TextArea: 
@@ -95,7 +95,7 @@ class Renderer extends React.Component<RendererProps> {
                     <TextArea 
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as TextAreaSchema} /> 
                 );
             case Types.Email:  
@@ -103,7 +103,7 @@ class Renderer extends React.Component<RendererProps> {
                     <Email 
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as EmailSchema} /> 
                 );
             case Types.Number: 
@@ -111,35 +111,35 @@ class Renderer extends React.Component<RendererProps> {
                     <Number
                         value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as NumberSchema} /> 
                 );
             case Types.Button: 
                 return ( 
                     <Button 
                         onClick={this.handleClick} 
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as ButtonSchema} /> 
                 );
             case Types.Password:
                 return (
                     <Password value={this.state[component.name]} 
                         onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='thora-component'
+                        className='appitsy-component'
                         {...componentSchema as PasswordSchema} />
                 )
 
             case Types.Panel: {
                 const childComponents = (component as PanelSchema).components || [];
                 return (
-                    <Panel className='thora-component' {...componentSchema as PanelSchema}>
+                    <Panel className='appitsy-component' {...componentSchema as PanelSchema}>
                         { childComponents.map(panelChild => this.renderComponent(panelChild)) }
                     </Panel>
                 );
             }
         }
 
-        return <p className='thora-component'>Unknown component '{component.type}'</p>;
+        return <p className='appitsy-component'>Unknown component '{component.type}'</p>;
     }
 
     render () {

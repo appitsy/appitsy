@@ -18,88 +18,88 @@ code {
     monospace;
 }
 
-.thora-error {
+.appitsy-error {
   color: map-get($foundation-palette, 'alert');
   font-size: 14px;
 }
 
-.thora-hidden {
+.appitsy-hidden {
   display: none !important;
 }
 
-.thora-label {
+.appitsy-label {
 }
 
-.thora-description {
+.appitsy-description {
   color: map-get($foundation-palette, 'secondary');
 }
 
-.thora-panel {
+.appitsy-panel {
   @extend .card;
 }
 
-.thora-panel-heading {
+.appitsy-panel-heading {
   @extend .card-divider;
 }
 
-.thora-panel-body {
+.appitsy-panel-body {
   @extend .card-section;
   padding: 0.3rem 0.5rem 0.8rem 0.5rem;
 
-  &.thora-panel-body-collapsed {
+  &.appitsy-panel-body-collapsed {
     display: none;
   }
 }
 
-.thora-input {
+.appitsy-input {
   @extend .input-group;
 }
 
-.thora-input-prefix {
+.appitsy-input-prefix {
   @extend .input-group-label;
 }
 
-.thora-input-suffix {
+.appitsy-input-suffix {
   @extend .input-group-label;
 }
 
-.thora-input-prefix-text, .thora-input-suffix-text {
+.appitsy-input-prefix-text, .appitsy-input-suffix-text {
   // @extend .input-group-text;
 }
 
-.thora-form-control {
+.appitsy-form-control {
   // @extend .form-control;
   margin: 0px;
 }
 
-.thora-input-group {
+.appitsy-input-group {
   // @extend .input-group;
 }
 
-.thora-button {
+.appitsy-button {
   @extend .button;
 }
 
-.thora-button-primary {
+.appitsy-button-primary {
   @extend .primary;
 }
 
-.thora-button-secondary {
+.appitsy-button-secondary {
   @extend .secondary;
 }
 
-.thora-button-success {
+.appitsy-button-success {
   @extend .success;
 }
 
-.thora-button-danger {
+.appitsy-button-danger {
   @extend .alert;
 }
 
-.thora-button-warning {
+.appitsy-button-warning {
   @extend .warning;
 }
 
-.thora-button-info {
+.appitsy-button-info {
   @extend .secondary;
 }

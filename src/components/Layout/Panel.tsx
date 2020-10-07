@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { PanelSchema, ThoraComponent } from '../../types/ComponentSchema';
+import { PanelSchema, AppComponent } from '../../types/ComponentSchema';
 import Styled from '../../Styled';
 import classNames from 'classnames';
 
-interface ThoraPanelProps extends PanelSchema {
+interface PanelProps extends PanelSchema {
     children: JSX.Element[];
     className: string;
 }
@@ -13,7 +13,7 @@ const PanelHeading = Styled.h6`
     padding: 10px;
 `;
 
-const Panel: ThoraComponent<ThoraPanelProps> = (props) => {
+const Panel: AppComponent<PanelProps> = (props) => {
     const [ state, setState ] = useState({
         collapsible: props.display?.collapsible,
         collapsed: props.display?.collapsed || false,
@@ -31,9 +31,9 @@ const Panel: ThoraComponent<ThoraPanelProps> = (props) => {
     }
 
     return (
-        <div className={classNames(['thora-panel', props.className])}>
-            <PanelHeading onClick={toggleCollapse} className='thora-panel-heading' >Panel - { props.name }</PanelHeading>
-            <div className={classNames(['thora-panel-body', state.collapsed ? 'thora-panel-body-collapsed' : 'thora-panel-body-expanded'])}>{ state.collapsed ? null : props.children }</div>
+        <div className={classNames(['appitsy-panel', props.className])}>
+            <PanelHeading onClick={toggleCollapse} className='appitsy-panel-heading' >Panel - { props.name }</PanelHeading>
+            <div className={classNames(['appitsy-panel-body', state.collapsed ? 'appitsy-panel-body-collapsed' : 'appitsy-panel-body-expanded'])}>{ state.collapsed ? null : props.children }</div>
         </div>
     );
 }
@@ -51,4 +51,4 @@ Panel.defaultProps = {
     }
 }
 
-export default React.memo<ThoraPanelProps>(props => <Panel {...props}/>, Panel.checkRerender);
+export default React.memo<PanelProps>(props => <Panel {...props}/>, Panel.checkRerender);

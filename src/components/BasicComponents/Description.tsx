@@ -4,6 +4,6 @@ interface DescriptionProps {
     text?: string;
 }
 
-const Description = (props: DescriptionProps) => (props.text ? <span className='thora-description'>{ props.text }</span> : null)
+const Description = (props: DescriptionProps) => (props.text ? <span className='appitsy-description'>{ props.text }</span> : null)
 
 export default Description;

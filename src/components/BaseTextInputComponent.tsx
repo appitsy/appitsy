@@ -8,7 +8,7 @@ import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './BasicComponents/Description';
 
-interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
+interface BaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
     inputType?: 'text' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
@@ -16,12 +16,12 @@ interface ThoraBaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
     onValueChange(value: T): void;
 }
 
-interface ThoraBaseTextInputState {
+interface BaseTextInputState {
     touched?: boolean;
 }
 
-const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInputProps<T>) => {
-    const [state, setState] = useState<ThoraBaseTextInputState>({});
+const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputProps<T>) => {
+    const [state, setState] = useState<BaseTextInputState>({});
 
     useEffect(() => {
         const defaultVal = (typeof props.value === 'number' ? 0 : '') as T;
@@ -56,7 +56,7 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
                         placeholder={props.display?.placeholder} 
                         onChange={(evt) => onChange(evt.target.value as T)}
                         disabled={props.display?.disabled}
-                        className='thora-form-control' 
+                        className='appitsy-form-control' 
                 />;
             break;
         case 'textarea':
@@ -67,7 +67,7 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
                             placeholder={props.display?.placeholder} 
                             onChange={(evt) => onChange(evt.target.value as T)} 
                             disabled={props.display?.disabled} 
-                            className='thora-form-control' 
+                            className='appitsy-form-control' 
                 />;
             break;
         case 'number':
@@ -79,19 +79,19 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
                         placeholder={props.display?.placeholder} 
                         onChange={(evt) => onChange(evt.target.value as T)} 
                         disabled={props.display?.disabled} 
-                        className='thora-form-control' 
+                        className='appitsy-form-control' 
                 />;
     }
 
     const wrapInPrefixSuffix = (elem?: JSX.Element) => (
-        <Flex flexDirection='row' className={'thora-input-group'}>
-            { props.display?.prefix ? <div className='thora-input-prefix'><span className='thora-input-prefix-text'>{ props.display?.prefix }</span></div> : null }
+        <Flex flexDirection='row' className={'appitsy-input-group'}>
+            { props.display?.prefix ? <div className='appitsy-input-prefix'><span className='appitsy-input-prefix-text'>{ props.display?.prefix }</span></div> : null }
             { elem }
-            { props.display?.suffix ? <div className='thora-input-suffix'><span className='thora-input-suffix-text'>{ props.display?.suffix }</span></div> : null }
+            { props.display?.suffix ? <div className='appitsy-input-suffix'><span className='appitsy-input-suffix-text'>{ props.display?.suffix }</span></div> : null }
         </Flex>
     )
     
-    const classes = classNames(props.className, { 'thora-hidden': props.display?.hidden }, 'thora-input');
+    const classes = classNames(props.className, { 'appitsy-hidden': props.display?.hidden }, 'appitsy-input');
 
     return (
         <Flex className={classes} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
@@ -106,12 +106,12 @@ const ThoraBaseTextInput = <T extends string | number>(props: ThoraBaseTextInput
     );
 }
 
-ThoraBaseTextInput.validateSchema = (_component: any) => {
+BaseTextInputComponent.validateSchema = (_component: any) => {
     return true;
 };
 
-ThoraBaseTextInput.defaultProps = {
+BaseTextInputComponent.defaultProps = {
     inputType: 'text',
 }
 
-export default ThoraBaseTextInput;
+export default BaseTextInputComponent;

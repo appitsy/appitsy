@@ -8,7 +8,7 @@ type LabelProps = {
 
 const ErrorLabel = (props: LabelProps) => (
     props.error ?
-    <span className={classNames(['thora-error', props.className])}>
+    <span className={classNames(['appitsy-error', props.className])}>
         { props.error }
     </span>: null);
 

@@ -133,7 +133,7 @@ export interface ActionSchema {
 
 export type ComponentSchema = TextFieldSchema | TextAreaSchema | NumberSchema | EmailSchema | ButtonSchema | PasswordSchema | PanelSchema | CustomComponentSchema;
 
-export interface ThoraComponent<T> extends React.FC<T> {
+export interface AppComponent<T> extends React.FC<T> {
     validateSchema(component: any): boolean;
     checkRerender(prevProps: Readonly<PropsWithChildren<T>>, nextProps: Readonly<PropsWithChildren<T>>): boolean;
 }

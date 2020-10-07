@@ -1,23 +1,23 @@
 import React, {  } from 'react';
-import { PasswordSchema, ThoraComponent } from '../../types/ComponentSchema';
+import { PasswordSchema, AppComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
-import ThoraBaseTextInput from '../ThoraBaseTextInput';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
 
-interface ThoraPasswordProps extends PasswordSchema {
+interface PasswordProps extends PasswordSchema {
     className: string;
     value: string;
     onValueChange(value: string): void;
 }
 
-const Password: ThoraComponent<ThoraPasswordProps> = (props) => {
+const Password: AppComponent<PasswordProps> = (props) => {
     const passwordValidate = (value: string): string | null => {
         return  ValidateRequired(props.validations!, value) || 
                 ValidateMinMaxLength(props.validations!, value);
     }
 
     return (
-        <ThoraBaseTextInput inputType='password' {...props} className={classNames(['thora-password', props.className])} validate={passwordValidate}/>
+        <BaseTextInputComponent inputType='password' {...props} className={classNames(['appitsy-password', props.className])} validate={passwordValidate}/>
     );
 }
 
@@ -29,4 +29,4 @@ Password.checkRerender = (prevProps, nextProps) => {
     return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 }
 
-export default React.memo<ThoraPasswordProps>(props => <Password {...props}/>, Password.checkRerender);
+export default React.memo<PasswordProps>(props => <Password {...props}/>, Password.checkRerender);

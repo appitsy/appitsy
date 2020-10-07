@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const theme = window.localStorage['thora-theme'];
+const theme = window.localStorage['appitsy-theme'];
 
 if (theme === 'bootstrap') {
   import('./bootstrap/bootstrap');

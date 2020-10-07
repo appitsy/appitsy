@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThoraComponent, EmailSchema } from '../../types/ComponentSchema';
+import { AppComponent, EmailSchema } from '../../types/ComponentSchema';
 import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../utilities/Validations';
-import ThoraBaseTextInput from '../ThoraBaseTextInput';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
 
 interface EmailProps extends EmailSchema {
@@ -10,7 +10,7 @@ interface EmailProps extends EmailSchema {
     onValueChange(value: string): void;
 }
 
-const Email: ThoraComponent<EmailProps> = (props) => {
+const Email: AppComponent<EmailProps> = (props) => {
     const emailValidate = (value: string): string | null => {
         return  ValidateRequired(props.validations!, value) || 
                 ValidateMinMaxLength(props.validations!, value) || 
@@ -18,9 +18,9 @@ const Email: ThoraComponent<EmailProps> = (props) => {
     }
 
     return (
-        <ThoraBaseTextInput
+        <BaseTextInputComponent
             {...props} 
-            className={classNames(['thora-email', props.className])}
+            className={classNames(['appitsy-email', props.className])}
             type='text'
             inputType='email' 
             validate={emailValidate} /> 

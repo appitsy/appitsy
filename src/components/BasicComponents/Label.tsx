@@ -16,7 +16,7 @@ const StyledLabel = Styled.label`
 
 const Label: React.FC<LabelProps> = (props) => {
     return (
-    <StyledLabel htmlFor={props.for} className={classNames(['thora-label', props.className])}>
+    <StyledLabel htmlFor={props.for} className={classNames(['appitsy-label', props.className])}>
         {props.text}
         { props.tooltip ? <span data-tip={props.tooltip} >?</span> : null }
         <ReactTooltip />
