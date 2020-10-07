@@ -2,18 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-const theme = window.localStorage['appitsy-theme'];
-
-if (theme === 'bootstrap') {
-  import('./bootstrap/bootstrap');
-} else if (theme === 'foundation') {
-  import ('./foundation/foundation');
-}
+import ThemeSelector from './ThemeSelector';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeSelector>
+      <App />
+    </ThemeSelector>
   </React.StrictMode>,
   document.getElementById('root')
 );
