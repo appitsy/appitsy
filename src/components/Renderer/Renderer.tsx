@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Styled from '../../Styled';
 
-import { Condition, ComponentSchema, TextFieldSchema, TextAreaSchema, ButtonSchema, NumberSchema, EmailSchema, PanelSchema, PasswordSchema, BaseComponentSchema } from '../../types/ComponentSchema';
-import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
+import {
+  Condition,
+  ComponentSchema,
+  TextFieldSchema,
+  TextAreaSchema,
+  ButtonSchema,
+  NumberSchema,
+  EmailSchema,
+  PanelSchema,
+  PasswordSchema,
+  BaseComponentSchema,
+} from '../../types/ComponentSchema';
+import {
+  TextField,
+  TextArea,
+  Number,
+  Email,
+  Button,
+  Password,
+} from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import { RendererOptions } from './RendererOptions';
@@ -20,139 +38,154 @@ const StyledPage = Styled.div`
 `;
 
 type RendererProps = {
-    schema: ComponentSchema[]
-    data?: any;
-    options?: RendererOptions;
-}
+  schema: ComponentSchema[];
+  data?: any;
+  options?: RendererOptions;
+};
 
 class Renderer extends React.Component<RendererProps> {
-    state: any = this.props.data || {};
+  state: any = this.props.data || {};
 
-    validateComponentName = (_componentName: string) => true;
+  validateComponentName = (_componentName: string) => true;
 
-    handleChange = (component: ComponentSchema, value: any) => {
-        this.setState({
-            ...this.state,
-            [component.name]: value,
-        })
-    };
+  handleChange = (component: ComponentSchema, value: any) => {
+    this.setState({
+      ...this.state,
+      [component.name]: value,
+    });
+  };
 
-    handleClick = () => {
-        alert(JSON.stringify(this.state));
+  handleClick = () => {
+    alert(JSON.stringify(this.state));
+  };
+
+  shouldShow = (condition: Condition) => {
+    if (condition.expression) {
+      return evaluate(condition.expression, { state: this.state });
     }
 
-    shouldShow = (condition: Condition) => {
-        if (condition.expression) {
-            return evaluate(condition.expression, { state: this.state });
-        }
+    if (condition.dependency) {
+      var show = false;
+      switch (condition.dependency.op) {
+        // could be comparing a string to a number too, which is ok
+        // eslint-disable-next-line eqeqeq
+        case 'eq':
+          show = this.state[condition.dependency.field] === condition.dependency.value;
+          break;
+        // could be comparing a string to a number too, which is ok
+        // eslint-disable-next-line eqeqeq
+        case 'neq':
+          show = this.state[condition.dependency.field] !== condition.dependency.value;
+          break;
+      }
 
-        if (condition.dependency) {
-            var show = false;
-            switch(condition.dependency.op) {
-                // could be comparing a string to a number too, which is ok
-                // eslint-disable-next-line eqeqeq
-                case 'eq': show = (this.state[condition.dependency.field] == condition.dependency.value); break;
-                // could be comparing a string to a number too, which is ok
-                // eslint-disable-next-line eqeqeq
-                case 'neq': show = (this.state[condition.dependency.field] != condition.dependency.value); break;
-            }
-    
-            return show;
-        }
-
-        return true;
+      return show;
     }
 
-    renderComponent = (component: BaseComponentSchema): JSX.Element => {
-        const condition = component.display?.condition;
-        if (condition && !this.shouldShow(condition)) {
-            return <></>;
-        }
+    return true;
+  };
 
-        // check for logic
-        let logicResult = EvaluateLogic(component, this.state);
-        if (logicResult.value && logicResult.value !== this.state[component.name]) {
-            this.setState({
-                ...this.state,
-                [component.name]: logicResult.value,
-            })
-        }
-
-        const componentSchema = {...component, ...logicResult.schema};
-    
-        const componentType = component.type.toLowerCase();
-        switch(componentType) {
-            case Types.TextField: 
-                return ( 
-                    <TextField 
-                        value={this.state[component.name]} 
-                        onValueChange={(value: any) => this.handleChange(component, value)} 
-                        className='appitsy-component'
-                        {...componentSchema as TextFieldSchema} /> 
-                );
-            case Types.TextArea: 
-                return ( 
-                    <TextArea 
-                        value={this.state[component.name]} 
-                        onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='appitsy-component'
-                        {...componentSchema as TextAreaSchema} /> 
-                );
-            case Types.Email:  
-                return (
-                    <Email 
-                        value={this.state[component.name]} 
-                        onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='appitsy-component'
-                        {...componentSchema as EmailSchema} /> 
-                );
-            case Types.Number: 
-                return ( 
-                    <Number
-                        value={this.state[component.name]} 
-                        onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='appitsy-component'
-                        {...componentSchema as NumberSchema} /> 
-                );
-            case Types.Button: 
-                return ( 
-                    <Button 
-                        onClick={this.handleClick} 
-                        className='appitsy-component'
-                        {...componentSchema as ButtonSchema} /> 
-                );
-            case Types.Password:
-                return (
-                    <Password value={this.state[component.name]} 
-                        onValueChange={(value: any) => this.handleChange(component, value)}  
-                        className='appitsy-component'
-                        {...componentSchema as PasswordSchema} />
-                )
-
-            case Types.Panel: {
-                const childComponents = (component as PanelSchema).components || [];
-                return (
-                    <Panel className='appitsy-component' {...componentSchema as PanelSchema}>
-                        { childComponents.map(panelChild => this.renderComponent(panelChild)) }
-                    </Panel>
-                );
-            }
-        }
-
-        return <p className='appitsy-component'>Unknown component '{component.type}'</p>;
+  renderComponent = (component: BaseComponentSchema): JSX.Element => {
+    const condition = component.display?.condition;
+    if (condition && !this.shouldShow(condition)) {
+      return <Fragment></Fragment>;
     }
 
-    render () {
-        this.props.schema.forEach(component => {
-            this.validateComponentName(component.name);
-        });
+    // check for logic
+    let logicResult = EvaluateLogic(component, this.state);
+    if (logicResult.value && logicResult.value !== this.state[component.name]) {
+      this.setState({
+        ...this.state,
+        [component.name]: logicResult.value,
+      });
+    }
 
+    const componentSchema = { ...component, ...logicResult.schema };
+
+    const componentType = component.type.toLowerCase();
+    switch (componentType) {
+      case Types.TextField:
         return (
-        <StyledPage>
-            { this.props.schema.map(component => this.renderComponent(component)) }
-        </StyledPage>
+          <TextField
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            className='appitsy-component'
+            {...(componentSchema as TextFieldSchema)}
+          />
         );
+      case Types.TextArea:
+        return (
+          <TextArea
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            className='appitsy-component'
+            {...(componentSchema as TextAreaSchema)}
+          />
+        );
+      case Types.Email:
+        return (
+          <Email
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            className='appitsy-component'
+            {...(componentSchema as EmailSchema)}
+          />
+        );
+      case Types.Number:
+        return (
+          <Number
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            className='appitsy-component'
+            {...(componentSchema as NumberSchema)}
+          />
+        );
+      case Types.Button:
+        return (
+          // eslint-disable-next-line prettier/prettier
+          <Button
+            onClick={this.handleClick}
+            className='appitsy-component'
+            {...(componentSchema as ButtonSchema)} />
+        );
+      case Types.Password:
+        return (
+          <Password
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            className='appitsy-component'
+            {...(componentSchema as PasswordSchema)}
+          />
+        );
+
+      case Types.Panel: {
+        const childComponents = (component as PanelSchema).components || [];
+        return (
+          // eslint-disable-next-line prettier/prettier
+          <Panel
+            className='appitsy-component'
+            {...(componentSchema as PanelSchema)}
+          >
+            {childComponents.map((panelChild) => this.renderComponent(panelChild))}
+          </Panel>
+        );
+      }
     }
+
+    return <p className='appitsy-component'>Unknown component '{component.type}'</p>;
+  };
+
+  render() {
+    this.props.schema.forEach((component) => {
+      this.validateComponentName(component.name);
+    });
+
+    return (
+      <StyledPage>
+        {this.props.schema.map((component) => this.renderComponent(component))}
+      </StyledPage>
+    );
+  }
 }
 
 export default Renderer;

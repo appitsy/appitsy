@@ -1,64 +1,72 @@
 {
   "name": "appitsy",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
+  "description": "Build apps faster",
+  "author": "parasgera",
+  "license": "MIT",
+  "repository": "appitsy/appitsy",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "source": "src/index.tsx",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "microbundle-crl --no-compress --format modern,cjs",
+    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "prepare": "run-s build",
+    "test": "run-s test:unit test:lint test:build",
+    "test:build": "run-s build",
+    "test:lint": "eslint .",
+    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "predeploy": "cd example && npm install && npm run build",
+    "deploy": "gh-pages -d example/build"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0"
+  },
+  "devDependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@hot-loader/react-dom": "^16.13.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.55",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^12.12.38",
+    "@types/react": "^16.9.27",
+    "@types/react-dom": "^16.9.7",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "babel-eslint": "^10.0.3",
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.2",
     "emotion-theming": "^10.0.27",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^11.0.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-standard": "^4.0.1",
     "foundation-sites": "^6.6.3",
+    "gh-pages": "^2.2.0",
+    "microbundle-crl": "^0.13.10",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.21",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.1",
     "react-tooltip": "^4.2.10",
     "typescript": "^3.7.5"
   },
-  "scripts": {
-    "start": "webpack-dev-server --env.mode=development --open",
-    "build": "cross-env NODE_ENV=production webpack --env.mode=production",
-    "build:dev": "webpack --env.mode=development",
-    "watch": "webpack --env.mode=development --watch"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/classnames": "^2.2.10",
-    "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^7.0.2",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.1.0",
-    "html-webpack-plugin": "^4.4.1",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^10.0.2",
-    "source-map-loader": "^1.1.0",
-    "style-loader": "^1.2.1",
-    "ts-loader": "^8.0.3",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
-  }
+  "files": [
+    "dist"
+  ]
 }

@@ -42,7 +42,7 @@ Panel.validateSchema = (_component: any) => {
     return true;
 };
 
-Panel.checkRerender = (prevProps, nextProps) => false;
+Panel.checkRerender = (_prevProps, _nextProps) => false;
 
 Panel.defaultProps = {
     display: {
