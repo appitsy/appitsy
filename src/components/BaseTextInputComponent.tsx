@@ -48,38 +48,38 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
         case 'text':
         case 'email':
         case 'password':
-            childEl = 
+            childEl =
                 <input  id={props.name}
-                        type={props.inputType} 
-                        name={props.name} 
-                        value={ props.value || '' } 
-                        placeholder={props.display?.placeholder} 
+                        type={props.inputType}
+                        name={props.name}
+                        value={ props.value || '' }
+                        placeholder={props.display?.placeholder}
                         onChange={(evt) => onChange(evt.target.value as T)}
                         disabled={props.display?.disabled}
-                        className='appitsy-form-control' 
+                        className='appitsy-form-control'
                 />;
             break;
         case 'textarea':
-            childEl = 
+            childEl =
                 <textarea   id={props.name}
-                            name={props.name} 
-                            value={ props.value || ''} 
-                            placeholder={props.display?.placeholder} 
-                            onChange={(evt) => onChange(evt.target.value as T)} 
-                            disabled={props.display?.disabled} 
-                            className='appitsy-form-control' 
+                            name={props.name}
+                            value={ props.value || ''}
+                            placeholder={props.display?.placeholder}
+                            onChange={(evt) => onChange(evt.target.value as T)}
+                            disabled={props.display?.disabled}
+                            className='appitsy-form-control'
                 />;
             break;
         case 'number':
-            childEl = 
+            childEl =
                 <input  id={props.name}
-                        type={props.inputType} 
-                        name={props.name} 
-                        value={ props.value || 0 } 
-                        placeholder={props.display?.placeholder} 
-                        onChange={(evt) => onChange(evt.target.value as T)} 
-                        disabled={props.display?.disabled} 
-                        className='appitsy-form-control' 
+                        type={props.inputType}
+                        name={props.name}
+                        value={ props.value || 0 }
+                        placeholder={props.display?.placeholder}
+                        onChange={(evt) => onChange(evt.target.value as T)}
+                        disabled={props.display?.disabled}
+                        className='appitsy-form-control'
                 />;
     }
 
@@ -90,7 +90,7 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
             { props.display?.suffix ? <div className='appitsy-input-suffix'><span className='appitsy-input-suffix-text'>{ props.display?.suffix }</span></div> : null }
         </Flex>
     )
-    
+
     const classes = classNames(props.className, { 'appitsy-hidden': props.display?.hidden }, 'appitsy-input');
 
     return (

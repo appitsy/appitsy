@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
 import Styled from '../../Styled';
 
@@ -13,14 +14,7 @@ import {
   PasswordSchema,
   BaseComponentSchema,
 } from '../../types/ComponentSchema';
-import {
-  TextField,
-  TextArea,
-  Number,
-  Email,
-  Button,
-  Password,
-} from '../BasicComponents';
+import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import { RendererOptions } from './RendererOptions';
@@ -88,11 +82,11 @@ class Renderer extends React.Component<RendererProps> {
   renderComponent = (component: BaseComponentSchema): JSX.Element => {
     const condition = component.display?.condition;
     if (condition && !this.shouldShow(condition)) {
-      return <Fragment></Fragment>;
+      return <Fragment />;
     }
 
     // check for logic
-    let logicResult = EvaluateLogic(component, this.state);
+    const logicResult = EvaluateLogic(component, this.state);
     if (logicResult.value && logicResult.value !== this.state[component.name]) {
       this.setState({
         ...this.state,
@@ -180,11 +174,7 @@ class Renderer extends React.Component<RendererProps> {
       this.validateComponentName(component.name);
     });
 
-    return (
-      <StyledPage>
-        {this.props.schema.map((component) => this.renderComponent(component))}
-      </StyledPage>
-    );
+    return <StyledPage>{this.props.schema.map((component) => this.renderComponent(component))}</StyledPage>;
   }
 }
 

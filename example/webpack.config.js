@@ -1,25 +1,26 @@
 const path = require('path');
 const express = require('express');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const pkg = require('./package.json');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = (env) => ({
   mode: env.mode || 'development',
   devtool: 'eval-source-map',
-  entry: ['./src/index.tsx'],
+  entry: ['react-hot-loader/patch','./src/index.tsx'],
   output: {
     publicPath: '/',
-    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash].js',
-    library: pkg.name,
-    libraryTarget: 'commonjs2',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   resolve: {
     symlinks: false,
     extensions: ['.ts', '.json', '.tsx', '.js'],
     modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
   optimization: {
     splitChunks: {
@@ -45,42 +46,39 @@ module.exports = (env) => ({
     },
   },
   plugins: [
-    // new CleanWebpackPlugin(),
-    // new HtmlWebpackPlugin({
-    //   template: './public/index.html',
-    // }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'src/themes', to: 'themes' }],
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
     }),
   ],
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
         loader: 'ts-loader',
+        options: { allowTsInNodeModules: true }
       },
       {
-        enforce: 'pre',
+        enforce: "pre",
         test: /\.js$/,
-        loader: 'source-map-loader',
+        loader: "source-map-loader",
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-      // {
-      //   test: /\.(png|svg|jpg|gif)$/,
-      //   use: ['file-loader'],
-      // },
-      // {
-      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
-      //   use: ['file-loader'],
-      // },
       {
-        test: /\.scss$/,
+        test: /\.(png|svg|jpg|gif)$/,
         use: ['file-loader'],
       },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ],
   },
 });

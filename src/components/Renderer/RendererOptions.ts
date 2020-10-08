@@ -1,3 +1,1 @@
-
-export interface RendererOptions {
-}
+export interface RendererOptions {}

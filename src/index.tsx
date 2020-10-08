@@ -7,6 +7,8 @@ interface Props {
   data: any;
 }
 
-export const ExampleComponent = (props: Props) => {
+const RendererComponent = (props: Props) => {
   return <Renderer schema={props.schema} data={props.data}/>
 }
+
+export { RendererComponent };

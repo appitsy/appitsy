@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Renderer from './components/Renderer/Renderer';
-import { ComponentSchema } from './types/ComponentSchema';
+import { RendererComponent } from 'appitsy';
+import { ComponentSchema } from '../../dist/types/ComponentSchema';
 
-interface Page {
-  schema: ComponentSchema[]
-}
+import 'appitsy/src/themes/bootstrap.scss';
 
 const mySchema: ComponentSchema[] = [
   {
@@ -21,7 +19,7 @@ const mySchema: ComponentSchema[] = [
     data: {
       defaultValue: 'hello',
     },
-    validations: {
+  validations: {
       required: true,
       minLength: 5,
       maxLength: 10,
@@ -156,7 +154,7 @@ const data = {
 
 function App() {
   return (
-    <Renderer schema={mySchema} data={data}/>
+      <RendererComponent schema={mySchema} data={data}/>
   );
 }
 
