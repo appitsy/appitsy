@@ -3,7 +3,7 @@ import React from 'react';
 import { RendererComponent } from 'appitsy';
 import { ComponentSchema } from '../../dist/types/ComponentSchema';
 
-import 'appitsy/src/themes/bootstrap.scss';
+import 'appitsy/src/themes/foundation.scss';
 
 const mySchema: ComponentSchema[] = [
   {
@@ -115,8 +115,8 @@ const mySchema: ComponentSchema[] = [
     name: 'panel1',
     type: 'panel',
     display: {
-      collapsible: true,
-      collapsed: false,
+      expandable: true,
+      expanded: true,
     },
     components: [
       {

@@ -110,8 +110,8 @@ export interface ButtonSchema extends BaseComponentSchema {
 }
 
 export interface PanelDisplaySchema extends BaseComponentDisplaySchema {
-  collapsible?: boolean;
-  collapsed?: boolean;
+  expandable?: boolean;
+  expanded?: boolean;
 }
 
 export interface PanelSchema extends BaseComponentSchema {

@@ -1,1 +1,3 @@
-export interface RendererOptions {}
+export interface RendererOptions {
+  iconLibrary?: 'font-awesome'
+}

@@ -2,38 +2,43 @@ import React, { useState } from 'react';
 import { PanelSchema, AppComponent } from '../../types/ComponentSchema';
 import Styled from '../../Styled';
 import classNames from 'classnames';
+import Icon from 'appitsy/src/components/BasicComponents/Icon';
 
 interface PanelProps extends PanelSchema {
     children: JSX.Element[];
     className: string;
 }
 
-const PanelHeading = Styled.h6`
+const PanelHeading = Styled.h5`
     margin: 0px;
     padding: 10px;
 `;
 
+const PanelIcon = Styled(Icon)`
+    font-size: 18px;
+`;
+
 const Panel: AppComponent<PanelProps> = (props) => {
     const [ state, setState ] = useState({
-        collapsible: props.display?.collapsible,
-        collapsed: props.display?.collapsed || false,
+        expandable: props.display?.expanded,
+        expanded: props.display?.expanded || false,
     });
 
-    const toggleCollapse = () => {
-        if (!state.collapsible) {
+    const toggleExpand = () => {
+        if (!state.expandable) {
             return;
         }
 
         setState(prevState => ({
             ...prevState,
-            collapsed: !prevState.collapsed,
+            expanded: !prevState.expanded,
         }));
     }
 
     return (
         <div className={classNames(['appitsy-panel', props.className])}>
-            <PanelHeading onClick={toggleCollapse} className='appitsy-panel-heading' >Panel - { props.name }</PanelHeading>
-            <div className={classNames(['appitsy-panel-body', state.collapsed ? 'appitsy-panel-body-collapsed' : 'appitsy-panel-body-expanded'])}>{ state.collapsed ? null : props.children }</div>
+            <PanelHeading onClick={toggleExpand} className='appitsy-panel-heading' ><PanelIcon icon={state.expanded ? "caret-down" : "caret-right" } />{ props.name }</PanelHeading>
+            <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>{ state.expanded ? props.children : null }</div>
         </div>
     );
 }
@@ -46,8 +51,8 @@ Panel.checkRerender = (_prevProps, _nextProps) => false;
 
 Panel.defaultProps = {
     display: {
-        collapsible: true,
-        collapsed: false,
+        expandable: true,
+        expanded: true,
     }
 }
 
