@@ -45,6 +45,11 @@ export interface BaseComponentDisplaySchema {
   condition?: Condition;
 }
 
+export interface ButtonDisplaySchema extends BaseComponentDisplaySchema {
+  leftIcon?: string;
+  rightIcon?: string;
+}
+
 export interface BaseInputComponentDisplaySchema extends BaseComponentDisplaySchema {
   labelPosition?: LabelPosition;
   errorPosition?: ErrorPosition;
@@ -106,6 +111,7 @@ export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warn
 export interface ButtonSchema extends BaseComponentSchema {
   type: ButtonType;
   text: string;
+  display?: ButtonDisplaySchema;
   style?: ButtonStyle;
 }
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { ButtonSchema, AppComponent as AppComponent } from '../../types/ComponentSchema';
 import styled from '../../Styled';
 import classNames from 'classnames';
+import Icon from './Icon';
 
 const StyledButton = styled.button`
     width: fit-content !important;
 `;
 
 interface ButtonProps extends ButtonSchema {
-    className: string;
+    className?: string;
     onClick(): any;
 }
 
@@ -25,7 +26,7 @@ const Button: AppComponent<ButtonProps> = (props) => {
             case 'danger': return 'appitsy-button-danger';
             case 'warning': return 'appitsy-button-warning';
             case 'info': return 'appitsy-button-info';
-            default: 
+            default:
                 if (props.style !== undefined) {
                     console.error(`Bad style name for button - '${props.style!}'`)
                 }
@@ -33,9 +34,14 @@ const Button: AppComponent<ButtonProps> = (props) => {
         }
     }
 
+    const leftIcon = props.display?.leftIcon ? <><Icon icon={props.display.leftIcon} />&nbsp;</> : null
+    const rightIcon = props.display?.rightIcon ? <>&nbsp;<Icon icon={props.display.rightIcon} /></> : null
+
     return (
         <StyledButton name={props.name} onClick={onClick} className={classNames(['appitsy-button', buttonTypeClass(), props.className])}>
+            { leftIcon }
             { props.text }
+            { rightIcon }
         </StyledButton>
     );
 }

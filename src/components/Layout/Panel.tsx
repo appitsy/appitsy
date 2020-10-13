@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { PanelSchema, AppComponent } from '../../types/ComponentSchema';
 import Styled from '../../Styled';
 import classNames from 'classnames';
-import Icon from 'appitsy/src/components/BasicComponents/Icon';
+
+import Icon from '../BasicComponents/Icon';
 
 interface PanelProps extends PanelSchema {
-    children: JSX.Element[];
-    className: string;
+  children: JSX.Element[] | JSX.Element;
+  className?: string;
 }
 
 const PanelHeading = Styled.h5`
