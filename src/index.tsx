@@ -1,21 +1,3 @@
-import * as React from 'react'
-import Renderer from './components/Renderer/Renderer'
-// import { ComponentSchema } from './types/ComponentSchema'
+import Render from './components/Renderer/Renderer';
 
-// interface Props {
-//   schema: ComponentSchema[],
-//   data: any;
-//   iconLibrary: 'font-awesome';
-// }
-
-// const RendererComponent = (props: Props) => {
-//   return <Renderer schema={props.schema} data={props.data}/>
-// }
-
-// RendererComponent.defaultProps = {
-//   iconLibrary: 'font-awesome'
-// }
-
-const Renderer2 = () => <div>Renderer2</div>
-
-export default { Renderer, Renderer2 };
+export { Render }

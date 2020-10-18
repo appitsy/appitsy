@@ -4,29 +4,27 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --env.mode=development --open"
+    "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "node ../node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "node ../node_modules/react-scripts/bin/react-scripts.js test",
+    "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
-    "@types/node": "^14.11.8",
-    "@types/react": "^16.9.51",
-    "@types/react-dom": "^16.9.8",
-    "appitsy": "file:../appitsy-0.1.0.tgz",
-    "bootstrap": "^4.5.3",
-    "clean-webpack-plugin": "^3.0.0",
-    "html-webpack-plugin": "^4.5.0",
-    "react": "^16.13.1",
-    "ts-loader": "^8.0.4",
-    "typescript": "^4.0.3",
-    "webpack": "^4.44.2",
-    "webpack-dev-server": "^3.11.0"
+    "@testing-library/jest-dom": "file:../node_modules/@testing-library/jest-dom",
+    "@testing-library/react": "file:../node_modules/@testing-library/react",
+    "@testing-library/user-event": "file:../node_modules/@testing-library/user-event",
+    "@types/jest": "file:../node_modules/@types/jest",
+    "@types/node": "file:../node_modules/@types/node",
+    "@types/react": "file:../node_modules/@types/react",
+    "@types/react-dom": "file:../node_modules/@types/react-dom",
+    "react": "file:../node_modules/react",
+    "react-dom": "file:../node_modules/react-dom",
+    "react-scripts": "file:../node_modules/react-scripts",
+    "typescript": "file:../node_modules/typescript",
+    "appitsy": "file:.."
   },
   "devDependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
-    "@hot-loader/react-dom": "^17.0.0-rc.2",
-    "ignore-loader": "^0.1.2",
-    "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.13.0",
-    "webpack-cli": "^3.3.12"
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
   },
   "eslintConfig": {
     "extends": "react-app"

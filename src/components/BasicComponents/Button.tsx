@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { ButtonSchema, AppComponent as AppComponent } from '../../types/ComponentSchema';
 import styled from '../../Styled';
 import classNames from 'classnames';
@@ -34,8 +34,8 @@ const Button: AppComponent<ButtonProps> = (props) => {
         }
     }
 
-    const leftIcon = props.display?.leftIcon ? <><Icon icon={props.display.leftIcon} />&nbsp;</> : null
-    const rightIcon = props.display?.rightIcon ? <>&nbsp;<Icon icon={props.display.rightIcon} /></> : null
+    const leftIcon = props.display?.leftIcon ? <Fragment><Icon icon={props.display.leftIcon} />&nbsp;</Fragment> : null
+    const rightIcon = props.display?.rightIcon ? <Fragment>&nbsp;<Icon icon={props.display.rightIcon} /></Fragment> : null
 
     return (
         <StyledButton name={props.name} onClick={onClick} className={classNames(['appitsy-button', buttonTypeClass(), props.className])}>
