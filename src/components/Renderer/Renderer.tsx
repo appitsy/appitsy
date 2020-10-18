@@ -17,7 +17,6 @@ import {
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
-import { RendererOptions } from './RendererOptions';
 import evaluate from '../../utilities/Evaluator';
 import EvaluateLogic from '../../utilities/Logic';
 
@@ -34,7 +33,6 @@ const StyledPage = Styled.div`
 type RendererProps = {
   schema: ComponentSchema[];
   data?: any;
-  options?: RendererOptions;
 };
 
 class Renderer extends React.Component<RendererProps> {

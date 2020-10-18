@@ -19,7 +19,7 @@ module.exports = (env) => ({
   resolve: {
     symlinks: false,
     extensions: ['.ts', '.json', '.tsx', '.js'],
-    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    modules: [path.resolve(__dirname, './src')],
   },
   optimization: {
     splitChunks: {

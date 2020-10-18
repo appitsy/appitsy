@@ -1,5 +1,7 @@
 const path = require('path');
 const express = require('express');
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -50,13 +52,21 @@ module.exports = (env) => ({
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    new webpack.WatchIgnorePlugin([
+      /\.js$/,
+      /\.d\.ts$/
+    ])
   ],
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
-        options: { allowTsInNodeModules: true }
+        exclude: /node_modules|\.d\.ts$/,
+      },
+      {
+        test: /\.d\.ts$/,
+        loader: 'ignore-loader',
       },
       {
         enforce: "pre",
