@@ -8,5 +8,12 @@ import Button from './Button';
 import Email from './Email';
 
 export {
-    TextField, TextArea, Number, Password, Label, ErrorLabel, Button, Email
-}
+  TextField,
+  TextArea,
+  Number,
+  Password,
+  Label,
+  ErrorLabel,
+  Button,
+  Email,
+};

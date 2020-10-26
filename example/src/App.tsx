@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import { Render } from 'appitsy'
+import { Render } from 'appitsy';
 
-import { ComponentSchema } from 'appitsy/dist/types/ComponentSchema';
+import { ComponentSchema } from 'appitsy/src/types/ComponentSchema';
 
-// import 'appitsy/themes/bootstrap.scss';
+import 'appitsy/src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {

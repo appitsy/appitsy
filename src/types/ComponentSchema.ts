@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import {
   TextFieldValidations,
   TextAreaValidations,
@@ -5,7 +6,6 @@ import {
   BaseTextComponentValidations,
   PasswordValidations,
 } from '../utilities/Validations';
-import { PropsWithChildren } from 'react';
 
 export interface BaseComponentSchema {
   name: string;
