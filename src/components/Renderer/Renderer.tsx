@@ -5,13 +5,6 @@ import Styled from '../../Styled';
 import {
   Condition,
   ComponentSchema,
-  TextFieldSchema,
-  TextAreaSchema,
-  ButtonSchema,
-  NumberSchema,
-  EmailSchema,
-  PanelSchema,
-  PasswordSchema,
   BaseComponentSchema,
 } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
@@ -19,6 +12,15 @@ import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import evaluate from '../../utilities/Evaluator';
 import EvaluateLogic from '../../utilities/Logic';
+import {
+  TextFieldSchema,
+  TextAreaSchema,
+  EmailSchema,
+  NumberSchema,
+  ButtonSchema,
+  PasswordSchema
+} from '../../types/InputComponentSchema';
+import { PanelSchema } from '../../types/LayoutComponentSchema';
 
 const StyledPage = Styled.div`
     display: flex;

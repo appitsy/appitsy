@@ -1,8 +1,9 @@
 import React, {  } from 'react';
-import { PasswordSchema, AppComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
+import { AppComponent } from '../../types/AppComponent';
+import { PasswordSchema } from '../../types/InputComponentSchema';
 
 interface PasswordProps extends PasswordSchema {
     className: string;
@@ -12,7 +13,7 @@ interface PasswordProps extends PasswordSchema {
 
 const Password: AppComponent<PasswordProps> = (props) => {
     const passwordValidate = (value: string): string | null => {
-        return  ValidateRequired(props.validations!, value) || 
+        return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value);
     }
 

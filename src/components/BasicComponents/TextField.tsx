@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextFieldSchema, AppComponent } from '../../types/ComponentSchema';
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import classNames from 'classnames';
+import { AppComponent } from '../../types/AppComponent';
+import { TextFieldSchema } from '../../types/InputComponentSchema';
 
 interface TextFieldProps extends TextFieldSchema {
     className: string;
@@ -13,7 +14,7 @@ interface TextFieldProps extends TextFieldSchema {
 
 const TextField: AppComponent<TextFieldProps> = (props) => {
     const textFieldValidate = (value: string): string | null => {
-        return  ValidateRequired(props.validations!, value) || 
+        return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value);
     }
 

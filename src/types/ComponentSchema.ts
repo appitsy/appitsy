@@ -1,11 +1,6 @@
-import { PropsWithChildren } from 'react';
-import {
-  TextFieldValidations,
-  TextAreaValidations,
-  NumberValidations,
-  BaseTextComponentValidations,
-  PasswordValidations,
-} from '../utilities/Validations';
+import { CustomComponentSchema } from './CustomComponentSchema';
+import { InputComponentSchema } from './InputComponentSchema';
+import { LayoutComponentSchema } from './LayoutComponentSchema';
 
 export interface BaseComponentSchema {
   name: string;
@@ -13,24 +8,6 @@ export interface BaseComponentSchema {
   display?: BaseComponentDisplaySchema;
   logic?: LogicSchema[];
 }
-
-export enum Types {
-  TextField,
-  TextArea,
-  Button,
-}
-
-export type LabelPosition = 'left' | 'top';
-export type ErrorPosition = 'right' | 'bottom';
-
-export type TextFieldType = 'text';
-export type TextAreaType = 'textarea';
-export type PasswordType = 'password';
-export type NumberType = 'number';
-export type EmailType = 'email';
-export type ButtonType = 'button';
-
-export type PanelType = 'panel';
 
 export interface Condition {
   dependency?: {
@@ -50,86 +27,8 @@ export interface ButtonDisplaySchema extends BaseComponentDisplaySchema {
   rightIcon?: string;
 }
 
-export interface BaseInputComponentDisplaySchema extends BaseComponentDisplaySchema {
-  labelPosition?: LabelPosition;
-  errorPosition?: ErrorPosition;
-  description?: string;
-  tooltip?: string;
-  prefix?: string;
-  suffix?: string;
-  disabled?: boolean;
-  hidden?: boolean;
-}
-
-export interface BaseTextInputComponentDisplaySchema extends BaseInputComponentDisplaySchema {
-  placeholder?: string;
-}
-
-export interface BaseInputComponentSchema<T> extends BaseComponentSchema {
-  display?: BaseInputComponentDisplaySchema;
-  data?: {
-    defaultValue?: T;
-  };
-  validations?: BaseTextComponentValidations;
-}
-
-export interface BaseTextInputComponentSchema<T> extends BaseInputComponentSchema<T> {
-  display?: BaseTextInputComponentDisplaySchema;
-  data?: {
-    defaultValue?: T;
-  };
-  validations?: BaseTextComponentValidations;
-}
-
-export interface TextFieldSchema extends BaseTextInputComponentSchema<string> {
-  type: TextFieldType;
-  validations?: TextFieldValidations;
-}
-
-export interface EmailSchema extends BaseTextInputComponentSchema<string> {
-  type: EmailType;
-  validations?: TextFieldValidations;
-}
-
-export interface TextAreaSchema extends BaseTextInputComponentSchema<string> {
-  type: TextAreaType;
-  validations?: TextAreaValidations;
-}
-
-export interface PasswordSchema extends BaseTextInputComponentSchema<string> {
-  type: PasswordType;
-  validations?: PasswordValidations;
-}
-
-export interface NumberSchema extends BaseTextInputComponentSchema<number> {
-  type: NumberType;
-  validations?: NumberValidations;
-}
-
-export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
-
-export interface ButtonSchema extends BaseComponentSchema {
-  type: ButtonType;
-  text: string;
-  display?: ButtonDisplaySchema;
-  style?: ButtonStyle;
-}
-
-export interface PanelDisplaySchema extends BaseComponentDisplaySchema {
-  expandable?: boolean;
-  expanded?: boolean;
-}
-
-export interface PanelSchema extends BaseComponentSchema {
-  type: PanelType;
-  components?: ComponentSchema[];
-  display?: PanelDisplaySchema;
-}
-
-export interface CustomComponentSchema extends BaseComponentSchema {
-  type: string;
-  [x: string]: any;
-}
+export type LabelPosition = 'left' | 'top';
+export type ErrorPosition = 'right' | 'bottom';
 
 export interface LogicSchema {
   name: string;
@@ -144,16 +43,6 @@ export interface ActionSchema {
 }
 
 export type ComponentSchema =
-  | TextFieldSchema
-  | TextAreaSchema
-  | NumberSchema
-  | EmailSchema
-  | ButtonSchema
-  | PasswordSchema
-  | PanelSchema
+  | InputComponentSchema
+  | LayoutComponentSchema
   | CustomComponentSchema;
-
-export interface AppComponent<T> extends React.FC<T> {
-  validateSchema(component: any): boolean;
-  checkRerender(prevProps: Readonly<PropsWithChildren<T>>, nextProps: Readonly<PropsWithChildren<T>>): boolean;
-}

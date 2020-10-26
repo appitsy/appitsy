@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import { BaseTextInputComponentSchema } from '../types/ComponentSchema';
 import Label from './BasicComponents/Label';
 import ErrorLabel from './BasicComponents/ErrorLabel';
 import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './BasicComponents/Description';
+import { BaseTextInputComponentSchema } from '../types/InputComponentSchema';
 
 interface BaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
     inputType?: 'text' | 'textarea' | 'email' | 'number' | 'password';

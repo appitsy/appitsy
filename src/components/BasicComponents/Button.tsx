@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
-import { ButtonSchema, AppComponent } from '../../types/ComponentSchema';
 import styled from '../../Styled';
 import Icon from './Icon';
+import { AppComponent } from '../../types/AppComponent';
+import { ButtonSchema } from '../../types/InputComponentSchema';
 
 const StyledButton = styled.button`
     width: fit-content !important;

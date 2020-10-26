@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { PanelSchema, AppComponent } from '../../types/ComponentSchema';
 import Styled from '../../Styled';
 import classNames from 'classnames';
 
 import Icon from '../BasicComponents/Icon';
+import { AppComponent } from '../../types/AppComponent';
+import { PanelSchema } from '../../types/LayoutComponentSchema';
 
 interface PanelProps extends PanelSchema {
   children: JSX.Element[] | JSX.Element;

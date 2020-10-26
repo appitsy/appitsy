@@ -1,8 +1,9 @@
 import React from 'react';
-import { AppComponent, EmailSchema } from '../../types/ComponentSchema';
 import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../utilities/Validations';
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
+import { AppComponent } from '../../types/AppComponent';
+import { EmailSchema } from '../../types/InputComponentSchema';
 
 interface EmailProps extends EmailSchema {
     className: string;
@@ -12,18 +13,18 @@ interface EmailProps extends EmailSchema {
 
 const Email: AppComponent<EmailProps> = (props) => {
     const emailValidate = (value: string): string | null => {
-        return  ValidateRequired(props.validations!, value) || 
-                ValidateMinMaxLength(props.validations!, value) || 
+        return  ValidateRequired(props.validations!, value) ||
+                ValidateMinMaxLength(props.validations!, value) ||
                 ValidateEmail(value);
     }
 
     return (
         <BaseTextInputComponent
-            {...props} 
+            {...props}
             className={classNames(['appitsy-email', props.className])}
             type='text'
-            inputType='email' 
-            validate={emailValidate} /> 
+            inputType='email'
+            validate={emailValidate} />
     );
 }
 

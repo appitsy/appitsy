@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextAreaSchema, AppComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
+import { AppComponent } from '../../types/AppComponent';
+import { TextAreaSchema } from '../../types/InputComponentSchema';
 
 interface TextAreaProps extends TextAreaSchema {
     className: string;
@@ -13,7 +14,7 @@ interface TextAreaProps extends TextAreaSchema {
 
 const TextArea: AppComponent<TextAreaProps> = (props) => {
     const textAreaValidate = (value: string): string | null => {
-        return  ValidateRequired(props.validations!, value) || 
+        return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value);
     }
 

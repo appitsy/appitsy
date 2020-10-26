@@ -1,8 +1,9 @@
 import React, {  } from 'react';
-import { NumberSchema, AppComponent } from '../../types/ComponentSchema';
 import { ValidateRequired, ValidateMinMaxNumber } from '../../utilities/Validations';
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
+import { AppComponent } from '../../types/AppComponent';
+import { NumberSchema } from '../../types/InputComponentSchema';
 
 interface NumberProps extends NumberSchema {
     className: string;
@@ -12,7 +13,7 @@ interface NumberProps extends NumberSchema {
 
 const Number: AppComponent<NumberProps> = (props) => {
     const textFieldValidate = (value: number): string | null => {
-        return  ValidateRequired(props.validations!, value.toString()) || 
+        return  ValidateRequired(props.validations!, value.toString()) ||
                 ValidateMinMaxNumber(props.validations!, value);
     }
 
