@@ -1,7 +1,7 @@
 import { BaseTextComponentValidations, TextFieldValidations, TextAreaValidations, PasswordValidations, NumberValidations } from "../utilities/Validations";
-import { BaseComponentDisplaySchema, LabelPosition, ErrorPosition, BaseComponentSchema, ButtonDisplaySchema } from "./ComponentSchema";
+import { BaseComponentDisplayProps, LabelPosition, ErrorPosition, BaseComponentProps, ButtonDisplaySchema, BaseComponentSchema } from "./ComponentSchema";
 
-export interface BaseInputComponentDisplaySchema extends BaseComponentDisplaySchema {
+export interface BaseInputComponentDisplayProps extends BaseComponentDisplayProps {
   labelPosition?: LabelPosition;
   errorPosition?: ErrorPosition;
   description?: string;
@@ -12,55 +12,49 @@ export interface BaseInputComponentDisplaySchema extends BaseComponentDisplaySch
   hidden?: boolean;
 }
 
-export interface BaseTextInputComponentDisplaySchema extends BaseInputComponentDisplaySchema {
+export interface BaseTextInputComponentDisplayProps extends BaseInputComponentDisplayProps {
   placeholder?: string;
 }
 
-export interface BaseInputComponentSchema<T> extends BaseComponentSchema {
-  display?: BaseInputComponentDisplaySchema;
+export interface BaseInputComponentProps<T> extends BaseComponentProps {
+  display?: BaseInputComponentDisplayProps;
   data?: {
     defaultValue?: T;
   };
   validations?: BaseTextComponentValidations;
 }
 
-export interface BaseTextInputComponentSchema<T> extends BaseInputComponentSchema<T> {
-  display?: BaseTextInputComponentDisplaySchema;
+export interface BaseTextInputComponentProps<T> extends BaseInputComponentProps<T> {
+  display?: BaseTextInputComponentDisplayProps;
   data?: {
     defaultValue?: T;
   };
   validations?: BaseTextComponentValidations;
 }
 
-export interface TextFieldSchema extends BaseTextInputComponentSchema<string> {
-  type: TextFieldType;
+export interface TextFieldProps extends BaseTextInputComponentProps<string> {
   validations?: TextFieldValidations;
 }
 
-export interface EmailSchema extends BaseTextInputComponentSchema<string> {
-  type: EmailType;
+export interface EmailProps extends BaseTextInputComponentProps<string> {
   validations?: TextFieldValidations;
 }
 
-export interface TextAreaSchema extends BaseTextInputComponentSchema<string> {
-  type: TextAreaType;
+export interface TextAreaProps extends BaseTextInputComponentProps<string> {
   validations?: TextAreaValidations;
 }
 
-export interface PasswordSchema extends BaseTextInputComponentSchema<string> {
-  type: PasswordType;
+export interface PasswordProps extends BaseTextInputComponentProps<string> {
   validations?: PasswordValidations;
 }
 
-export interface NumberSchema extends BaseTextInputComponentSchema<number> {
-  type: NumberType;
+export interface NumberProps extends BaseTextInputComponentProps<number> {
   validations?: NumberValidations;
 }
 
 export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
 
-export interface ButtonSchema extends BaseComponentSchema {
-  type: ButtonType;
+export interface ButtonProps extends BaseComponentProps {
   text: string;
   display?: ButtonDisplaySchema;
   style?: ButtonStyle;
@@ -73,6 +67,30 @@ export type PasswordType = 'password';
 export type NumberType = 'number';
 export type EmailType = 'email';
 export type ButtonType = 'button';
+
+
+export interface TextFieldSchema extends TextFieldProps, BaseComponentSchema {
+  type: TextFieldType;
+}
+
+export interface TextAreaSchema extends TextAreaProps, BaseComponentSchema {
+  type: TextAreaType,
+}
+
+export interface NumberSchema extends NumberProps, BaseComponentSchema {
+  type: NumberType,
+}
+
+export interface EmailSchema extends EmailProps, BaseComponentSchema {
+  type: EmailType,
+}
+
+export interface ButtonSchema extends ButtonProps, BaseComponentSchema {
+  type: ButtonType,
+}
+export interface PasswordSchema extends PasswordProps, BaseComponentSchema {
+  type: PasswordType,
+}
 
 export type InputComponentSchema =
   | TextFieldSchema

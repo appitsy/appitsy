@@ -3,15 +3,15 @@ import { ValidateRequired, ValidateMinMaxNumber } from '../../utilities/Validati
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
 import { AppComponent } from '../../types/AppComponent';
-import { NumberSchema } from '../../types/InputComponentSchema';
+import { NumberProps } from '../../types/InputComponentSchema';
 
-interface NumberProps extends NumberSchema {
+interface NumberComponentProps extends NumberProps {
     className: string;
     value: number;
     onValueChange(value: number): void;
 }
 
-const Number: AppComponent<NumberProps> = (props) => {
+const Number: AppComponent<NumberComponentProps> = (props) => {
     const textFieldValidate = (value: number): string | null => {
         return  ValidateRequired(props.validations!, value.toString()) ||
                 ValidateMinMaxNumber(props.validations!, value);
@@ -30,4 +30,4 @@ Number.checkRerender = (prevProps, nextProps) => {
     return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 }
 
-export default React.memo<NumberProps>(props => <Number {...props}/>, Number.checkRerender);
+export default React.memo<NumberComponentProps>(props => <Number {...props}/>, Number.checkRerender);

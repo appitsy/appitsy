@@ -3,15 +3,15 @@ import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validati
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
 import { AppComponent } from '../../types/AppComponent';
-import { PasswordSchema } from '../../types/InputComponentSchema';
+import { PasswordProps } from '../../types/InputComponentSchema';
 
-interface PasswordProps extends PasswordSchema {
+interface PasswordComponentProps extends PasswordProps {
     className: string;
     value: string;
     onValueChange(value: string): void;
 }
 
-const Password: AppComponent<PasswordProps> = (props) => {
+const Password: AppComponent<PasswordComponentProps> = (props) => {
     const passwordValidate = (value: string): string | null => {
         return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value);
@@ -30,4 +30,4 @@ Password.checkRerender = (prevProps, nextProps) => {
     return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 }
 
-export default React.memo<PasswordProps>(props => <Password {...props}/>, Password.checkRerender);
+export default React.memo<PasswordComponentProps>(props => <Password {...props}/>, Password.checkRerender);

@@ -3,16 +3,16 @@ import BaseTextInputComponent from '../BaseTextInputComponent';
 import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
 import classNames from 'classnames';
 import { AppComponent } from '../../types/AppComponent';
-import { TextFieldSchema } from '../../types/InputComponentSchema';
+import { TextFieldProps } from '../../types/InputComponentSchema';
 
-interface TextFieldProps extends TextFieldSchema {
+interface TextFieldComponentProps extends TextFieldProps {
     className: string;
     value: string;
     validate?(value: string, textFieldValidate: () => string | null): string | null;
     onValueChange(value: string): void;
 }
 
-const TextField: AppComponent<TextFieldProps> = (props) => {
+const TextField: AppComponent<TextFieldComponentProps> = (props) => {
     const textFieldValidate = (value: string): string | null => {
         return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value);
@@ -31,4 +31,4 @@ TextField.checkRerender = (prevProps, nextProps) => {
     return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 }
 
-export default React.memo<TextFieldProps>(props => <TextField {...props}/>, TextField.checkRerender);
+export default React.memo<TextFieldComponentProps>(props => <TextField {...props}/>, TextField.checkRerender);

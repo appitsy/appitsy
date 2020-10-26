@@ -2,11 +2,14 @@ import { CustomComponentSchema } from './CustomComponentSchema';
 import { InputComponentSchema } from './InputComponentSchema';
 import { LayoutComponentSchema } from './LayoutComponentSchema';
 
+export interface BaseComponentProps {
+  display?: BaseComponentDisplayProps;
+  logic?: LogicProps[];
+}
+
 export interface BaseComponentSchema {
   name: string;
   type: string;
-  display?: BaseComponentDisplaySchema;
-  logic?: LogicSchema[];
 }
 
 export interface Condition {
@@ -18,11 +21,11 @@ export interface Condition {
   expression?: string;
 }
 
-export interface BaseComponentDisplaySchema {
+export interface BaseComponentDisplayProps {
   condition?: Condition;
 }
 
-export interface ButtonDisplaySchema extends BaseComponentDisplaySchema {
+export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
   leftIcon?: string;
   rightIcon?: string;
 }
@@ -30,13 +33,13 @@ export interface ButtonDisplaySchema extends BaseComponentDisplaySchema {
 export type LabelPosition = 'left' | 'top';
 export type ErrorPosition = 'right' | 'bottom';
 
-export interface LogicSchema {
+export interface LogicProps {
   name: string;
   trigger: string;
-  actions: ActionSchema[];
+  actions: LogicAction[];
 }
 
-export interface ActionSchema {
+export interface LogicAction {
   type: 'value' | 'updateComponent';
   value?: string;
   schema?: any;
@@ -45,4 +48,5 @@ export interface ActionSchema {
 export type ComponentSchema =
   | InputComponentSchema
   | LayoutComponentSchema
-  | CustomComponentSchema;
+  | CustomComponentSchema
+  ;

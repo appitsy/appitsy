@@ -3,18 +3,18 @@ import classNames from 'classnames';
 import styled from '../../Styled';
 import Icon from './Icon';
 import { AppComponent } from '../../types/AppComponent';
-import { ButtonSchema } from '../../types/InputComponentSchema';
+import { ButtonProps } from '../../types/InputComponentSchema';
 
 const StyledButton = styled.button`
     width: fit-content !important;
 `;
 
-interface ButtonProps extends ButtonSchema {
+interface ButtonComponentProps extends ButtonProps {
   className?: string;
   onClick(): any;
 }
 
-const Button: AppComponent<ButtonProps> = (props) => {
+const Button: AppComponent<ButtonComponentProps> = (props) => {
   const onClick = () => {
     props.onClick();
   };
@@ -57,4 +57,4 @@ Button.checkRerender = (prevProps, nextProps) => {
 
 // Update Button when onClick also changes.
 // Needed because we get stale closure if we don't
-export default React.memo<ButtonProps>(props => <Button {...props} />, Button.checkRerender);
+export default React.memo<ButtonComponentProps>(props => <Button {...props} />, Button.checkRerender);

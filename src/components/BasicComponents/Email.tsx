@@ -3,15 +3,15 @@ import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../uti
 import BaseTextInputComponent from '../BaseTextInputComponent';
 import classNames from 'classnames';
 import { AppComponent } from '../../types/AppComponent';
-import { EmailSchema } from '../../types/InputComponentSchema';
+import { EmailProps } from '../../types/InputComponentSchema';
 
-interface EmailProps extends EmailSchema {
+interface EmailComponentProps extends EmailProps {
     className: string;
     value: string;
     onValueChange(value: string): void;
 }
 
-const Email: AppComponent<EmailProps> = (props) => {
+const Email: AppComponent<EmailComponentProps> = (props) => {
     const emailValidate = (value: string): string | null => {
         return  ValidateRequired(props.validations!, value) ||
                 ValidateMinMaxLength(props.validations!, value) ||
@@ -36,4 +36,4 @@ Email.checkRerender = (prevProps, nextProps) => {
     return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 }
 
-export default React.memo<EmailProps>(props => <Email {...props}/>, Email.checkRerender);
+export default React.memo<EmailComponentProps>(props => <Email {...props}/>, Email.checkRerender);

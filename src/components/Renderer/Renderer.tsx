@@ -5,7 +5,6 @@ import Styled from '../../Styled';
 import {
   Condition,
   ComponentSchema,
-  BaseComponentSchema,
 } from '../../types/ComponentSchema';
 import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
 import { Types } from '../../types/Types';
@@ -13,14 +12,14 @@ import Panel from '../Layout/Panel';
 import evaluate from '../../utilities/Evaluator';
 import EvaluateLogic from '../../utilities/Logic';
 import {
-  TextFieldSchema,
-  TextAreaSchema,
-  EmailSchema,
-  NumberSchema,
-  ButtonSchema,
-  PasswordSchema
+  TextFieldProps,
+  TextAreaProps,
+  EmailProps,
+  NumberProps,
+  ButtonProps,
+  PasswordProps
 } from '../../types/InputComponentSchema';
-import { PanelSchema } from '../../types/LayoutComponentSchema';
+import { PanelProps } from '../../types/LayoutComponentSchema';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -79,7 +78,7 @@ class Renderer extends React.Component<RendererProps> {
     return true;
   };
 
-  renderComponent = (component: BaseComponentSchema): JSX.Element => {
+  renderComponent = (component: ComponentSchema): JSX.Element => {
     const condition = component.display?.condition;
     if (condition && !this.shouldShow(condition)) {
       return <Fragment />;
@@ -104,7 +103,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
-            {...(componentSchema as TextFieldSchema)}
+            {...(componentSchema as TextFieldProps)}
           />
         );
       case Types.TextArea:
@@ -113,7 +112,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
-            {...(componentSchema as TextAreaSchema)}
+            {...(componentSchema as TextAreaProps)}
           />
         );
       case Types.Email:
@@ -122,7 +121,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
-            {...(componentSchema as EmailSchema)}
+            {...(componentSchema as EmailProps)}
           />
         );
       case Types.Number:
@@ -131,7 +130,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
-            {...(componentSchema as NumberSchema)}
+            {...(componentSchema as NumberProps)}
           />
         );
       case Types.Button:
@@ -140,7 +139,7 @@ class Renderer extends React.Component<RendererProps> {
           <Button
             onClick={this.handleClick}
             className='appitsy-component'
-            {...(componentSchema as ButtonSchema)} />
+            {...(componentSchema as any as ButtonProps)} />
         );
       case Types.Password:
         return (
@@ -148,17 +147,17 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
-            {...(componentSchema as PasswordSchema)}
+            {...(componentSchema as PasswordProps)}
           />
         );
 
       case Types.Panel: {
-        const childComponents = (component as PanelSchema).components || [];
+        const childComponents = (component as PanelProps).components || [];
         return (
           // eslint-disable-next-line prettier/prettier
           <Panel
             className='appitsy-component'
-            {...(componentSchema as PanelSchema)}
+            {...(componentSchema as PanelProps)}
           >
             {childComponents.map((panelChild) => this.renderComponent(panelChild))}
           </Panel>

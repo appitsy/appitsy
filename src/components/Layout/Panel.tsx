@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import Icon from '../BasicComponents/Icon';
 import { AppComponent } from '../../types/AppComponent';
-import { PanelSchema } from '../../types/LayoutComponentSchema';
+import { PanelProps } from '../../types/LayoutComponentSchema';
 
-interface PanelProps extends PanelSchema {
+interface PanelComponentProps extends PanelProps {
   children: JSX.Element[] | JSX.Element;
   className?: string;
 }
@@ -20,7 +20,7 @@ const PanelIcon = Styled(Icon)`
     font-size: 18px;
 `;
 
-const Panel: AppComponent<PanelProps> = (props) => {
+const Panel: AppComponent<PanelComponentProps> = (props) => {
     const [ state, setState ] = useState({
         expandable: props.display?.expanded,
         expanded: props.display?.expanded || false,
@@ -39,7 +39,7 @@ const Panel: AppComponent<PanelProps> = (props) => {
 
     return (
         <div className={classNames(['appitsy-panel', props.className])}>
-            <PanelHeading onClick={toggleExpand} className='appitsy-panel-heading' ><PanelIcon icon={state.expanded ? "caret-down" : "caret-right" } />{ props.name }</PanelHeading>
+            <PanelHeading onClick={toggleExpand} className='appitsy-panel-heading' ><PanelIcon icon={state.expanded ? "caret-down" : "caret-right" } />{ props.display.title }</PanelHeading>
             <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>{ state.expanded ? props.children : null }</div>
         </div>
     );
@@ -52,10 +52,11 @@ Panel.validateSchema = (_component: any) => {
 Panel.checkRerender = (_prevProps, _nextProps) => false;
 
 Panel.defaultProps = {
-    display: {
-        expandable: true,
-        expanded: true,
-    }
+  display: {
+    title: '',
+    expandable: true,
+    expanded: true,
+  }
 }
 
-export default React.memo<PanelProps>(props => <Panel {...props}/>, Panel.checkRerender);
+export default React.memo<PanelComponentProps>(props => <Panel {...props}/>, Panel.checkRerender);

@@ -1,17 +1,21 @@
-import { BaseComponentDisplaySchema, BaseComponentSchema, ComponentSchema } from "./ComponentSchema";
+import { BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, ComponentSchema } from "./ComponentSchema";
 
 // LAYOUT COMPONENTS
 export type PanelType = 'panel';
 
-export interface PanelDisplaySchema extends BaseComponentDisplaySchema {
+export interface PanelDisplayProps extends BaseComponentDisplayProps {
+  title: string;
   expandable?: boolean;
   expanded?: boolean;
 }
 
-export interface PanelSchema extends BaseComponentSchema {
-  type: PanelType;
+export interface PanelProps extends BaseComponentProps {
   components?: ComponentSchema[];
-  display?: PanelDisplaySchema;
+  display: PanelDisplayProps;
+}
+
+export interface PanelSchema extends PanelProps, BaseComponentSchema {
+  type: PanelType,
 }
 
 export type LayoutComponentSchema =

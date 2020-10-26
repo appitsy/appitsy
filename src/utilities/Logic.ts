@@ -1,7 +1,7 @@
-import { BaseComponentSchema } from "../types/ComponentSchema";
+import { BaseComponentProps } from "../types/ComponentSchema";
 import evaluate from "./Evaluator";
 
-const EvaluateLogic = (component: BaseComponentSchema, state: any) => {
+const EvaluateLogic = (component: BaseComponentProps, state: any) => {
   let value = undefined;
   const schema = {};
 

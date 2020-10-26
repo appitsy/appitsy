@@ -6,9 +6,9 @@ import ErrorLabel from './BasicComponents/ErrorLabel';
 import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './BasicComponents/Description';
-import { BaseTextInputComponentSchema } from '../types/InputComponentSchema';
+import { BaseTextInputComponentProps } from '../types/InputComponentSchema';
 
-interface BaseTextInputProps<T> extends BaseTextInputComponentSchema<T> {
+interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {
     inputType?: 'text' | 'textarea' | 'email' | 'number' | 'password';
     className: string;
     value: T;
