@@ -4,6 +4,12 @@
 # dependencies
 node_modules
 
+# generated libraries
+lib/
+lib-esm/
+_bundles/
+appitsy-*.tgz
+
 # builds
 build
 dist

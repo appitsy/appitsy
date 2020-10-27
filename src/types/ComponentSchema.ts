@@ -3,12 +3,12 @@ import { InputComponentSchema } from './InputComponentSchema';
 import { LayoutComponentSchema } from './LayoutComponentSchema';
 
 export interface BaseComponentProps {
+  name: string;
   display?: BaseComponentDisplayProps;
   logic?: LogicProps[];
 }
 
 export interface BaseComponentSchema {
-  name: string;
   type: string;
 }
 

@@ -22,7 +22,6 @@ const Email: AppComponent<EmailComponentProps> = (props) => {
         <BaseTextInputComponent
             {...props}
             className={classNames(['appitsy-email', props.className])}
-            type='text'
             inputType='email'
             validate={emailValidate} />
     );
