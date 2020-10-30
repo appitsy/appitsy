@@ -22,6 +22,7 @@ export interface Condition {
 }
 
 export interface BaseComponentDisplayProps {
+  label?: string;
   condition?: Condition;
 }
 

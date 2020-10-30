@@ -1,3 +1,3 @@
-import Render from './components/Renderer/Renderer';
+import { Renderer, RendererProps } from './components/Renderer/Renderer';
 
-export { Render }
+export { Renderer, RendererProps };

@@ -1,10 +1,18 @@
-export const Types = {
-    TextField: 'text',
-    TextArea: 'textarea',
-    Email: 'email',
-    Number: 'number',
-    Password: 'password',
-    Button: 'button',
+import { ButtonTypeName, EmailTypeName, InputComponentType, NumberTypeName, PasswordTypeName, TextAreaTypeName, TextFieldTypeName } from "./InputComponentSchema";
+import { LayoutComponentType, PanelTypeName } from "./LayoutComponentSchema";
 
-    Panel: 'panel',
+export const Types = {
+    TextField: TextFieldTypeName,
+    TextArea: TextAreaTypeName,
+    Email: EmailTypeName,
+    Number: NumberTypeName,
+    Password: PasswordTypeName,
+    Button: ButtonTypeName,
+
+    Panel: PanelTypeName,
 }
+
+export type ComponentType =
+  | InputComponentType
+  | LayoutComponentType
+  ;

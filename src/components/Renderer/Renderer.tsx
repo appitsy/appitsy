@@ -31,12 +31,12 @@ const StyledPage = Styled.div`
     }
 `;
 
-type RendererProps = {
+export type RendererProps = {
   schema: ComponentSchema[];
   data?: any;
 };
 
-class Renderer extends React.Component<RendererProps> {
+export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T> {
   state: any = this.props.data || {};
 
   validateComponentName = (_componentName: string) => true;
@@ -78,7 +78,7 @@ class Renderer extends React.Component<RendererProps> {
     return true;
   };
 
-  renderComponent = (component: ComponentSchema): JSX.Element => {
+  public renderComponent (component: ComponentSchema, key: string): JSX.Element {
     const condition = component.display?.condition;
     if (condition && !this.shouldShow(condition)) {
       return <Fragment />;
@@ -103,6 +103,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as TextFieldProps)}
           />
         );
@@ -112,6 +113,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as TextAreaProps)}
           />
         );
@@ -121,6 +123,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as EmailProps)}
           />
         );
@@ -130,6 +133,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as NumberProps)}
           />
         );
@@ -139,6 +143,7 @@ class Renderer extends React.Component<RendererProps> {
           <Button
             onClick={this.handleClick}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as any as ButtonProps)} />
         );
       case Types.Password:
@@ -147,6 +152,7 @@ class Renderer extends React.Component<RendererProps> {
             value={this.state[component.name]}
             onValueChange={(value: any) => this.handleChange(component, value)}
             className='appitsy-component'
+            key={key}
             {...(componentSchema as PasswordProps)}
           />
         );
@@ -157,9 +163,10 @@ class Renderer extends React.Component<RendererProps> {
           // eslint-disable-next-line prettier/prettier
           <Panel
             className='appitsy-component'
+            key={key}
             {...(componentSchema as PanelProps)}
           >
-            {childComponents.map((panelChild) => this.renderComponent(panelChild))}
+            {childComponents.map((panelChild, childIndex) => this.renderComponent(panelChild, componentSchema.name + '-child-' + childIndex))}
           </Panel>
         );
       }
@@ -168,13 +175,19 @@ class Renderer extends React.Component<RendererProps> {
     return <p className='appitsy-component'>Unknown component '{component.type}'</p>;
   };
 
-  render() {
+  public renderChildren() {
+    return this.props.schema.map((component, index) => this.renderComponent(component, 'root-' + index));
+  }
+
+  public renderRoot() {
+    return (<StyledPage>{this.renderChildren()}</StyledPage>);
+  }
+
+  public render() {
     this.props.schema.forEach((component) => {
       this.validateComponentName(component.name);
     });
 
-    return <StyledPage>{this.props.schema.map((component) => this.renderComponent(component))}</StyledPage>;
+    return this.renderRoot();
   }
 }
-
-export default Renderer;

@@ -61,13 +61,19 @@ export interface ButtonProps extends BaseComponentProps {
 }
 
 // INPUT COMPONENTS
+export const TextFieldTypeName = 'text';
+export const TextAreaTypeName = 'textarea';
+export const PasswordTypeName = 'password';
+export const NumberTypeName = 'number';
+export const EmailTypeName = 'email';
+export const ButtonTypeName = 'button';
+
 export type TextFieldType = 'text';
 export type TextAreaType = 'textarea';
 export type PasswordType = 'password';
 export type NumberType = 'number';
 export type EmailType = 'email';
 export type ButtonType = 'button';
-
 
 export interface TextFieldSchema extends TextFieldProps, BaseComponentSchema {
   type: TextFieldType;
@@ -91,6 +97,15 @@ export interface ButtonSchema extends ButtonProps, BaseComponentSchema {
 export interface PasswordSchema extends PasswordProps, BaseComponentSchema {
   type: PasswordType,
 }
+
+export type InputComponentType =
+  | TextFieldType
+  | TextAreaType
+  | NumberType
+  | EmailType
+  | ButtonType
+  | PasswordType
+  ;
 
 export type InputComponentSchema =
   | TextFieldSchema

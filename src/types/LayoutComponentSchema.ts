@@ -2,6 +2,7 @@ import { BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, Com
 
 // LAYOUT COMPONENTS
 export type PanelType = 'panel';
+export const PanelTypeName = 'panel';
 
 export interface PanelDisplayProps extends BaseComponentDisplayProps {
   title: string;
@@ -17,6 +18,10 @@ export interface PanelProps extends BaseComponentProps {
 export interface PanelSchema extends PanelProps, BaseComponentSchema {
   type: PanelType,
 }
+
+export type LayoutComponentType =
+  | PanelType
+  ;
 
 export type LayoutComponentSchema =
   | PanelSchema
