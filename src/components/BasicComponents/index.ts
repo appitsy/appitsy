@@ -6,6 +6,7 @@ import Label from './Label';
 import ErrorLabel from './ErrorLabel';
 import Button from './Button';
 import Email from './Email';
+import Icon from './Icon';
 
 export {
   TextField,
@@ -16,4 +17,5 @@ export {
   ErrorLabel,
   Button,
   Email,
+  Icon,
 };

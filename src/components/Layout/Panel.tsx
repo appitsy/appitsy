@@ -22,8 +22,8 @@ const PanelIcon = Styled(Icon)`
 
 const Panel: AppComponent<PanelComponentProps> = (props) => {
     const [ state, setState ] = useState({
-        expandable: props.display?.expanded,
-        expanded: props.display?.expanded || false,
+        expandable: props.display?.expandable || true,
+        expanded: props.display?.expanded || true,
     });
 
     const toggleExpand = () => {

@@ -166,7 +166,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             key={key}
             {...(componentSchema as PanelProps)}
           >
-            {childComponents.map((panelChild, childIndex) => this.renderComponent(panelChild, componentSchema.name + '-child-' + childIndex))}
+            { this.renderLayoutChildren(childComponents, componentSchema) }
           </Panel>
         );
       }
@@ -181,6 +181,10 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
 
   public renderRoot() {
     return (<StyledPage>{this.renderChildren()}</StyledPage>);
+  }
+
+  public renderLayoutChildren(childComponents: ComponentSchema[], parentSchema: ComponentSchema) {
+    return childComponents.map((panelChild, childIndex) => this.renderComponent(panelChild, parentSchema.name + '-child-' + childIndex));
   }
 
   public render() {
