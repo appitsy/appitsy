@@ -19,7 +19,8 @@ import {
   ButtonProps,
   PasswordProps
 } from '../../types/InputComponentSchema';
-import { PanelProps } from '../../types/LayoutComponentSchema';
+import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
+import Tabs from '../Layout/Tabs';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -158,16 +159,24 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         );
 
       case Types.Panel: {
-        const childComponents = (component as PanelProps).components || [];
         return (
-          // eslint-disable-next-line prettier/prettier
           <Panel
             className='appitsy-component'
+            renderChildComponent={this.renderComponent}
             key={key}
             {...(componentSchema as PanelProps)}
-          >
-            { this.renderLayoutChildren(childComponents, componentSchema) }
-          </Panel>
+          />
+        );
+      }
+
+      case Types.Tabs: {
+        return (
+          <Tabs
+            className='appitsy-component'
+            renderChildComponent={this.renderComponent}
+            key={key}
+            {...(componentSchema as TabsProps)}
+          />
         );
       }
     }
