@@ -7,74 +7,96 @@ import '../../src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {
-    name: 'textField1',
-    type: 'text',
-    display: {
-      labelPosition: 'top',
-      description: 'wow a description',
-      tooltip: 'hello?',
-      prefix: 'pre',
-      suffix: 'suf',
-    },
-    data: {
-      defaultValue: 'hello',
-    },
-  validations: {
-      required: true,
-      minLength: 5,
-      maxLength: 10,
-    }
-  },
-  {
-    name: 'email1',
-    type: 'email',
-    data: {
-      defaultValue: 'abc@a.com1',
-    },
-    logic: [
+    name: 'tabs1',
+    type: 'tabs',
+    components: [
       {
-        name: 'logic1',
-        trigger: 'state.textField1 === "bye"',
-        actions: [
+        name: 'tab1',
+        display: {
+          label: 'Tab 1'
+        },
+        components: [
           {
-            schema: { display: { disabled: true }},
-            type: 'updateComponent'
-          }
+            name: 'textField1',
+            type: 'text',
+            display: {
+              labelPosition: 'top',
+              description: 'wow a description',
+              tooltip: 'hello?',
+              prefix: 'pre',
+              suffix: 'suf',
+            },
+            data: {
+              defaultValue: 'hello',
+            },
+          validations: {
+              required: true,
+              minLength: 5,
+              maxLength: 10,
+            }
+          },
+          {
+            name: 'email1',
+            type: 'email',
+            data: {
+              defaultValue: 'abc@a.com1',
+            },
+            logic: [
+              {
+                name: 'logic1',
+                trigger: 'state.textField1 === "bye"',
+                actions: [
+                  {
+                    schema: { display: { disabled: true }},
+                    type: 'updateComponent'
+                  }
+                ]
+              }
+            ],
+            display: {
+              // condition: {
+              //   dependency: {
+              //     field: 'textField1',
+              //     op: 'eq',
+              //     value: 'hello'
+              //   }
+              // }
+            },
+            validations: {
+              required: true,
+            }
+          },
+        ]
+      },
+      {
+        name: 'tab2',
+        display: {
+          label: 'Tab 2'
+        },
+        components: [
+          {
+            name: 'numberfield1',
+            type: 'number',
+            display: {
+              disabled: true,
+              condition: {
+                expression: 'state.textField1 === "hello"'
+              }
+            },
+            data: {
+              defaultValue: 0,
+            },
+            validations: {
+              required: true,
+              minLength: 2,
+              maxLength: 4,
+              min: 100,
+              max: 200
+            }
+          },
         ]
       }
-    ],
-    display: {
-      // condition: {
-      //   dependency: {
-      //     field: 'textField1',
-      //     op: 'eq',
-      //     value: 'hello'
-      //   }
-      // }
-    },
-    validations: {
-      required: true,
-    }
-  },
-  {
-    name: 'numberfield1',
-    type: 'number',
-    display: {
-      disabled: true,
-      condition: {
-        expression: 'state.textField1 === "hello"'
-      }
-    },
-    data: {
-      defaultValue: 0,
-    },
-    validations: {
-      required: true,
-      minLength: 2,
-      maxLength: 4,
-      min: 100,
-      max: 200
-    }
+    ]
   },
   {
     name: 'password',
@@ -114,10 +136,11 @@ const schema: ComponentSchema[] = [
   {
     name: 'panel1',
     type: 'panel',
-    // display: {
-    //   expandable: true,
-    //   expanded: true,
-    // },
+    display: {
+      title: 'Panel 1',
+      expandable: true,
+      expanded: true,
+    },
     components: [
       {
         name: 'textField+1',

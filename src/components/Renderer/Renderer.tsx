@@ -6,7 +6,14 @@ import {
   Condition,
   ComponentSchema,
 } from '../../types/ComponentSchema';
-import { TextField, TextArea, Number, Email, Button, Password } from '../BasicComponents';
+import {
+  TextField,
+  TextArea,
+  Number,
+  Email,
+  Button,
+  Password,
+} from '../BasicComponents';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import evaluate from '../../utilities/Evaluator';
@@ -17,7 +24,7 @@ import {
   EmailProps,
   NumberProps,
   ButtonProps,
-  PasswordProps
+  PasswordProps,
 } from '../../types/InputComponentSchema';
 import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
@@ -162,7 +169,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         return (
           <Panel
             className='appitsy-component'
-            renderChildComponent={this.renderComponent}
+            renderChildComponent={this.renderComponent.bind(this)}
             key={key}
             {...(componentSchema as PanelProps)}
           />
@@ -173,7 +180,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         return (
           <Tabs
             className='appitsy-component'
-            renderChildComponent={this.renderComponent}
+            renderChildComponent={this.renderComponent.bind(this)}
             key={key}
             {...(componentSchema as TabsProps)}
           />
