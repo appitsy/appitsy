@@ -9,9 +9,11 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack --mode development && copyfiles -f src/themes/* dist/themes/",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack --mode development && npm run buildThemes",
+    "buildThemes": "node-sass src/themes/bootstrap.scss dist/themes/bootstrap.css && node-sass src/themes/foundation.scss dist/themes/foundation.css",
     "clean": "shx rm -rf _bundles lib lib-esm",
     "prepare": "run-s build",
+    "dev": "webpack-cli serve --mode development --config ./webpack.dev.config.js --entry ./example/src/index.tsx",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint .",
@@ -27,46 +29,63 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@types/classnames": "^2.2.10",
+    "@types/classnames": "^2.2.11",
     "@types/jest": "^25.1.4",
-    "@types/lodash": "^4.14.162",
-    "@types/node": "^12.12.38",
-    "@types/react": "^16.9.27",
-    "@types/react-dom": "^16.9.7",
+    "@types/lodash": "^4.14.165",
+    "@types/node": "^12.19.8",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
     "@types/react-tabs": "^2.3.2",
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
     "awesome-typescript-loader": "^5.2.1",
-    "copyfiles": "^2.4.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.14.0",
+    "bootstrap": "^4.5.3",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^2.2.0",
+    "html-webpack-plugin": "^4.5.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.2",
+    "path": "^0.12.7",
+    "prettier": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^4.0.1",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
     "shx": "^0.3.3",
     "typescript": "^3.7.5",
-    "webpack": "^5.3.0",
-    "webpack-cli": "^4.1.0"
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@emotion/core": "^10.0.35",
+    "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
     "classnames": "^2.2.6",
     "eslint-config-airbnb-typescript": "^12.0.0",
     "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
     "react-tabs": "^3.1.1",
-    "react-tooltip": "^4.2.10"
+    "react-tooltip": "^4.2.11"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Render } from 'appitsy';
+import { Renderer } from '../../src/components/Renderer/Renderer';
+import { ComponentSchema } from '../../src/types/ComponentSchema';
 
-import { ComponentSchema } from 'appitsy/src/types/ComponentSchema';
-
-import 'appitsy/src/themes/bootstrap.scss';
+import '../../src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {
@@ -115,10 +114,10 @@ const schema: ComponentSchema[] = [
   {
     name: 'panel1',
     type: 'panel',
-    display: {
-      expandable: true,
-      expanded: true,
-    },
+    // display: {
+    //   expandable: true,
+    //   expanded: true,
+    // },
     components: [
       {
         name: 'textField+1',
@@ -155,7 +154,7 @@ const data = {
 
 
 const App = () => {
-  return <Render schema={schema} data={data} />
+  return <Renderer schema={schema} data={data} />
 }
 
 export default App

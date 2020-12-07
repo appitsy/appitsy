@@ -15,6 +15,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
+  devServer: {
+    index: 'example/public/index.html'
+  },
   devtool: 'inline-source-map',
   module: {
     rules: [
