@@ -38,6 +38,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.tsx', '.ts']
   },
+  devtool: 'inline-source-map',
   plugins: [
     new HWP(
       { template: path.join(__dirname, '/example/public/index.html') }

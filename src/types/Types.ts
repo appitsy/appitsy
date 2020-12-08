@@ -1,3 +1,4 @@
+import { DataComponentType, TableTypeName } from "./DataComponentSchema";
 import { ButtonTypeName, EmailTypeName, InputComponentType, NumberTypeName, PasswordTypeName, TextAreaTypeName, TextFieldTypeName } from "./InputComponentSchema";
 import { LayoutComponentType, PanelTypeName, TabsTypeName } from "./LayoutComponentSchema";
 
@@ -11,9 +12,12 @@ export const Types = {
 
     Panel: PanelTypeName,
     Tabs: TabsTypeName,
+
+    Table: TableTypeName,
 }
 
 export type ComponentType =
   | InputComponentType
   | LayoutComponentType
+  | DataComponentType
   ;

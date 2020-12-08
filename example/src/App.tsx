@@ -7,6 +7,13 @@ import '../../src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {
+    name: 'table 1',
+    type: 'table',
+    display: {
+      label: 'Table 1'
+    },
+  },
+  {
     name: 'tabs1',
     type: 'tabs',
     components: [

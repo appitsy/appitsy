@@ -28,6 +28,8 @@ import {
 } from '../../types/InputComponentSchema';
 import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
+import { Table } from '../Data';
+import { TableProps } from '../../types/DataComponentSchema';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -186,10 +188,30 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
           />
         );
       }
-    }
 
-    return <p className='appitsy-component'>Unknown component '{component.type}'</p>;
-  };
+      case Types.Table: {
+        return (
+          <Table
+            className='appitsy-component'
+            renderChildComponent={this.renderComponent.bind(this)}
+            key={key}
+            value={this.state[component.name]}
+            onValueChange={(value: any) => this.handleChange(component, value)}
+            {...(componentSchema as TableProps)}
+          />
+        );
+      }
+
+      default: {
+        return (
+          <p className='appitsy-component'>
+            { /* eslint-disable-next-line react/jsx-one-expression-per-line */ }
+            Unknown component &apos;{component.type}&apos;
+          </p>
+        );
+      }
+    }
+  }
 
   public renderChildren() {
     return this.props.schema.map((component, index) => this.renderComponent(component, 'root-' + index));

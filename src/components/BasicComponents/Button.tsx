@@ -52,7 +52,7 @@ Button.validateSchema = (_component: any) => {
 };
 
 Button.checkRerender = (prevProps, nextProps) => {
-  return prevProps.text === nextProps.text && prevProps.display === nextProps.display;
+  return prevProps.text === nextProps.text && prevProps.display === nextProps.display && prevProps.onClick === nextProps.onClick;
 };
 
 // Update Button when onClick also changes.
