@@ -190,8 +190,16 @@ const schema: ComponentSchema[] = [
 ];
 
 const data = {
+  'table 1': [
+    {
+      'table-textField1': 'table-textField1=1',
+    }
+  ],
   tabs1: {
-    textField1: 'hello',
+    tab1: {
+      textField1: 'hello override',
+      email1: 'abc@override.com'
+    },
   },
   textField2: 'my custom textarea2'
 }

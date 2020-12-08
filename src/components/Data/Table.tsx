@@ -35,11 +35,12 @@ const Table: AppComponent<TableComponentProps> = (props) => {
       </div>
       <div>
         {
-          props.value?.map((_row, _rIdx) => (
-            props.data.columns.map((column, _cIdx) => (
-              props.renderChildComponent(column, props.path)
-            ))
-          ))
+          props.value?.map((_row, rIdx) => {
+            const rowPath = props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`;
+            return props.data.columns.map((column) => (
+              props.renderChildComponent(column, rowPath)
+            ));
+          })
         }
       </div>
       <Button name="add" onClick={addRow} text="+ Add" />
@@ -51,8 +52,9 @@ Table.validateSchema = (_component: any) => {
   return true;
 };
 
-Table.checkRerender = (prevProps, nextProps) => {
-  return _.isEqual(prevProps.value, nextProps.value);
+Table.checkRerender = (_prevProps, _nextProps) => {
+  // return _.isEqual(prevProps.value, nextProps.value);
+  return false;
 };
 
 Table.defaultProps = {

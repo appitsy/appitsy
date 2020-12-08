@@ -20,7 +20,18 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
       { props.components?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
     </TabList>
 
-    { props.components?.map((tab) => <TabPanel>{tab.components?.map((c) => props.renderChildComponent(c, props.path))}</TabPanel>) }
+    {
+      props.components?.map((tab) => (
+        <TabPanel>
+          {
+            tab.components?.map(c => {
+              const tabPath = props.path ? `${props.path}.${tab.name}` : c.name;
+              return props.renderChildComponent(c, tabPath);
+            })
+          }
+        </TabPanel>
+      ))
+    }
 
   </Tabs>
 );
