@@ -11,6 +11,7 @@ const StyledButton = styled.button`
 
 interface ButtonComponentProps extends ButtonProps {
   className?: string;
+  path?: string;
   onClick(): any;
 }
 

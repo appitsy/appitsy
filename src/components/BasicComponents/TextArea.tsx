@@ -8,6 +8,7 @@ import { TextAreaProps } from '../../types/InputComponentSchema';
 interface TextAreaComponentProps extends TextAreaProps {
     className: string;
     value: string;
+    path?: string;
     validate?(value: string, textFieldValidate: () => string | null): string | null;
     onValueChange(value: string): void;
 }

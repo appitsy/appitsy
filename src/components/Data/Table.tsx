@@ -8,7 +8,8 @@ import { Button } from '../BasicComponents';
 
 interface TableComponentProps extends TableProps {
   className?: string;
-  renderChildComponent: (component: ComponentSchema, key: string) => JSX.Element;
+  path?: string;
+  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
   value: any[];
   onValueChange(value: any[]): void;
 }
@@ -28,15 +29,15 @@ const Table: AppComponent<TableComponentProps> = (props) => {
       <div>{ props.display?.label }</div>
 
       <div>
-        { props.data.columns.map((column) => (
+        { props.data?.columns?.map((column) => (
           <div>{ column.display?.label || column.name }</div>
         ))}
       </div>
       <div>
         {
-          props.value.map((row, rIdx) => (
-            props.data.columns.map((column, cIdx) => (
-              props.renderChildComponent(column, `${column.name}-${rIdx}-${cIdx}`)
+          props.value?.map((_row, _rIdx) => (
+            props.data.columns.map((column, _cIdx) => (
+              props.renderChildComponent(column, props.path)
             ))
           ))
         }

@@ -12,6 +12,18 @@ const schema: ComponentSchema[] = [
     display: {
       label: 'Table 1'
     },
+    data: {
+      columns: [
+        {
+          name: 'table-textField1',
+          type: 'text',
+        },
+        {
+          name: 'table-textField2',
+          type: 'text',
+        },
+      ]
+    }
   },
   {
     name: 'tabs1',
@@ -178,7 +190,9 @@ const schema: ComponentSchema[] = [
 ];
 
 const data = {
-  textField1: 'hello',
+  tabs1: {
+    textField1: 'hello',
+  },
   textField2: 'my custom textarea2'
 }
 

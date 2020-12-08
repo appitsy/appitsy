@@ -10,7 +10,8 @@ import { ComponentSchema } from '../../types/ComponentSchema';
 
 interface TabsComponentProps extends TabsProps {
   className?: string;
-  renderChildComponent: (component: ComponentSchema, key: string) => JSX.Element;
+  path?: string;
+  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
 }
 
 const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
@@ -19,7 +20,7 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
       { props.components?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
     </TabList>
 
-    { props.components?.map((tab) => <TabPanel>{tab.components?.map((c) => props.renderChildComponent(c, `${props.name}-${c.name}`))}</TabPanel>) }
+    { props.components?.map((tab) => <TabPanel>{tab.components?.map((c) => props.renderChildComponent(c, props.path))}</TabPanel>) }
 
   </Tabs>
 );

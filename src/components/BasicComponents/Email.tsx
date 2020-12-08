@@ -8,6 +8,7 @@ import { EmailProps } from '../../types/InputComponentSchema';
 interface EmailComponentProps extends EmailProps {
     className: string;
     value: string;
+    path?: string;
     onValueChange(value: string): void;
 }
 

@@ -8,6 +8,7 @@ import { NumberProps } from '../../types/InputComponentSchema';
 interface NumberComponentProps extends NumberProps {
     className: string;
     value: number;
+    path?: string;
     onValueChange(value: number): void;
 }
 

@@ -8,6 +8,7 @@ import { PasswordProps } from '../../types/InputComponentSchema';
 interface PasswordComponentProps extends PasswordProps {
     className: string;
     value: string;
+    path?: string;
     onValueChange(value: string): void;
 }
 

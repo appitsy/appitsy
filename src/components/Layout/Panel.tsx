@@ -9,7 +9,8 @@ import { ComponentSchema } from '../../types/ComponentSchema';
 
 interface PanelComponentProps extends PanelProps {
   className?: string;
-  renderChildComponent: (component: ComponentSchema, key: string) => JSX.Element;
+  path?: string;
+  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
 }
 
 const PanelHeading = Styled.h5`
@@ -45,7 +46,7 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
         {props.display.title}
       </PanelHeading>
       <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
-        {state.expanded ? props.components?.map(c => props.renderChildComponent(c, props.name + '-' + c.name)) : null}
+        {state.expanded ? props.components?.map(c => props.renderChildComponent(c, props.path)) : null}
       </div>
     </div>
   );

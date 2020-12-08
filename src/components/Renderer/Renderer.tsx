@@ -30,6 +30,7 @@ import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
 import { Table } from '../Data';
 import { TableProps } from '../../types/DataComponentSchema';
+import _ from 'lodash';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -51,11 +52,10 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
 
   validateComponentName = (_componentName: string) => true;
 
-  handleChange = (component: ComponentSchema, value: any) => {
-    this.setState({
-      ...this.state,
-      [component.name]: value,
-    });
+  handleChange = (componentPath: string, value: any) => {
+    const newState = { ...this.state };
+    _.set(newState, componentPath, value);
+    this.setState(newState);
   };
 
   handleClick = () => {
@@ -88,62 +88,68 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     return true;
   };
 
-  public renderComponent (component: ComponentSchema, key: string): JSX.Element {
+  public renderComponent(component: ComponentSchema, parentPath?: string): JSX.Element {
     const condition = component.display?.condition;
     if (condition && !this.shouldShow(condition)) {
       return <Fragment />;
     }
 
+    const componentPath = parentPath ? `${parentPath}.${component.name}` : component.name;
+
     // check for logic
     const logicResult = EvaluateLogic(component, this.state);
-    if (logicResult.value && logicResult.value !== this.state[component.name]) {
-      this.setState({
-        ...this.state,
-        [component.name]: logicResult.value,
-      });
+    if (logicResult.value && logicResult.value !== this.state[componentPath]) {
+      this.handleChange(componentPath, logicResult.value);
     }
 
     const componentSchema = { ...component, ...logicResult.schema };
+
+    const value = _.get(this.state, componentPath);
+    const onValueChange = (value: any) => this.handleChange(componentPath, value);
 
     const componentType = component.type.toLowerCase();
     switch (componentType) {
       case Types.TextField:
         return (
           <TextField
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            value={value}
+            onValueChange={onValueChange}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as TextFieldProps)}
           />
         );
       case Types.TextArea:
         return (
           <TextArea
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            value={value}
+            onValueChange={onValueChange}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as TextAreaProps)}
           />
         );
       case Types.Email:
         return (
           <Email
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            value={value}
+            onValueChange={onValueChange}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as EmailProps)}
           />
         );
       case Types.Number:
         return (
           <Number
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            value={value}
+            onValueChange={onValueChange}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as NumberProps)}
           />
         );
@@ -153,16 +159,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
           <Button
             onClick={this.handleClick}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as any as ButtonProps)} />
         );
       case Types.Password:
         return (
           <Password
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            value={value}
+            onValueChange={onValueChange}
             className='appitsy-component'
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as PasswordProps)}
           />
         );
@@ -172,7 +180,8 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
           <Panel
             className='appitsy-component'
             renderChildComponent={this.renderComponent.bind(this)}
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as PanelProps)}
           />
         );
@@ -183,7 +192,8 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
           <Tabs
             className='appitsy-component'
             renderChildComponent={this.renderComponent.bind(this)}
-            key={key}
+            key={componentPath}
+            path={componentPath}
             {...(componentSchema as TabsProps)}
           />
         );
@@ -194,9 +204,10 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
           <Table
             className='appitsy-component'
             renderChildComponent={this.renderComponent.bind(this)}
-            key={key}
-            value={this.state[component.name]}
-            onValueChange={(value: any) => this.handleChange(component, value)}
+            key={componentPath}
+            path={componentPath}
+            value={value}
+            onValueChange={onValueChange}
             {...(componentSchema as TableProps)}
           />
         );
@@ -214,15 +225,11 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
   }
 
   public renderChildren() {
-    return this.props.schema.map((component, index) => this.renderComponent(component, 'root-' + index));
+    return this.props.schema.map((component) => this.renderComponent(component));
   }
 
   public renderRoot() {
     return (<StyledPage>{this.renderChildren()}</StyledPage>);
-  }
-
-  public renderLayoutChildren(childComponents: ComponentSchema[], parentSchema: ComponentSchema) {
-    return childComponents.map((panelChild, childIndex) => this.renderComponent(panelChild, parentSchema.name + '-child-' + childIndex));
   }
 
   public render() {
