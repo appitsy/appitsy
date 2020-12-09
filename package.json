@@ -1,6 +1,6 @@
 {
   "name": "appitsy",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Made with create-react-library",
   "author": "parasgera",
   "license": "MIT",
@@ -9,17 +9,16 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack --mode development && npm run buildThemes",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && npm run buildThemes && shx cp package.json dist/",
     "buildThemes": "node-sass src/themes/bootstrap.scss dist/themes/bootstrap.css && node-sass src/themes/foundation.scss dist/themes/foundation.css",
-    "clean": "shx rm -rf _bundles lib lib-esm",
-    "prepare": "run-s build",
+    "clean": "shx rm -rf dist lib lib-esm",
+    "pack": "npm run build && npm pack ./dist",
     "dev": "webpack-cli serve --mode development --config ./webpack.dev.config.js --entry ./example/src/index.tsx",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
     "test:lint": "eslint .",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
@@ -47,6 +46,7 @@
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "foundation-sites": "^6.6.3",
     "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.5.0",
     "npm-run-all": "^4.1.5",
@@ -63,9 +63,6 @@
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",

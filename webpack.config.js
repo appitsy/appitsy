@@ -5,7 +5,7 @@ module.exports = {
     'appitsy': './src/index.ts',
   },
   output: {
-    path: path.resolve(__dirname, '_bundles'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     libraryTarget: 'umd',
     library: 'appitsy',
@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     index: 'example/public/index.html'
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
