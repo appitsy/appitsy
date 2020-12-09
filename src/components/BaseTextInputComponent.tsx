@@ -95,7 +95,9 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
 
     return (
         <Flex className={classes} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
-            <Label for={props.name} text={props.name} tooltip={props.display?.tooltip} />
+            {
+              props.display?.hideLabel === true ? null : (<Label for={props.name} text={props.display?.label || props.name} tooltip={props.display?.tooltip} />)
+            }
             {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
             <Flex flexDirection={'column'}>
                 { props.display?.prefix || props.display?.suffix ? wrapInPrefixSuffix(childEl) : childEl }

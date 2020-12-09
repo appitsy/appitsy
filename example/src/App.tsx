@@ -17,10 +17,16 @@ const schema: ComponentSchema[] = [
         {
           name: 'table-textField1',
           type: 'text',
+          display: {
+            label: '1st Text Field in Table'
+          }
         },
         {
           name: 'table-textField2',
           type: 'text',
+          display: {
+            label: '2nd Text Field in Table'
+          }
         },
       ]
     }
@@ -177,16 +183,16 @@ const schema: ComponentSchema[] = [
     ]
   },
   {
-    name: 'button1',
-    type: 'button',
-    text: 'Submit',
-  },
-  {
     name: 'errorButton',
     type: 'button',
     text: 'Error!',
     style: "warning",
-  }
+  },
+  {
+    name: 'button1',
+    type: 'button',
+    text: 'Submit',
+  },
 ];
 
 const data = {

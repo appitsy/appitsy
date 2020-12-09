@@ -24,6 +24,7 @@ export interface Condition {
 
 export interface BaseComponentDisplayProps {
   label?: string;
+  hideLabel?: boolean;
   condition?: Condition;
 }
 
