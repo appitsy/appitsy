@@ -7,6 +7,7 @@ import {
 import { AppComponent } from '../../types/AppComponent';
 import { TabsProps } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
+import { appendComponentPath, getParentComponentPath } from '../../utilities/ComponentPath';
 
 interface TabsComponentProps extends TabsProps {
   className?: string;
@@ -25,7 +26,14 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
         <TabPanel>
           {
             tab.components?.map(c => {
-              const tabPath = props.path ? `${props.path}.${tab.name}` : c.name;
+              let tabPath;
+              if (props.path) {
+                const parentPath = props.data?.flattenDataWithParent === true ? getParentComponentPath(props.path) : props.path;
+                tabPath = appendComponentPath(parentPath, tab.name);
+              } else {
+                tabPath = tab.name;
+              }
+
               return props.renderChildComponent(c, tabPath);
             })
           }

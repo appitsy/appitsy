@@ -34,6 +34,9 @@ const schema: ComponentSchema[] = [
   {
     name: 'tabs1',
     type: 'tabs',
+    data: {
+      flattenDataWithParent: true,
+    },
     components: [
       {
         name: 'tab1',
@@ -100,24 +103,8 @@ const schema: ComponentSchema[] = [
         },
         components: [
           {
-            name: 'numberfield1',
-            type: 'number',
-            display: {
-              disabled: true,
-              condition: {
-                expression: 'state.textField1 === "hello"'
-              }
-            },
-            data: {
-              defaultValue: 0,
-            },
-            validations: {
-              required: true,
-              minLength: 2,
-              maxLength: 4,
-              min: 100,
-              max: 200
-            }
+            name: 'text9',
+            type: 'text',
           },
         ]
       }
@@ -201,18 +188,18 @@ const data = {
       'table-textField1': 'table-textField1=1',
     }
   ],
-  tabs1: {
-    tab1: {
-      textField1: 'hello override',
-      email1: 'abc@override.com'
-    },
+  tab1: {
+    textField1: 'hello override',
+    email1: 'abc@override.com'
   },
-  textField2: 'my custom textarea2'
 }
 
 
 const App = () => {
-  return <Renderer schema={schema} data={data} />
+  const submit = (data: any) => {
+    alert(JSON.stringify(data));
+  }
+  return <Renderer schema={schema} data={data} onSubmit={submit} />
 }
 
 export default App

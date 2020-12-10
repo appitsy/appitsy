@@ -31,6 +31,7 @@ import Tabs from '../Layout/Tabs';
 import { Table } from '../Data';
 import { TableProps } from '../../types/DataComponentSchema';
 import _ from 'lodash';
+import ReactTooltip from 'react-tooltip';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -45,6 +46,7 @@ const StyledPage = Styled.div`
 export type RendererProps = {
   schema: ComponentSchema[];
   data?: any;
+  onSubmit(data: any): void;
 };
 
 export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T> {
@@ -52,14 +54,14 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
 
   validateComponentName = (_componentName: string) => true;
 
-  handleChange = (componentPath: string, value: any) => {
+  handleChange = (componentPath: string, value: any): void => {
     const newState = { ...this.state };
     _.set(newState, componentPath, value);
     this.setState(newState);
   };
 
   handleClick = () => {
-    alert(JSON.stringify(this.state));
+    this.props.onSubmit(this.state);
   };
 
   shouldShow = (condition: Condition) => {
@@ -229,7 +231,12 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
   }
 
   public renderRoot() {
-    return (<StyledPage>{this.renderChildren()}</StyledPage>);
+    return (
+      <StyledPage>
+        {this.renderChildren()}
+        <ReactTooltip />
+      </StyledPage>
+    );
   }
 
   public render() {
