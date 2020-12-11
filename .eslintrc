@@ -28,6 +28,8 @@
     "react/jsx-props-no-spreading": 0,
     "@typescript-eslint/no-unsafe-assignment": 0,
     "react/jsx-fragments": 0,
-    "arrow-parens": 0
+    "arrow-parens": 0,
+    "quotes": [1, "single", { "avoidEscape": true }],
+    "jsx-quotes": [2, "prefer-single"]
   }
 }

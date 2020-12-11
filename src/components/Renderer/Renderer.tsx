@@ -100,6 +100,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
 
     // check for logic
     const logicResult = EvaluateLogic(component, this.state);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (logicResult.value && logicResult.value !== this.state[componentPath]) {
       this.handleChange(componentPath, logicResult.value);
     }
@@ -107,7 +108,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     const componentSchema = { ...component, ...logicResult.schema };
 
     const value = _.get(this.state, componentPath);
-    const onValueChange = (value: any) => this.handleChange(componentPath, value);
+    const onValueChange = (val: any) => this.handleChange(componentPath, val);
 
     const componentType = component.type.toLowerCase();
     switch (componentType) {
