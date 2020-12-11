@@ -50,30 +50,63 @@ export type RendererProps = {
   onSubmit?: (data: any) => void;
 };
 
-export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T> {
-  state: any = this.props.data || {};
+interface RendererState {
+  schema: ComponentSchema[];
+  data: any;
+}
+
+export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T, RendererState> {
+  constructor(props: RendererProps) {
+    super(props as any);
+    this.state = {
+      data: this.props.data || {},
+      schema: this.props.schema,
+    };
+  }
+
+  shouldComponentUpdate(nextProps: RendererProps) {
+    return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
+  }
+
+  componentDidUpdate(previousProps: RendererProps): void {
+    if (previousProps.data !== this.props.data) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        data: this.props.data || {},
+      });
+    }
+
+    if (previousProps.schema !== this.props.schema) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        schema: this.props.schema,
+      });
+    }
+  }
 
   validateComponentName = (_componentName: string) => true;
 
   handleChange = (componentPath: string, value: any): void => {
-    const newState = { ...this.state };
-    _.set(newState, componentPath, value);
-    this.setState(newState);
+    const newStateData = { ...this.state.data };
+    _.set(newStateData, componentPath, value);
+    this.setState({
+      data: newStateData,
+    });
 
     if (this.props.onDataChange) {
-      this.props.onDataChange(newState);
+      this.props.onDataChange(newStateData);
     }
   };
 
   handleClick = () => {
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.state);
+      this.props.onSubmit(this.state.data);
     }
   };
 
   shouldShow = (condition: Condition) => {
     if (condition.expression) {
-      return evaluate(condition.expression, { state: this.state });
+      return evaluate(condition.expression, { data: this.state.data });
     }
 
     if (condition.dependency) {
@@ -82,12 +115,12 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         // could be comparing a string to a number too, which is ok
         // eslint-disable-next-line eqeqeq
         case 'eq':
-          show = this.state[condition.dependency.field] === condition.dependency.value;
+          show = this.state.data[condition.dependency.field] === condition.dependency.value;
           break;
         // could be comparing a string to a number too, which is ok
         // eslint-disable-next-line eqeqeq
         case 'neq':
-          show = this.state[condition.dependency.field] !== condition.dependency.value;
+          show = this.state.data[condition.dependency.field] !== condition.dependency.value;
           break;
       }
 
@@ -106,15 +139,15 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     const componentPath = parentPath ? `${parentPath}.${component.name}` : component.name;
 
     // check for logic
-    const logicResult = EvaluateLogic(component, this.state);
+    const logicResult = EvaluateLogic(component, this.state.data);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (logicResult.value && logicResult.value !== this.state[componentPath]) {
+    if (logicResult.value && logicResult.value !== this.state.data[componentPath]) {
       this.handleChange(componentPath, logicResult.value);
     }
 
     const componentSchema = { ...component, ...logicResult.schema };
 
-    const value = _.get(this.state, componentPath);
+    const value = _.get(this.state.data, componentPath);
     const onValueChange = (val: any) => this.handleChange(componentPath, val);
 
     const componentType = component.type.toLowerCase();

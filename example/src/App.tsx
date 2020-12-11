@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Renderer } from '../../src/components/Renderer/Renderer';
 import { ComponentSchema } from '../../src/types/ComponentSchema';
@@ -69,18 +69,18 @@ const schema: ComponentSchema[] = [
             data: {
               defaultValue: 'abc@a.com1',
             },
-            logic: [
-              {
-                name: 'logic1',
-                trigger: 'state.textField1 === "bye"',
-                actions: [
-                  {
-                    schema: { display: { disabled: true }},
-                    type: 'updateComponent'
-                  }
-                ]
-              }
-            ],
+            // logic: [
+            //   {
+            //     name: 'logic1',
+            //     trigger: 'state.textField1 === "bye"',
+            //     actions: [
+            //       {
+            //         schema: { display: { disabled: true }},
+            //         type: 'updateComponent'
+            //       }
+            //     ]
+            //   }
+            // ],
             display: {
               // condition: {
               //   dependency: {
@@ -182,7 +182,7 @@ const schema: ComponentSchema[] = [
   },
 ];
 
-const data = {
+const data: any = {
   'table 1': [
     {
       'table-textField1': 'table-textField1=1',
@@ -196,10 +196,12 @@ const data = {
 
 
 const App = () => {
-  const submit = (data: any) => {
-    alert(JSON.stringify(data));
+  const [dataState, ] = useState(data);
+  const [schemaState, setSchemaState] = useState(schema);
+  const submit = (_data: any) => {
+    alert(JSON.stringify(_data));
   }
-  return <Renderer schema={schema} data={data} onSubmit={submit} />
+  return <Renderer schema={schemaState} data={dataState} onSubmit={submit} />
 }
 
 export default App
