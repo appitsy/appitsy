@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
+import ReactTooltip from 'react-tooltip';
+import _ from 'lodash';
 import Styled from '../../Styled';
 
 import {
@@ -30,8 +32,6 @@ import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
 import { Table } from '../Data';
 import { TableProps } from '../../types/DataComponentSchema';
-import _ from 'lodash';
-import ReactTooltip from 'react-tooltip';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -46,7 +46,8 @@ const StyledPage = Styled.div`
 export type RendererProps = {
   schema: ComponentSchema[];
   data?: any;
-  onSubmit(data: any): void;
+  onDataChange?: (data: any) => void;
+  onSubmit?: (data: any) => void;
 };
 
 export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T> {
@@ -58,10 +59,16 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     const newState = { ...this.state };
     _.set(newState, componentPath, value);
     this.setState(newState);
+
+    if (this.props.onDataChange) {
+      this.props.onDataChange(newState);
+    }
   };
 
   handleClick = () => {
-    this.props.onSubmit(this.state);
+    if (this.props.onSubmit) {
+      this.props.onSubmit(this.state);
+    }
   };
 
   shouldShow = (condition: Condition) => {
