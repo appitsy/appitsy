@@ -197,7 +197,7 @@ const data: any = {
 
 const App = () => {
   const [dataState, ] = useState(data);
-  const [schemaState, setSchemaState] = useState(schema);
+  const [schemaState, ] = useState(schema);
   const submit = (_data: any) => {
     alert(JSON.stringify(_data));
   }

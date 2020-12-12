@@ -53,6 +53,7 @@ export type RendererProps = {
 interface RendererState {
   schema: ComponentSchema[];
   data: any;
+  rendererUpdating: boolean;
 }
 
 export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T, RendererState> {
@@ -61,6 +62,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     this.state = {
       data: this.props.data || {},
       schema: this.props.schema,
+      rendererUpdating: false,
     };
   }
 
@@ -68,25 +70,35 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
   }
 
-  componentDidUpdate(previousProps: RendererProps): void {
-    if (previousProps.data !== this.props.data) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        data: this.props.data || {},
-      });
+  static getDerivedStateFromProps(nextProps: RendererProps, currentState: RendererState): any {
+    const updatedState: any = {};
+
+    if (nextProps.data !== currentState.data) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      updatedState.data = nextProps.data || {};
     }
 
-    if (previousProps.schema !== this.props.schema) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        schema: this.props.schema,
-      });
+    if (nextProps.schema !== currentState.schema) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      updatedState.schema = nextProps.schema;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (updatedState.data !== undefined && updatedState.schema !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return updatedState;
+    }
+
+    return null;
   }
 
   validateComponentName = (_componentName: string) => true;
 
   handleChange = (componentPath: string, value: any): void => {
+    if (this.state.rendererUpdating === true) {
+      return;
+    }
+
     const newStateData = { ...this.state.data };
     _.set(newStateData, componentPath, value);
     this.setState({
