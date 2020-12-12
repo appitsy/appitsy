@@ -11,7 +11,7 @@ import classNames from 'classnames';
 interface TableComponentProps extends TableProps {
   className?: string;
   path?: string;
-  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
+  renderChildComponents: (components?: ComponentSchema[], parentPath?: string) => JSX.Element[];
   value: any[];
   onValueChange(value: any[]): void;
 }
@@ -45,6 +45,13 @@ const Table: AppComponent<TableComponentProps> = (props) => {
     props.onValueChange([...(props.value || []), {}]);
   };
 
+  const columns = props.data.columns.map((column) => {
+    const component = _.cloneDeep(column);
+    component.display = component.display === undefined ? {} : component.display;
+    component.display.hideLabel = true;
+    return component;
+  });
+
   return (
     <div className={classNames(['appitsy-table', props.className])}>
       <div>{props.display?.label}</div>
@@ -57,20 +64,20 @@ const Table: AppComponent<TableComponentProps> = (props) => {
             </TableHeaderColumn>
           ))}
         </TableHeader>
-        {props.value?.map((_row, rIdx) => {
+
+        {
+        props.value?.map((_row, rIdx) => {
           const rowPath = props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`;
+
           return (
             <TableRow>
-              {props.data.columns.map((column) => {
-                const component = _.cloneDeep(column);
-                component.display = component.display === undefined ? {} : component.display;
-                component.display.hideLabel = true;
-                return (
+              {
+                props.renderChildComponents(columns, rowPath).map(c => (
                   <TableRowColumn>
-                    {props.renderChildComponent(component, rowPath)}
+                    { c }
                   </TableRowColumn>
-                );
-              })}
+                ))
+              }
             </TableRow>
           );
         })}

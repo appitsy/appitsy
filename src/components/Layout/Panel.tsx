@@ -11,7 +11,7 @@ import { getParentComponentPath } from '../../utilities/ComponentPath';
 interface PanelComponentProps extends PanelProps {
   className?: string;
   path?: string;
-  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
+  renderChildComponents: (components?: ComponentSchema[], parentPath?: string) => JSX.Element[];
 }
 
 const PanelHeading = Styled.h5`
@@ -49,7 +49,7 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
         {props.display.title}
       </PanelHeading>
       <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
-        {state.expanded ? props.components?.map(c => props.renderChildComponent(c, path)) : null}
+        {state.expanded ? props.renderChildComponents(props.components, path) : null}
       </div>
     </div>
   );

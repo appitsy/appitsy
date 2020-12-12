@@ -40,7 +40,7 @@ export type TabsDisplayProps = BaseComponentDisplayProps;
 export type TabsDataProps = LayoutComponentDataProps;
 
 export interface TabsProps extends BaseComponentProps {
-  components?: TabSchema[];
+  tabs?: TabSchema[];
   display: TabsDisplayProps;
   data?: TabsDataProps;
 }

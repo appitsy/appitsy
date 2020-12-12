@@ -234,7 +234,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         return (
           <Panel
             className='appitsy-component'
-            renderChildComponent={this.renderComponent.bind(this)}
+            renderChildComponents={this.renderChildComponents.bind(this)}
             key={componentPath}
             path={componentPath}
             {...(componentSchema as PanelProps)}
@@ -246,7 +246,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         return (
           <Tabs
             className='appitsy-component'
-            renderChildComponent={this.renderComponent.bind(this)}
+            renderChildComponents={this.renderChildComponents.bind(this)}
             key={componentPath}
             path={componentPath}
             {...(componentSchema as TabsProps)}
@@ -258,7 +258,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         return (
           <Table
             className='appitsy-component'
-            renderChildComponent={this.renderComponent.bind(this)}
+            renderChildComponents={this.renderChildComponents.bind(this)}
             key={componentPath}
             path={componentPath}
             value={value}
@@ -290,6 +290,10 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         <ReactTooltip />
       </StyledPage>
     );
+  }
+
+  public renderChildComponents(childComponents?: ComponentSchema[], parentPath?: string): JSX.Element[] {
+    return childComponents?.map(c => this.renderComponent(c, parentPath)) || [];
   }
 
   public render() {

@@ -12,33 +12,31 @@ import { appendComponentPath, getParentComponentPath } from '../../utilities/Com
 interface TabsComponentProps extends TabsProps {
   className?: string;
   path?: string;
-  renderChildComponent: (component: ComponentSchema, parentPath?: string) => JSX.Element;
+  renderChildComponents: (component?: ComponentSchema[], parentPath?: string) => JSX.Element[];
 }
 
 const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
   <Tabs className={classNames(['appitsy-tabs', props.className])}>
     <TabList>
-      { props.components?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
+      { props.tabs?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
     </TabList>
 
     {
-      props.components?.map((tab) => (
-        <TabPanel>
-          {
-            tab.components?.map(c => {
-              let tabPath;
-              if (props.path) {
-                const parentPath = props.data?.flattenDataWithParent === true ? getParentComponentPath(props.path) : props.path;
-                tabPath = appendComponentPath(parentPath, tab.name);
-              } else {
-                tabPath = tab.name;
-              }
+      props.tabs?.map((tab) => {
+        let tabPath: string;
+        if (props.path) {
+          const parentPath = props.data?.flattenDataWithParent === true ? getParentComponentPath(props.path) : props.path;
+          tabPath = appendComponentPath(parentPath, tab.name);
+        } else {
+          tabPath = tab.name;
+        }
 
-              return props.renderChildComponent(c, tabPath);
-            })
-          }
-        </TabPanel>
-      ))
+        return (
+          <TabPanel>
+            { props.renderChildComponents(tab.components, tabPath) }
+          </TabPanel>
+        );
+      })
     }
 
   </Tabs>
