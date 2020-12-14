@@ -30,18 +30,14 @@ import {
 } from '../../types/InputComponentSchema';
 import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
-import { Container, Table } from '../Data';
-import { ContainerProps, TableProps } from '../../types/DataComponentSchema';
+import { ObjectComponent, Table } from '../Data';
+import { ObjectComponentProps, TableProps } from '../../types/DataComponentSchema';
 import { appendComponentPath } from '../../utilities/ComponentPath';
 
 const StyledPage = Styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 7px;
-    .appitsy-component {
-        margin: 7px;
-        width: calc(100% - 14px);
-    }
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
 `;
 
 export type RendererProps = {
@@ -275,14 +271,14 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
         );
       }
 
-      case Types.Container: {
+      case Types.ObjectComponent: {
         return (
-          <Container
+          <ObjectComponent
             className='appitsy-component'
             renderChildComponents={this.renderChildComponents.bind(this)}
             key={componentPath}
             path={componentPath}
-            {...(componentSchema as ContainerProps)}
+            {...(componentSchema as ObjectComponentProps)}
           />
         );
       }

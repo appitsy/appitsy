@@ -1,4 +1,4 @@
-import { ContainerTypeName, DataComponentType, TableTypeName } from './DataComponentSchema';
+import { ObjectComponentTypeName, DataComponentType, TableTypeName } from './DataComponentSchema';
 import {
   ButtonTypeName,
   EmailTypeName,
@@ -22,7 +22,7 @@ export const Types = {
   Tabs: TabsTypeName,
 
   Table: TableTypeName,
-  Container: ContainerTypeName,
+  ObjectComponent: ObjectComponentTypeName,
 };
 
 export type ComponentType =

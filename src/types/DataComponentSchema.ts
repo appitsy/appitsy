@@ -2,10 +2,10 @@ import { BaseComponentDataProps, BaseComponentDisplayProps, BaseComponentProps, 
 
 // DATA COMPONENTS
 export type TableType = 'table';
-export type ContainerType = 'container';
+export type ObjectComponentType = 'object';
 
 export const TableTypeName = 'table';
-export const ContainerTypeName = 'container';
+export const ObjectComponentTypeName = 'object';
 
 export interface TableDisplayProps extends BaseComponentDisplayProps {
   label: string;
@@ -24,18 +24,18 @@ export interface TableSchema extends TableProps, BaseComponentSchema {
   type: TableType,
 }
 
-export interface ContainerProps extends BaseComponentProps {
+export interface ObjectComponentProps extends BaseComponentProps {
   components?: ComponentSchema[];
 }
 
-export interface ContainerSchema extends ContainerProps, BaseComponentSchema {
-  type: ContainerType,
+export interface ObjectComponentSchema extends ObjectComponentProps, BaseComponentSchema {
+  type: ObjectComponentType,
 }
 
 export type DataComponentType =
   | TableType
-  | ContainerType;
+  | ObjectComponentType;
 
 export type DataComponentSchema =
   | TableSchema
-  | ContainerSchema;
+  | ObjectComponentSchema;

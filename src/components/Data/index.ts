@@ -1,4 +1,4 @@
 import Table from './Table';
-import Container from './Container';
+import ObjectComponent from './ObjectComponent';
 
-export { Table, Container };
+export { Table, ObjectComponent };

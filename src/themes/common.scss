@@ -12,6 +12,15 @@
   border-color: #aaa;
 }
 
+.appitsy-component  {
+  margin: 7px;
+  width: calc(100% - 14px);
+
+  &.appitsy-object{
+    margin: 0px;
+  }
+}
+
 .react-tabs__tab-list {
     border-bottom: none;
 }
