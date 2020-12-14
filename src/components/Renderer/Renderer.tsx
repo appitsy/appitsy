@@ -30,8 +30,8 @@ import {
 } from '../../types/InputComponentSchema';
 import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
-import { Table } from '../Data';
-import { TableProps } from '../../types/DataComponentSchema';
+import { Container, Table } from '../Data';
+import { ContainerProps, TableProps } from '../../types/DataComponentSchema';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -264,6 +264,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             value={value}
             onValueChange={onValueChange}
             {...(componentSchema as TableProps)}
+          />
+        );
+      }
+
+      case Types.Container: {
+        return (
+          <Container
+            className='appitsy-component'
+            renderChildComponents={this.renderChildComponents.bind(this)}
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as ContainerProps)}
           />
         );
       }

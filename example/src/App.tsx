@@ -22,11 +22,17 @@ const schema: ComponentSchema[] = [
           }
         },
         {
-          name: 'table-textField2',
-          type: 'text',
-          display: {
-            label: '2nd Text Field in Table'
-          }
+          name: 'table-textField2-container',
+          type: 'container',
+          components: [
+            {
+              name: 'table-textField2',
+              type: 'text',
+              display: {
+                hideLabel: true,
+              }
+            },
+          ]
         },
       ]
     }
@@ -186,6 +192,9 @@ const data: any = {
   'table 1': [
     {
       'table-textField1': 'table-textField1=1',
+      'table-textField2-container': {
+        'table-textField2': 'table-textField2-value'
+      }
     }
   ],
   tab1: {

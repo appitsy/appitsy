@@ -1,3 +1,4 @@
 import Table from './Table';
+import Container from './Container';
 
-export { Table }
+export { Table, Container };
