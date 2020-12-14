@@ -292,7 +292,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     );
   }
 
-  public renderChildComponents(childComponents?: ComponentSchema[], parentPath?: string): JSX.Element[] {
+  public renderChildComponents(childComponents?: ComponentSchema[], parentPath?: string, _parentComponent?: ComponentSchema): JSX.Element[] {
     return childComponents?.map(c => this.renderComponent(c, parentPath)) || [];
   }
 

@@ -5,14 +5,14 @@ import {
 } from 'react-tabs';
 
 import { AppComponent } from '../../types/AppComponent';
-import { TabsProps } from '../../types/LayoutComponentSchema';
+import { TabsProps, TabsTypeName } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
 import { appendComponentPath, getParentComponentPath } from '../../utilities/ComponentPath';
 
 interface TabsComponentProps extends TabsProps {
   className?: string;
   path?: string;
-  renderChildComponents: (component?: ComponentSchema[], parentPath?: string) => JSX.Element[];
+  renderChildComponents: (component?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
 }
 
 const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
@@ -33,7 +33,7 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
 
         return (
           <TabPanel>
-            { props.renderChildComponents(tab.components, tabPath) }
+            { props.renderChildComponents(tab.components, tabPath, { ...props, type: TabsTypeName } as ComponentSchema) }
           </TabPanel>
         );
       })

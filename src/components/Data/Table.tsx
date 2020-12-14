@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import { AppComponent } from '../../types/AppComponent';
-import { TableProps } from '../../types/DataComponentSchema';
+import { TableProps, TableTypeName } from '../../types/DataComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
 import { Button } from '../BasicComponents';
 import Styled from '../../Styled';
@@ -11,7 +11,7 @@ import classNames from 'classnames';
 interface TableComponentProps extends TableProps {
   className?: string;
   path?: string;
-  renderChildComponents: (components?: ComponentSchema[], parentPath?: string) => JSX.Element[];
+  renderChildComponents: (components?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
   value: any[];
   onValueChange(value: any[]): void;
 }
@@ -38,7 +38,7 @@ const TableRowColumn = Styled.td`
   }
 `;
 
-const Table: AppComponent<TableComponentProps> = (props) => {
+const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) => {
   // const [state, setState] = useState({});
 
   const addRow = () => {
@@ -72,7 +72,7 @@ const Table: AppComponent<TableComponentProps> = (props) => {
           return (
             <TableRow>
               {
-                props.renderChildComponents(columns, rowPath).map(c => (
+                props.renderChildComponents(columns, rowPath, { ...props, type: TableTypeName } as ComponentSchema).map(c => (
                   <TableRowColumn>
                     { c }
                   </TableRowColumn>

@@ -4,14 +4,14 @@ import Styled from '../../Styled';
 
 import Icon from '../BasicComponents/Icon';
 import { AppComponent } from '../../types/AppComponent';
-import { PanelProps } from '../../types/LayoutComponentSchema';
+import { PanelProps, PanelTypeName } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
 import { getParentComponentPath } from '../../utilities/ComponentPath';
 
 interface PanelComponentProps extends PanelProps {
   className?: string;
   path?: string;
-  renderChildComponents: (components?: ComponentSchema[], parentPath?: string) => JSX.Element[];
+  renderChildComponents: (components?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
 }
 
 const PanelHeading = Styled.h5`
@@ -49,7 +49,7 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
         {props.display.title}
       </PanelHeading>
       <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
-        {state.expanded ? props.renderChildComponents(props.components, path) : null}
+        {state.expanded ? props.renderChildComponents(props.components, path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
       </div>
     </div>
   );
