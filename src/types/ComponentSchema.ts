@@ -41,15 +41,17 @@ export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
 export type LabelPosition = 'left' | 'top';
 export type ErrorPosition = 'right' | 'bottom';
 
+export type Code = string;
+
 export interface LogicProps {
   name: string;
-  trigger: string;
+  trigger: Code;
   actions: LogicAction[];
 }
 
 export interface LogicAction {
   type: 'value' | 'updateComponent';
-  value?: string;
+  value?: Code;
   schema?: any;
 }
 

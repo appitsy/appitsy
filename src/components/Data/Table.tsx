@@ -7,6 +7,7 @@ import { ComponentSchema } from '../../types/ComponentSchema';
 import { Button } from '../BasicComponents';
 import Styled from '../../Styled';
 import classNames from 'classnames';
+import evaluate from '../../utilities/Evaluator';
 
 interface TableComponentProps extends TableProps {
   className?: string;
@@ -41,8 +42,16 @@ const TableRowColumn = Styled.td`
 const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) => {
   // const [state, setState] = useState({});
 
+  const addNewDefault = () => {
+    if (props.data.addNewDefault) {
+      return evaluate(props.data.addNewDefault);
+    }
+
+    return {};
+  };
+
   const addRow = () => {
-    props.onValueChange([...(props.value || []), {}]);
+    props.onValueChange([...(props.value || []), addNewDefault()]);
   };
 
   const columns = props.data.columns.map((column) => {

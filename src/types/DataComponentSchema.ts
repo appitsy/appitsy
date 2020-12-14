@@ -1,4 +1,4 @@
-import { BaseComponentDataProps, BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, ComponentSchema } from './ComponentSchema';
+import { BaseComponentDataProps, BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, Code, ComponentSchema } from './ComponentSchema';
 
 // DATA COMPONENTS
 export type TableType = 'table';
@@ -13,6 +13,7 @@ export interface TableDisplayProps extends BaseComponentDisplayProps {
 
 export interface TableDataProps extends BaseComponentDataProps {
   columns: ComponentSchema[];
+  addNewDefault?: Code;
 }
 
 export interface TableProps extends BaseComponentProps {
