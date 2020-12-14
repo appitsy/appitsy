@@ -32,6 +32,7 @@ import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
 import { Container, Table } from '../Data';
 import { ContainerProps, TableProps } from '../../types/DataComponentSchema';
+import { appendComponentPath } from '../../utilities/ComponentPath';
 
 const StyledPage = Styled.div`
     display: flex;
@@ -148,7 +149,13 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
       return <Fragment />;
     }
 
-    const componentPath = parentPath ? `${parentPath}.${component.name}` : component.name;
+    // if path overridden, use that
+    let componentPath: string;
+    if (component.data?.path !== undefined) {
+      componentPath = component.data?.path;
+    } else {
+      componentPath = (parentPath ? appendComponentPath(parentPath, component.name) : component.name);
+    }
 
     // check for logic
     const logicResult = EvaluateLogic(component, this.state.data);

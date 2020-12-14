@@ -6,7 +6,6 @@ import Icon from '../BasicComponents/Icon';
 import { AppComponent } from '../../types/AppComponent';
 import { PanelProps, PanelTypeName } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
-import { getParentComponentPath } from '../../utilities/ComponentPath';
 
 interface PanelComponentProps extends PanelProps {
   className?: string;
@@ -29,8 +28,6 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
     expanded: props.display?.expanded || true,
   });
 
-  const path = props.data?.flattenDataWithParent === true ? getParentComponentPath(props.path) : props.path;
-
   const toggleExpand = () => {
     if (!state.expandable) {
       return;
@@ -49,7 +46,7 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
         {props.display.title}
       </PanelHeading>
       <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
-        {state.expanded ? props.renderChildComponents(props.components, path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
+        {state.expanded ? props.renderChildComponents(props.components, props.path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
       </div>
     </div>
   );

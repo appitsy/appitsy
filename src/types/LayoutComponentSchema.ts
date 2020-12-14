@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import {
+  BaseComponentDataProps,
   BaseComponentDisplayProps,
   BaseComponentProps,
   BaseComponentSchema,
@@ -13,17 +14,13 @@ export type TabsType = 'tabs';
 export const PanelTypeName = 'panel';
 export const TabsTypeName = 'tabs';
 
-export interface LayoutComponentDataProps {
-  flattenDataWithParent?: boolean;
-}
-
 export interface PanelDisplayProps extends BaseComponentDisplayProps {
   title: string;
   expandable?: boolean;
   expanded?: boolean;
 }
 
-export type PanelDataProps = LayoutComponentDataProps;
+export type PanelDataProps = BaseComponentDataProps;
 
 export interface PanelProps extends BaseComponentProps {
   components?: ComponentSchema[];
@@ -37,7 +34,7 @@ export interface PanelSchema extends PanelProps, BaseComponentSchema {
 
 export type TabsDisplayProps = BaseComponentDisplayProps;
 
-export type TabsDataProps = LayoutComponentDataProps;
+export type TabsDataProps = BaseComponentDataProps;
 
 export interface TabsProps extends BaseComponentProps {
   components?: TabSchema[];

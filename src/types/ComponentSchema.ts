@@ -6,6 +6,7 @@ import { DataComponentSchema } from './DataComponentSchema';
 export interface BaseComponentProps {
   name: string;
   display?: BaseComponentDisplayProps;
+  data?: BaseComponentDataProps;
   logic?: LogicProps[];
 }
 
@@ -26,6 +27,10 @@ export interface BaseComponentDisplayProps {
   label?: string;
   hideLabel?: boolean;
   condition?: Condition;
+}
+
+export interface BaseComponentDataProps {
+  path?: string;
 }
 
 export interface ButtonDisplaySchema extends BaseComponentDisplayProps {

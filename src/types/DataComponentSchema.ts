@@ -1,4 +1,4 @@
-import { BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, ComponentSchema } from './ComponentSchema';
+import { BaseComponentDataProps, BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, ComponentSchema } from './ComponentSchema';
 
 // DATA COMPONENTS
 export type TableType = 'table';
@@ -11,7 +11,7 @@ export interface TableDisplayProps extends BaseComponentDisplayProps {
   label: string;
 }
 
-export interface TableDataProps {
+export interface TableDataProps extends BaseComponentDataProps {
   columns: ComponentSchema[];
 }
 

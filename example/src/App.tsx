@@ -41,7 +41,7 @@ const schema: ComponentSchema[] = [
     name: 'tabs1',
     type: 'tabs',
     data: {
-      flattenDataWithParent: true,
+      path: '',
     },
     components: [
       {
@@ -144,9 +144,6 @@ const schema: ComponentSchema[] = [
     name: 'textField2',
     type: 'custom',
     customType: 'my type',
-    data: {
-      defaultValue: 'hello textarea!',
-    },
     validations1: {
       required: true,
     }

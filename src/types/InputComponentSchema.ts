@@ -1,5 +1,5 @@
 import { BaseTextComponentValidations, TextFieldValidations, TextAreaValidations, PasswordValidations, NumberValidations } from "../utilities/Validations";
-import { BaseComponentDisplayProps, LabelPosition, ErrorPosition, BaseComponentProps, ButtonDisplaySchema, BaseComponentSchema } from "./ComponentSchema";
+import { BaseComponentDisplayProps, LabelPosition, ErrorPosition, BaseComponentProps, ButtonDisplaySchema, BaseComponentSchema, BaseComponentDataProps } from "./ComponentSchema";
 
 export interface BaseInputComponentDisplayProps extends BaseComponentDisplayProps {
   labelPosition?: LabelPosition;
@@ -16,19 +16,19 @@ export interface BaseTextInputComponentDisplayProps extends BaseInputComponentDi
   placeholder?: string;
 }
 
+export interface BaseInputComponentDataProps<T> extends BaseComponentDataProps {
+  defaultValue?: T;
+}
+
 export interface BaseInputComponentProps<T> extends BaseComponentProps {
   display?: BaseInputComponentDisplayProps;
-  data?: {
-    defaultValue?: T;
-  };
+  data?: BaseInputComponentDataProps<T>;
   validations?: BaseTextComponentValidations;
 }
 
 export interface BaseTextInputComponentProps<T> extends BaseInputComponentProps<T> {
   display?: BaseTextInputComponentDisplayProps;
-  data?: {
-    defaultValue?: T;
-  };
+  data?: BaseInputComponentDataProps<T>;
   validations?: BaseTextComponentValidations;
 }
 
