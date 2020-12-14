@@ -5,7 +5,7 @@ import {
 } from 'react-tabs';
 
 import { AppComponent } from '../../types/AppComponent';
-import { TabsProps, TabsTypeName } from '../../types/LayoutComponentSchema';
+import { TabsProps } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
 import { appendComponentPath, getParentComponentPath } from '../../utilities/ComponentPath';
 
@@ -18,11 +18,11 @@ interface TabsComponentProps extends TabsProps {
 const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
   <Tabs className={classNames(['appitsy-tabs', props.className])}>
     <TabList>
-      { props.tabs?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
+      { props.components?.map((tab) => <Tab>{tab.display?.label}</Tab>) }
     </TabList>
 
     {
-      props.tabs?.map((tab) => {
+      props.components?.map((tab) => {
         let tabPath: string;
         if (props.path) {
           const parentPath = props.data?.flattenDataWithParent === true ? getParentComponentPath(props.path) : props.path;
@@ -33,7 +33,7 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => (
 
         return (
           <TabPanel>
-            { props.renderChildComponents(tab.components, tabPath, { ...props, type: TabsTypeName } as ComponentSchema) }
+            { props.renderChildComponents(tab.components, tabPath, { ...tab } as ComponentSchema) }
           </TabPanel>
         );
       })

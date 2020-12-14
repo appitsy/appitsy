@@ -37,7 +37,7 @@ const schema: ComponentSchema[] = [
     data: {
       flattenDataWithParent: true,
     },
-    tabs: [
+    components: [
       {
         name: 'tab1',
         display: {

@@ -40,7 +40,7 @@ export type TabsDisplayProps = BaseComponentDisplayProps;
 export type TabsDataProps = LayoutComponentDataProps;
 
 export interface TabsProps extends BaseComponentProps {
-  tabs?: TabSchema[];
+  components?: TabSchema[];
   display: TabsDisplayProps;
   data?: TabsDataProps;
 }
@@ -53,9 +53,8 @@ export interface TabProps extends BaseComponentProps {
   components?: ComponentSchema[];
 }
 
-export interface TabSchema extends TabProps {
-  // don't extend from BaseComponentSchema as we don't want type to be added here
-}
+// don't extend from BaseComponentSchema as we don't want type to be added here
+export type TabSchema = TabProps;
 
 export type LayoutComponentType =
   | PanelType
