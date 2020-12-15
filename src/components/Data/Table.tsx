@@ -25,6 +25,7 @@ const TableHeaderColumn = Styled.th`
   text-align: left;
   padding: 5px 8px;
 `;
+
 const TableRowColumn = Styled.td`
   border: 1px solid #dddddd;
   text-align: left;
@@ -38,6 +39,16 @@ const TableRowColumn = Styled.td`
       box-shadow: none;
     }
   }
+`;
+
+const TableRowActions = Styled(TableRowColumn)`
+  border: 0;
+  width: 16px;
+  padding: 0px 4px;
+`;
+
+const TableRowActionButton = Styled(IconButton)`
+  line-height: 0;
 `;
 
 const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) => {
@@ -99,9 +110,18 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
           props.value?.map((_row, rIdx) => {
             const rowPath = props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`;
 
-            const moveUpButton = <IconButton key={`${props.name}[${rIdx}]-moveup`} icon='sort-up' onClick={() => moveUp(rIdx)} />;
-            const moveDownButton = <IconButton key={`${props.name}[${rIdx}]-movedown`} icon='sort-down' onClick={() => moveDown(rIdx)} />;
-            const deleteButton = <IconButton key={`${props.name}[${rIdx}]-delete`} icon='trash-alt' onClick={() => deleteRow(rIdx)} />;
+            let moveUpButton;
+            let moveDownButton;
+            let deleteButton;
+
+            if (props.data.allowSorting !== false) {
+              moveUpButton = <TableRowActionButton key={`${props.name}[${rIdx}]-moveup`} icon='caret-up' onClick={() => moveUp(rIdx)} />;
+              moveDownButton = <TableRowActionButton key={`${props.name}[${rIdx}]-movedown`} icon='caret-down' onClick={() => moveDown(rIdx)} />;
+            }
+
+            if (props.data.allowAddRemove !== false) {
+              deleteButton = <TableRowActionButton key={`${props.name}[${rIdx}]-delete`} icon='trash-alt' onClick={() => deleteRow(rIdx)} />;
+            }
 
             return (
               <TableRow>
@@ -112,15 +132,19 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
                     </TableRowColumn>
                   ))
                 }
-                { (rIdx > 0) ? moveUpButton : null }
-                { deleteButton }
-                { (rIdx < props.value.length - 1) ? moveDownButton : null }
+                <TableRowActions>
+                  { (rIdx > 0) ? moveUpButton : null }
+                  { (rIdx < props.value.length - 1) ? moveDownButton : null }
+                </TableRowActions>
+                <TableRowActions>
+                  { deleteButton }
+                </TableRowActions>
               </TableRow>
             );
           })
         }
       </table>
-      <Button name='add' onClick={addRow} text='+ Add' />
+      { props.data.allowAddRemove !== false ? (<Button name='add' onClick={addRow} text='+ Add' />) : null }
     </div>
   );
 };

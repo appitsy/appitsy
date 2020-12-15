@@ -197,6 +197,12 @@ const data: any = {
       'table-textField2-object': {
         'table-textField2': 'table-textField2-value'
       }
+    },
+    {
+      'table-textField1': 'table-textField1=2',
+      'table-textField2-object': {
+        'table-textField2': 'phhh'
+      }
     }
   ],
   tab1: {
