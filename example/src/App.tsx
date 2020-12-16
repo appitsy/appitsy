@@ -213,10 +213,13 @@ const data: any = {
 
 
 const App = () => {
-  const [dataState, ] = useState(data);
+  const [dataState, setData] = useState(data);
   const [schemaState, ] = useState(schema);
   const submit = (_data: any) => {
     alert(JSON.stringify(_data));
+    setData({...data, ...{
+      'table 1': [],
+    }})
   }
   return <Renderer schema={schemaState} data={dataState} onSubmit={submit} />
 }

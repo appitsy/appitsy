@@ -81,7 +81,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (updatedState.data !== undefined && updatedState.schema !== undefined) {
+    if (updatedState.data !== undefined || updatedState.schema !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return updatedState;
     }
