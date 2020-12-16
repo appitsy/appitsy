@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import Styled from '../../Styled';
 
-import Icon from '../BasicComponents/Icon';
+import Icon from '../Basic/Icon';
 import { AppComponent } from '../../types/AppComponent';
 import { PanelProps, PanelTypeName } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import Label from './BasicComponents/Label';
-import ErrorLabel from './BasicComponents/ErrorLabel';
+import Label from './Basic/Label';
+import ErrorLabel from './Basic/ErrorLabel';
 import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
-import Description from './BasicComponents/Description';
+import Description from './Basic/Description';
 import { BaseTextInputComponentProps } from '../types/InputComponentSchema';
 
 interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {

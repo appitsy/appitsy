@@ -15,7 +15,7 @@ import {
   Email,
   Button,
   Password,
-} from '../BasicComponents';
+} from '../Basic';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
 import evaluate from '../../utilities/Evaluator';

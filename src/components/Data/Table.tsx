@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { AppComponent } from '../../types/AppComponent';
 import { TableProps, TableTypeName } from '../../types/DataComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
-import { Button, IconButton } from '../BasicComponents';
+import { Button, IconButton } from '../Basic';
 import Styled from '../../Styled';
 import evaluate from '../../utilities/Evaluator';
 

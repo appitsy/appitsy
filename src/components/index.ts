@@ -1,2 +1,2 @@
-export * from './BasicComponents';
+export * from './Basic';
 export * from './Layout';
