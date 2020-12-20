@@ -1,11 +1,12 @@
-// eslint-disable-next-line import/no-cycle
 import {
-  BaseComponentDataProps,
   BaseComponentDisplayProps,
+  BaseComponentDataProps,
   BaseComponentProps,
   BaseComponentSchema,
-  ComponentSchema,
-} from './ComponentSchema';
+} from './BaseComponentSchema';
+
+// eslint-disable-next-line import/no-cycle
+import { ComponentSchema } from './ComponentSchema';
 
 // LAYOUT COMPONENTS
 export type PanelType = 'panel';
@@ -55,10 +56,7 @@ export type TabSchema = TabProps;
 
 export type LayoutComponentType =
   | PanelType
-  | TabsType
-  ;
-
+  | TabsType;
 export type LayoutComponentSchema =
   | PanelSchema
-  | TabsSchema
-  ;
+  | TabsSchema;

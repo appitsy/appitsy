@@ -8,6 +8,7 @@ import Button from './Button';
 import Email from './Email';
 import Icon from './Icon';
 import IconButton from './IconButton';
+import Checkbox from './Checkbox';
 
 export {
   TextField,
@@ -20,4 +21,5 @@ export {
   Email,
   Icon,
   IconButton,
+  Checkbox,
 };

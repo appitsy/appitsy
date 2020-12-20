@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
-import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 import Styled from '../../Styled';
 
 import {
-  Condition,
   ComponentSchema,
 } from '../../types/ComponentSchema';
 import {
@@ -15,6 +13,7 @@ import {
   Email,
   Button,
   Password,
+  Checkbox,
 } from '../Basic';
 import { Types } from '../../types/Types';
 import Panel from '../Layout/Panel';
@@ -27,12 +26,15 @@ import {
   NumberProps,
   ButtonProps,
   PasswordProps,
+  CheckboxProps,
 } from '../../types/InputComponentSchema';
 import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
 import { ObjectComponent, Table } from '../Data';
 import { ObjectComponentProps, TableProps } from '../../types/DataComponentSchema';
 import { appendComponentPath } from '../../utilities/ComponentPath';
+import { Condition } from '../../types/BaseComponentSchema';
+import ReactTooltip from 'react-tooltip';
 
 const StyledPage = Styled.div`
   display: flex;
@@ -230,6 +232,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             key={componentPath}
             path={componentPath}
             {...(componentSchema as PasswordProps)}
+          />
+        );
+
+      case Types.Checkbox:
+        return (
+          <Checkbox
+            value={value}
+            onValueChange={onValueChange}
+            className='appitsy-component'
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as CheckboxProps)}
           />
         );
 

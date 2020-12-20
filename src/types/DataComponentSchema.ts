@@ -1,4 +1,12 @@
-import { BaseComponentDataProps, BaseComponentDisplayProps, BaseComponentProps, BaseComponentSchema, Code, ComponentSchema } from './ComponentSchema';
+import {
+  BaseComponentDisplayProps,
+  BaseComponentDataProps,
+  Code,
+  BaseComponentProps,
+  BaseComponentSchema,
+} from './BaseComponentSchema';
+// eslint-disable-next-line import/no-cycle
+import { ComponentSchema } from './ComponentSchema';
 
 // DATA COMPONENTS
 export type TableType = 'table';

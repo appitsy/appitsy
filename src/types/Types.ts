@@ -1,6 +1,7 @@
 import { ObjectComponentTypeName, DataComponentType, TableTypeName } from './DataComponentSchema';
 import {
   ButtonTypeName,
+  CheckboxTypeName,
   EmailTypeName,
   InputComponentType,
   NumberTypeName,
@@ -16,6 +17,7 @@ export const Types = {
   Email: EmailTypeName,
   Number: NumberTypeName,
   Password: PasswordTypeName,
+  Checkbox: CheckboxTypeName,
   Button: ButtonTypeName,
 
   Panel: PanelTypeName,

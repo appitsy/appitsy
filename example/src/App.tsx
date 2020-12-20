@@ -7,6 +7,13 @@ import '../../src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {
+    type: 'checkbox',
+    name: 'Checbox1',
+    display: {
+      label: 'My Checkbox',
+    },
+  },
+  {
     name: 'table 1',
     type: 'table',
     display: {
@@ -221,7 +228,12 @@ const App = () => {
       'table 1': [],
     }})
   }
-  return <Renderer schema={schemaState} data={dataState} onSubmit={submit} />
+
+  const changeData = (data: any) => {
+    setData(data);
+  }
+
+  return <Renderer schema={schemaState} data={dataState} onSubmit={submit} onDataChange={changeData} />
 }
 
 export default App

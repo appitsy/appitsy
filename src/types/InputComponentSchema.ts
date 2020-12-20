@@ -1,19 +1,35 @@
-import { BaseTextComponentValidations, TextFieldValidations, TextAreaValidations, PasswordValidations, NumberValidations } from "../utilities/Validations";
-import { BaseComponentDisplayProps, LabelPosition, ErrorPosition, BaseComponentProps, ButtonDisplaySchema, BaseComponentSchema, BaseComponentDataProps } from "./ComponentSchema";
+import {
+  BaseTextComponentValidations,
+  TextFieldValidations,
+  TextAreaValidations,
+  PasswordValidations,
+  NumberValidations,
+  CheckboxValidations,
+  MultiCheckboxValidations,
+  BaseInputComponentValidations,
+} from '../utilities/Validations';
+import {
+  BaseComponentDisplayProps,
+  LabelPosition,
+  ErrorPosition,
+  BaseComponentDataProps,
+  BaseComponentProps,
+  BaseComponentSchema,
+} from './BaseComponentSchema';
 
 export interface BaseInputComponentDisplayProps extends BaseComponentDisplayProps {
   labelPosition?: LabelPosition;
   errorPosition?: ErrorPosition;
   description?: string;
   tooltip?: string;
-  prefix?: string;
-  suffix?: string;
   disabled?: boolean;
   hidden?: boolean;
 }
 
 export interface BaseTextInputComponentDisplayProps extends BaseInputComponentDisplayProps {
   placeholder?: string;
+  prefix?: string;
+  suffix?: string;
 }
 
 export interface BaseInputComponentDataProps<T> extends BaseComponentDataProps {
@@ -23,7 +39,7 @@ export interface BaseInputComponentDataProps<T> extends BaseComponentDataProps {
 export interface BaseInputComponentProps<T> extends BaseComponentProps {
   display?: BaseInputComponentDisplayProps;
   data?: BaseInputComponentDataProps<T>;
-  validations?: BaseTextComponentValidations;
+  validations?: BaseInputComponentValidations;
 }
 
 export interface BaseTextInputComponentProps<T> extends BaseInputComponentProps<T> {
@@ -52,7 +68,20 @@ export interface NumberProps extends BaseTextInputComponentProps<number> {
   validations?: NumberValidations;
 }
 
+export interface CheckboxProps extends BaseInputComponentProps<boolean> {
+  validations?: CheckboxValidations;
+}
+
+export interface MultiCheckboxProps extends BaseInputComponentProps<boolean[]> {
+  validations?: MultiCheckboxValidations;
+}
+
 export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
+
+export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
+  leftIcon?: string;
+  rightIcon?: string;
+}
 
 export interface ButtonProps extends BaseComponentProps {
   text: string;
@@ -67,6 +96,8 @@ export const PasswordTypeName = 'password';
 export const NumberTypeName = 'number';
 export const EmailTypeName = 'email';
 export const ButtonTypeName = 'button';
+export const CheckboxTypeName = 'checkbox';
+export const MultiCheckboxTypeName = 'multi-checkbox';
 
 export type TextFieldType = 'text';
 export type TextAreaType = 'textarea';
@@ -74,6 +105,8 @@ export type PasswordType = 'password';
 export type NumberType = 'number';
 export type EmailType = 'email';
 export type ButtonType = 'button';
+export type CheckboxType = 'checkbox';
+export type MultiCheckboxType = 'multi-checkbox';
 
 export interface TextFieldSchema extends TextFieldProps, BaseComponentSchema {
   type: TextFieldType;
@@ -98,6 +131,14 @@ export interface PasswordSchema extends PasswordProps, BaseComponentSchema {
   type: PasswordType,
 }
 
+export interface CheckboxSchema extends CheckboxProps, BaseComponentSchema {
+  type: CheckboxType,
+}
+
+export interface MultiCheckboxSchema extends MultiCheckboxProps, BaseComponentSchema {
+  type: MultiCheckboxType,
+}
+
 export type InputComponentType =
   | TextFieldType
   | TextAreaType
@@ -105,7 +146,8 @@ export type InputComponentType =
   | EmailType
   | ButtonType
   | PasswordType
-  ;
+  | CheckboxType
+  | MultiCheckboxType;
 
 export type InputComponentSchema =
   | TextFieldSchema
@@ -114,4 +156,5 @@ export type InputComponentSchema =
   | EmailSchema
   | ButtonSchema
   | PasswordSchema
-  ;
+  | CheckboxSchema
+  | MultiCheckboxSchema;

@@ -1,4 +1,4 @@
-import { BaseComponentProps } from "./ComponentSchema";
+import { BaseComponentProps } from './BaseComponentSchema';
 
 export interface CustomComponentSchema extends BaseComponentProps {
   type: string;
