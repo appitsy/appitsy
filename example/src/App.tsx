@@ -40,10 +40,11 @@ const schema: ComponentSchema[] = [
     name: 'table 1',
     type: 'table',
     display: {
-      label: 'Table 1'
+      label: 'Table 1',
     },
     data: {
       addNewDefault: '({ "table-textField1": "my add new default", "table-textField2-object": { "table-textField2": uuid() } })',
+      atleastOneRow: true,
       columns: [
         {
           name: 'table-textField1',

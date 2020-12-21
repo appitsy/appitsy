@@ -21,6 +21,7 @@ export interface TableDisplayProps extends BaseComponentDisplayProps {
 
 export interface TableDataProps extends BaseComponentDataProps {
   columns: ComponentSchema[];
+  atleastOneRow?: boolean;
   addNewDefault?: Code;
   allowSorting?: boolean;
   allowAddRemove?: boolean;

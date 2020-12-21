@@ -93,6 +93,10 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
     return component;
   });
 
+  if (props.data.atleastOneRow === true && props.value?.length === 0) {
+    props.onValueChange([{}]);
+  }
+
   return (
     <div className={classNames(['appitsy-table', props.className])}>
       <div>{props.display?.label}</div>
@@ -134,7 +138,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
                 }
                 <TableRowActions>
                   { (rIdx > 0) ? moveUpButton : null }
-                  { (rIdx < props.value.length - 1) ? moveDownButton : null }
+                  { (rIdx < props.value?.length - 1) ? moveDownButton : null }
                 </TableRowActions>
                 <TableRowActions>
                   { deleteButton }
@@ -151,10 +155,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
 
 Table.validateSchema = (_component: any) => true;
 
-Table.checkRerender = (_prevProps, _nextProps) => {
-  // return _.isEqual(prevProps.value, nextProps.value);
-  return false;
-};
+Table.checkRerender = (_prevProps, _nextProps) => false;
 
 Table.defaultProps = {
   display: {
