@@ -14,6 +14,29 @@ const schema: ComponentSchema[] = [
     },
   },
   {
+    type: 'multi-checkbox',
+    name: 'multi-Checbox1',
+    display: {
+      label: 'My Checkbox',
+    },
+    data: {
+      checkboxes: [
+        {
+          name: 'ch1',
+          label: 'Check1'
+        },
+        {
+          name: 'ch2',
+          label: 'Check2'
+        },
+        {
+          name: 'ch3',
+          label: 'Check3'
+        }
+      ]
+    }
+  },
+  {
     name: 'table 1',
     type: 'table',
     display: {
@@ -224,9 +247,9 @@ const App = () => {
   const [schemaState, ] = useState(schema);
   const submit = (_data: any) => {
     alert(JSON.stringify(_data));
-    setData({...data, ...{
-      'table 1': [],
-    }})
+    // setData({...data, ...{
+    //   'table 1': [],
+    // }})
   }
 
   const changeData = (data: any) => {

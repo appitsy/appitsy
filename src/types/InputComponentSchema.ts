@@ -72,7 +72,18 @@ export interface CheckboxProps extends BaseInputComponentProps<boolean> {
   validations?: CheckboxValidations;
 }
 
-export interface MultiCheckboxProps extends BaseInputComponentProps<boolean[]> {
+interface Checkbox {
+  name: string;
+  label: string;
+  defaultValue?: boolean;
+}
+
+export interface MultiCheckboxDataProps extends BaseInputComponentDataProps<any> {
+  checkboxes?: Checkbox[];
+}
+
+export interface MultiCheckboxProps extends BaseInputComponentProps<any> {
+  data?: MultiCheckboxDataProps;
   validations?: MultiCheckboxValidations;
 }
 

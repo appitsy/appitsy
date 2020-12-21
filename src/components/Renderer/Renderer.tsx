@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
 import _ from 'lodash';
+import ReactTooltip from 'react-tooltip';
 import Styled from '../../Styled';
 
 import {
@@ -34,7 +35,7 @@ import { ObjectComponent, Table } from '../Data';
 import { ObjectComponentProps, TableProps } from '../../types/DataComponentSchema';
 import { appendComponentPath } from '../../utilities/ComponentPath';
 import { Condition } from '../../types/BaseComponentSchema';
-import ReactTooltip from 'react-tooltip';
+import MultiCheckbox from '../Basic/MultiCheckbox';
 
 const StyledPage = Styled.div`
   display: flex;
@@ -121,7 +122,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     }
 
     if (condition.dependency) {
-      var show = false;
+      let show = false;
       switch (condition.dependency.op) {
         // could be comparing a string to a number too, which is ok
         // eslint-disable-next-line eqeqeq
@@ -221,7 +222,8 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             className='appitsy-component'
             key={componentPath}
             path={componentPath}
-            {...(componentSchema as any as ButtonProps)} />
+            {...(componentSchema as ButtonProps)}
+          />
         );
       case Types.Password:
         return (
@@ -238,6 +240,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
       case Types.Checkbox:
         return (
           <Checkbox
+            value={value}
+            onValueChange={onValueChange}
+            className='appitsy-component'
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as CheckboxProps)}
+          />
+        );
+
+      case Types.MultiCheckbox:
+        return (
+          <MultiCheckbox
             value={value}
             onValueChange={onValueChange}
             className='appitsy-component'

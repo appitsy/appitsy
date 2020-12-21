@@ -4,6 +4,7 @@ import {
   CheckboxTypeName,
   EmailTypeName,
   InputComponentType,
+  MultiCheckboxTypeName,
   NumberTypeName,
   PasswordTypeName,
   TextAreaTypeName,
@@ -18,6 +19,7 @@ export const Types = {
   Number: NumberTypeName,
   Password: PasswordTypeName,
   Checkbox: CheckboxTypeName,
+  MultiCheckbox: MultiCheckboxTypeName,
   Button: ButtonTypeName,
 
   Panel: PanelTypeName,

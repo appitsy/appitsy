@@ -6,7 +6,7 @@ import { Flex } from './Layout/Flex';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './Basic/Description';
 import {
-  BaseInputComponentProps, CheckboxType, CheckboxTypeName, MultiCheckboxType, MultiCheckboxTypeName,
+  BaseInputComponentProps, CheckboxType, CheckboxTypeName, MultiCheckboxProps, MultiCheckboxType, MultiCheckboxTypeName,
 } from '../types/InputComponentSchema';
 import Label from './Basic/Label';
 import Styled from '../Styled';
@@ -68,6 +68,32 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       );
       break;
     case MultiCheckboxTypeName:
+      {
+        const value = props.value || props.data?.defaultValue || props.defaultValue || {};
+        const checkboxes = (props as MultiCheckboxProps).data?.checkboxes;
+        const checkboxesEl = checkboxes?.map((c, idx) => {
+          const onMultiCheckboxChange = (val: boolean) => onChange({
+            ...(props.value as any),
+            [c.name]: val,
+          });
+
+          return (
+            <div>
+              <CheckboxInput
+                type='checkbox'
+                id={`${props.name}-${idx}`}
+                name={props.name}
+                checked={(value[c.name] || false)}
+                onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
+              />
+              <Label for={`${props.name}-${idx}`} text={c.label} />
+            </div>
+          );
+        });
+
+        const errorLabel = <ErrorLabel error={validationError} />;
+        childEl = [...(checkboxesEl || []), errorLabel];
+      }
       break;
     default:
       childEl = <span>Unknown Input Component</span>;
