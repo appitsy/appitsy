@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import classNames from 'classnames';
 
-import ErrorLabel from './Basic/ErrorLabel';
-import { Flex } from './Layout/Flex';
+import Styled from '../Styled';
+import {
+  BaseInputComponentProps,
+  CheckboxType,
+  CheckboxTypeName,
+  MultiCheckboxProps,
+  MultiCheckboxType,
+  MultiCheckboxTypeName,
+} from '../types/InputComponentSchema';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './Basic/Description';
-import {
-  BaseInputComponentProps, CheckboxType, CheckboxTypeName, MultiCheckboxProps, MultiCheckboxType, MultiCheckboxTypeName,
-} from '../types/InputComponentSchema';
+import ErrorLabel from './Basic/ErrorLabel';
 import Label from './Basic/Label';
-import Styled from '../Styled';
+import { Flex } from './Layout/Flex';
 
 interface BaseInputProps<T> extends BaseInputComponentProps<T> {
   inputType: CheckboxType | MultiCheckboxType;
@@ -60,7 +69,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
             id={props.name}
             name={props.name}
             checked={props.value as boolean}
-            onChange={(evt) => onChange(evt.target.value as T)}
+            onChange={(evt) => onChange(evt.target.checked as T)}
           />
           <Label for={props.name} text={props.name} />
           <ErrorLabel error={validationError} />
