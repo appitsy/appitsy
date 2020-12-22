@@ -222,20 +222,20 @@ const schema: ComponentSchema[] = [
 ];
 
 const data: any = {
-  'table 1': [
-    {
-      'table-textField1': 'table-textField1=1',
-      'table-textField2-object': {
-        'table-textField2': 'table-textField2-value'
-      }
-    },
-    {
-      'table-textField1': 'table-textField1=2',
-      'table-textField2-object': {
-        'table-textField2': 'phhh'
-      }
-    }
-  ],
+  // 'table 1': [
+  //   {
+  //     'table-textField1': 'table-textField1=1',
+  //     'table-textField2-object': {
+  //       'table-textField2': 'table-textField2-value'
+  //     }
+  //   },
+  //   {
+  //     'table-textField1': 'table-textField1=2',
+  //     'table-textField2-object': {
+  //       'table-textField2': 'phhh'
+  //     }
+  //   }
+  // ],
   tab1: {
     textField1: 'hello override',
     email1: 'abc@override.com'
