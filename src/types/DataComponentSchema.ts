@@ -1,9 +1,9 @@
 import {
-  BaseComponentDisplayProps,
   BaseComponentDataProps,
-  Code,
+  BaseComponentDisplayProps,
   BaseComponentProps,
   BaseComponentSchema,
+  Code,
 } from './BaseComponentSchema';
 // eslint-disable-next-line import/no-cycle
 import { ComponentSchema } from './ComponentSchema';
@@ -14,6 +14,9 @@ export type ObjectComponentType = 'object';
 
 export const TableTypeName = 'table';
 export const ObjectComponentTypeName = 'object';
+
+export const TableTypeDisplayName = 'Table';
+export const ObjectComponentTypeDisplayName = 'Object';
 
 export interface TableDisplayProps extends BaseComponentDisplayProps {
   label: string;

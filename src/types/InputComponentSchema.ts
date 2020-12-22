@@ -1,20 +1,20 @@
 import {
+  BaseInputComponentValidations,
   BaseTextComponentValidations,
-  TextFieldValidations,
-  TextAreaValidations,
-  PasswordValidations,
-  NumberValidations,
   CheckboxValidations,
   MultiCheckboxValidations,
-  BaseInputComponentValidations,
+  NumberValidations,
+  PasswordValidations,
+  TextAreaValidations,
+  TextFieldValidations,
 } from '../utilities/Validations';
 import {
-  BaseComponentDisplayProps,
-  LabelPosition,
-  ErrorPosition,
   BaseComponentDataProps,
+  BaseComponentDisplayProps,
   BaseComponentProps,
   BaseComponentSchema,
+  ErrorPosition,
+  LabelPosition,
 } from './BaseComponentSchema';
 
 export interface BaseInputComponentDisplayProps extends BaseComponentDisplayProps {
@@ -109,6 +109,15 @@ export const EmailTypeName = 'email';
 export const ButtonTypeName = 'button';
 export const CheckboxTypeName = 'checkbox';
 export const MultiCheckboxTypeName = 'multi-checkbox';
+
+export const TextFieldTypeDisplayName = 'Text Field';
+export const TextAreaTypeDisplayName = 'Text Area';
+export const PasswordTypeDisplayName = 'Password';
+export const NumberTypeDisplayName = 'Number';
+export const EmailTypeDisplayName = 'Email';
+export const ButtonTypeDisplayName = 'Button';
+export const CheckboxTypeDisplayName = 'Checkbox';
+export const MultiCheckboxTypeDisplayName = 'Multi Checkbox';
 
 export type TextFieldType = 'text';
 export type TextAreaType = 'textarea';

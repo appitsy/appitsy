@@ -1,10 +1,9 @@
 import {
-  BaseComponentDisplayProps,
   BaseComponentDataProps,
+  BaseComponentDisplayProps,
   BaseComponentProps,
   BaseComponentSchema,
 } from './BaseComponentSchema';
-
 // eslint-disable-next-line import/no-cycle
 import { ComponentSchema } from './ComponentSchema';
 
@@ -14,6 +13,9 @@ export type TabsType = 'tabs';
 
 export const PanelTypeName = 'panel';
 export const TabsTypeName = 'tabs';
+
+export const PanelTypeDisplayName = 'Panel';
+export const TabsTypeDisplayName = 'Tabs';
 
 export interface PanelDisplayProps extends BaseComponentDisplayProps {
   title: string;

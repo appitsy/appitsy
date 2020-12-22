@@ -1,16 +1,36 @@
-import { ObjectComponentTypeName, DataComponentType, TableTypeName } from './DataComponentSchema';
 import {
+  DataComponentType,
+  ObjectComponentTypeDisplayName,
+  ObjectComponentTypeName,
+  TableTypeDisplayName,
+  TableTypeName,
+} from './DataComponentSchema';
+import {
+  ButtonTypeDisplayName,
   ButtonTypeName,
+  CheckboxTypeDisplayName,
   CheckboxTypeName,
+  EmailTypeDisplayName,
   EmailTypeName,
   InputComponentType,
+  MultiCheckboxTypeDisplayName,
   MultiCheckboxTypeName,
+  NumberTypeDisplayName,
   NumberTypeName,
+  PasswordTypeDisplayName,
   PasswordTypeName,
+  TextAreaTypeDisplayName,
   TextAreaTypeName,
+  TextFieldTypeDisplayName,
   TextFieldTypeName,
 } from './InputComponentSchema';
-import { LayoutComponentType, PanelTypeName, TabsTypeName } from './LayoutComponentSchema';
+import {
+  LayoutComponentType,
+  PanelTypeDisplayName,
+  PanelTypeName,
+  TabsTypeDisplayName,
+  TabsTypeName,
+} from './LayoutComponentSchema';
 
 export const Types = {
   TextField: TextFieldTypeName,
@@ -27,6 +47,23 @@ export const Types = {
 
   Table: TableTypeName,
   ObjectComponent: ObjectComponentTypeName,
+};
+
+export const TypeDisplayNames = {
+  TextField: TextFieldTypeDisplayName,
+  TextArea: TextAreaTypeDisplayName,
+  Email: EmailTypeDisplayName,
+  Number: NumberTypeDisplayName,
+  Password: PasswordTypeDisplayName,
+  Checkbox: CheckboxTypeDisplayName,
+  MultiCheckbox: MultiCheckboxTypeDisplayName,
+  Button: ButtonTypeDisplayName,
+
+  Panel: PanelTypeDisplayName,
+  Tabs: TabsTypeDisplayName,
+
+  Table: TableTypeDisplayName,
+  ObjectComponent: ObjectComponentTypeDisplayName,
 };
 
 export type ComponentType =
