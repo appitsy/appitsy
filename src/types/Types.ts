@@ -66,6 +66,24 @@ export const TypeDisplayNames = {
   ObjectComponent: ObjectComponentTypeDisplayName,
 };
 
+export const getDisplayNameForType = (type: string): string => {
+  switch (type) {
+    case Types.TextField: return TextFieldTypeDisplayName;
+    case Types.TextArea: return TextAreaTypeDisplayName;
+    case Types.Email: return EmailTypeDisplayName;
+    case Types.Number: return NumberTypeDisplayName;
+    case Types.Password: return PasswordTypeDisplayName;
+    case Types.Checkbox: return CheckboxTypeDisplayName;
+    case Types.MultiCheckbox: return MultiCheckboxTypeDisplayName;
+    case Types.Button: return ButtonTypeDisplayName;
+    case Types.Panel: return PanelTypeDisplayName;
+    case Types.Tabs: return TabsTypeDisplayName;
+    case Types.Table: return TableTypeDisplayName;
+    case Types.ObjectComponent: return ObjectComponentTypeDisplayName;
+    default: return '';
+  }
+};
+
 export type ComponentType =
   | InputComponentType
   | LayoutComponentType
