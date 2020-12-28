@@ -33,7 +33,7 @@ import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
 import Tabs from '../Layout/Tabs';
 import { ObjectComponent, Table } from '../Data';
 import { ObjectComponentProps, TableProps } from '../../types/DataComponentSchema';
-import { appendComponentPath } from '../../utilities/ComponentPath';
+import { getRelativeComponentPath } from '../../utilities/ComponentPath';
 import { Condition } from '../../types/BaseComponentSchema';
 import MultiCheckbox from '../Basic/MultiCheckbox';
 
@@ -149,12 +149,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     }
 
     // if path overridden, use that
-    let componentPath: string;
-    if (component.data?.path !== undefined) {
-      componentPath = component.data?.path;
-    } else {
-      componentPath = (parentPath ? appendComponentPath(parentPath, component.name) : component.name);
-    }
+    const componentPath = getRelativeComponentPath(component.name, parentPath, component.data?.path);
 
     // check for logic
     const logicResult = EvaluateLogic(component, this.state.data);

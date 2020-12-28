@@ -1,9 +1,9 @@
+import '../../src/themes/bootstrap.scss';
+
 import React, { useState } from 'react';
 
 import { Renderer } from '../../src/components/Renderer/Renderer';
 import { ComponentSchema } from '../../src/types/ComponentSchema';
-
-import '../../src/themes/bootstrap.scss';
 
 const schema: ComponentSchema[] = [
   {
@@ -77,7 +77,7 @@ const schema: ComponentSchema[] = [
     name: 'tabs1',
     type: 'tabs',
     data: {
-      path: '',
+      path: '$.path',
     },
     components: [
       {
