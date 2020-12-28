@@ -32,6 +32,12 @@ export interface NumberValidations extends RequiredValidations, MinMaxLengthVali
 export type CheckboxValidations = RequiredValidations;
 export interface MultiCheckboxValidations extends RequiredValidations, MinMaxSelectionValidations {}
 
+export const ValidateRequiredBool = (validations: RequiredValidations, value: boolean): string | null => (
+  validations.required && value !== true
+    ? 'Field is required'
+    : null
+);
+
 export const ValidateRequired = (validations: RequiredValidations, value: string): string | null => (
   validations.required && value?.length === 0
     ? 'Field is required'

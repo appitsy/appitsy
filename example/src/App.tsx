@@ -12,6 +12,9 @@ const schema: ComponentSchema[] = [
     display: {
       label: 'My Checkbox',
     },
+    validations: {
+      required: true,
+    }
   },
   {
     type: 'multi-checkbox',

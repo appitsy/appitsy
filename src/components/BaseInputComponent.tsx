@@ -55,7 +55,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
     return props.onValueChange(value);
   };
 
-  if (props.validations && state.touched) {
+  if (props.validate && state.touched) {
     validationError = (props.validate(props.value)) || '';
   }
 
@@ -71,8 +71,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
             checked={props.value as boolean}
             onChange={(evt) => onChange(evt.target.checked as T)}
           />
-          <Label for={props.name} text={props.name} />
-          <ErrorLabel error={validationError} />
+          <Label for={props.name} text={props.display?.label || props.name} />
         </div>
       );
       break;

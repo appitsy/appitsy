@@ -1,9 +1,13 @@
 import React from 'react';
+
 import classNames from 'classnames';
 
-import { ValidateRequired } from '../../utilities/Validations';
 import { AppComponent } from '../../types/AppComponent';
-import { CheckboxProps, CheckboxTypeName } from '../../types/InputComponentSchema';
+import {
+  CheckboxProps,
+  CheckboxTypeName,
+} from '../../types/InputComponentSchema';
+import { ValidateRequiredBool } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface CheckboxComponentProps extends CheckboxProps {
@@ -18,12 +22,13 @@ const Checkbox: AppComponent<CheckboxComponentProps> = (props) => {
     if (props.validations === undefined) {
       return null;
     }
-    return ValidateRequired(props.validations, value.toString());
+    return ValidateRequiredBool(props.validations, value);
   };
 
   return (
     <BaseInputComponent
       name={props.name}
+      display={props.display}
       value={props.value}
       onValueChange={props.onValueChange}
       defaultValue={false}
