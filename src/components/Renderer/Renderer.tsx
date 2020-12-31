@@ -17,6 +17,7 @@ import {
   EmailProps,
   NumberProps,
   PasswordProps,
+  RadioProps,
   SelectProps,
   TextAreaProps,
   TextFieldProps,
@@ -35,6 +36,7 @@ import {
   Email,
   Number,
   Password,
+  Radio,
   Select,
   TextArea,
   TextField,
@@ -263,6 +265,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             key={componentPath}
             path={componentPath}
             {...(componentSchema as CheckboxProps)}
+          />
+        );
+
+      case Types.Radio:
+        return (
+          <Radio
+            value={value}
+            onValueChange={onValueChange}
+            className='appitsy-component'
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as RadioProps)}
           />
         );
 

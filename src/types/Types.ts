@@ -19,6 +19,8 @@ import {
   NumberTypeName,
   PasswordTypeDisplayName,
   PasswordTypeName,
+  RadioTypeDisplayName,
+  RadioTypeName,
   SelectTypeDisplayName,
   SelectTypeName,
   TextAreaTypeDisplayName,
@@ -43,6 +45,7 @@ export const Types = {
   Checkbox: CheckboxTypeName,
   MultiCheckbox: MultiCheckboxTypeName,
   Select: SelectTypeName,
+  Radio: RadioTypeName,
   Button: ButtonTypeName,
 
   Panel: PanelTypeName,
@@ -61,6 +64,7 @@ export const TypeDisplayNames = {
   Checkbox: CheckboxTypeDisplayName,
   MultiCheckbox: MultiCheckboxTypeDisplayName,
   Select: SelectTypeDisplayName,
+  Radio: RadioTypeDisplayName,
   Button: ButtonTypeDisplayName,
 
   Panel: PanelTypeDisplayName,
@@ -80,6 +84,7 @@ export const getDisplayNameForType = (type: string): string => {
     case Types.Checkbox: return CheckboxTypeDisplayName;
     case Types.MultiCheckbox: return MultiCheckboxTypeDisplayName;
     case Types.Select: return SelectTypeDisplayName;
+    case Types.Radio: return RadioTypeDisplayName;
     case Types.Button: return ButtonTypeDisplayName;
     case Types.Panel: return PanelTypeDisplayName;
     case Types.Tabs: return TabsTypeDisplayName;

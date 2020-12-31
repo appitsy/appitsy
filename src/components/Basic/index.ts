@@ -7,8 +7,9 @@ import IconButton from './IconButton';
 import Label from './Label';
 import Number from './Number';
 import Password from './Password';
+import Radio from './Radio';
 import Select from './Select';
 import TextArea from './TextArea';
 import TextField from './TextField';
 
-export { Button, Checkbox, Email, ErrorLabel, Icon, IconButton, Label, Number, Password, Select, TextArea, TextField };
+export { Button, Checkbox, Email, ErrorLabel, Icon, IconButton, Label, Number, Password, Radio, Select, TextArea, TextField };

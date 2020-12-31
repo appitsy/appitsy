@@ -15,6 +15,9 @@ import {
   MultiCheckboxProps,
   MultiCheckboxType,
   MultiCheckboxTypeName,
+  RadioProps,
+  RadioType,
+  RadioTypeName,
   SelectProps,
   SelectType,
   SelectTypeName,
@@ -26,7 +29,7 @@ import Label from './Basic/Label';
 import { Flex } from './Layout/Flex';
 
 interface BaseInputProps<T> extends BaseInputComponentProps<T> {
-  inputType: CheckboxType | MultiCheckboxType | SelectType;
+  inputType: CheckboxType | MultiCheckboxType | SelectType | RadioType;
   className: string;
   value: T;
   validate(value: T): string | null;
@@ -110,6 +113,40 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
 
         const errorLabel = <ErrorLabel error={validationError} />;
         childEl = [...(checkboxesEl || []), errorLabel];
+      }
+      break;
+    case RadioTypeName:
+      {
+        const value: string = props.value as string;
+        const radioButtons = (props as RadioProps).data?.options;
+        const radioButtonsEl = radioButtons?.map((c, idx) => {
+          const onRadioButtonChange = (val?: string) => {
+            onChange(val as T);
+          };
+
+          return (
+            <div>
+              <input
+                type='radio'
+                name={c.value}
+                id={`${props.name}-${idx}`}
+                value={c.value}
+                checked={value === c.value}
+                onClick={() => {
+                  if (c.value === value) {
+                    onRadioButtonChange(undefined);
+                  } else {
+                    onRadioButtonChange(c.value);
+                  }
+                }}
+              />
+              <Label for={`${props.name}-${idx}`} text={c.label} />
+            </div>
+          );
+        });
+
+        const errorLabel = <ErrorLabel error={validationError} />;
+        childEl = [...(radioButtonsEl || []), errorLabel];
       }
       break;
     case SelectTypeName:

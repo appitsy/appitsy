@@ -86,18 +86,26 @@ export interface MultiCheckboxProps extends BaseInputComponentProps<any> {
   validations?: MultiCheckboxValidations;
 }
 
-interface SelectOption {
+interface Option {
   value: string;
   label: string;
 }
 
 export interface SelectDataProps extends BaseInputComponentDataProps<string | string[]> {
-  options: SelectOption[];
+  options: Option[];
   allowMultiSelection?: boolean;
 }
 
 export interface SelectProps extends BaseInputComponentProps<string | string[]> {
   data?: SelectDataProps;
+}
+
+export interface RadioDataProps extends BaseInputComponentDataProps<string> {
+  options: Option[];
+}
+
+export interface RadioProps extends BaseInputComponentProps<string> {
+  data?: RadioDataProps;
 }
 
 export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
@@ -123,6 +131,7 @@ export const ButtonTypeName = 'button';
 export const CheckboxTypeName = 'checkbox';
 export const MultiCheckboxTypeName = 'multi-checkbox';
 export const SelectTypeName = 'select';
+export const RadioTypeName = 'radio';
 
 export const TextFieldTypeDisplayName = 'Text Field';
 export const TextAreaTypeDisplayName = 'Text Area';
@@ -133,6 +142,7 @@ export const ButtonTypeDisplayName = 'Button';
 export const CheckboxTypeDisplayName = 'Checkbox';
 export const MultiCheckboxTypeDisplayName = 'Multi Checkbox';
 export const SelectTypeDisplayName = 'Select';
+export const RadioTypeDisplayName = 'Radio Buttons';
 
 export type TextFieldType = 'text';
 export type TextAreaType = 'textarea';
@@ -143,6 +153,7 @@ export type ButtonType = 'button';
 export type CheckboxType = 'checkbox';
 export type MultiCheckboxType = 'multi-checkbox';
 export type SelectType = 'select';
+export type RadioType = 'radio';
 
 export interface TextFieldSchema extends TextFieldProps, BaseComponentSchema {
   type: TextFieldType;
@@ -179,6 +190,10 @@ export interface SelectSchema extends SelectProps, BaseComponentSchema {
   type: SelectType,
 }
 
+export interface RadioSchema extends RadioProps, BaseComponentSchema {
+  type: RadioType,
+}
+
 export type InputComponentType =
   | TextFieldType
   | TextAreaType
@@ -188,7 +203,8 @@ export type InputComponentType =
   | PasswordType
   | CheckboxType
   | MultiCheckboxType
-  | SelectType;
+  | SelectType
+  | RadioType;
 
 export type InputComponentSchema =
   | TextFieldSchema
@@ -199,4 +215,5 @@ export type InputComponentSchema =
   | PasswordSchema
   | CheckboxSchema
   | MultiCheckboxSchema
-  | SelectSchema;
+  | SelectSchema
+  | RadioSchema;

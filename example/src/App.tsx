@@ -24,6 +24,25 @@ const schema: ComponentSchema[] = [
     }
   },
   {
+    type: 'radio',
+    name: 'radio1',
+    display: {
+      label: 'My Radio Buttons',
+    },
+    data: {
+      options: [
+        {
+          label: 'Radio 1',
+          value: 'r1'
+        },
+        {
+          label: 'Radio 2',
+          value: 'r2'
+        }
+      ]
+    }
+  },
+  {
     type: 'select',
     name: 'Select1',
     display: {
