@@ -27,9 +27,9 @@ import { Flex } from './Layout/Flex';
 interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {
   inputType?: TextFieldType | TextAreaType | EmailType | NumberType | PasswordType;
   className: string;
-  value: T;
-  validate(value: T): string | null;
-  onValueChange(value: T): void;
+  value: T | undefined;
+  validate(value: T | undefined): string | null;
+  onValueChange(value: T | undefined): void;
 }
 
 interface BaseTextInputState {
@@ -95,7 +95,7 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
           id={props.name}
           type={props.inputType}
           name={props.name}
-          value={props.value || 0}
+          value={props.value}
           placeholder={props.display?.placeholder}
           onChange={(evt) => onChange(evt.target.value as T)}
           disabled={props.display?.disabled}

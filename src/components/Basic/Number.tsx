@@ -30,7 +30,7 @@ const Number: AppComponent<NumberComponentProps> = (props) => {
     <BaseTextInputComponent
       {...props}
       inputType={NumberTypeName}
-      value={props.value || props.data?.defaultValue || 0}
+      value={props.value || props.data?.defaultValue}
       className={classNames([`appitsy-${NumberTypeName}`, props.className])}
       validate={textFieldValidate}
     />

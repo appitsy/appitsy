@@ -7,6 +7,13 @@ import { ComponentSchema } from '../../src/types/ComponentSchema';
 
 const schema: ComponentSchema[] = [
   {
+    type: 'number',
+    name: 'Number1',
+    display: {
+      label: 'My Number',
+    },
+  },
+  {
     type: 'checkbox',
     name: 'Checbox1',
     display: {
