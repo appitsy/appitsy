@@ -87,6 +87,20 @@ export interface MultiCheckboxProps extends BaseInputComponentProps<any> {
   validations?: MultiCheckboxValidations;
 }
 
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export interface SelectDataProps extends BaseInputComponentDataProps<string | string[]> {
+  options: SelectOption[];
+  allowMultiSelection?: boolean;
+}
+
+export interface SelectProps extends BaseInputComponentProps<string | string[]> {
+  data?: SelectDataProps;
+}
+
 export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
 
 export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
@@ -109,6 +123,7 @@ export const EmailTypeName = 'email';
 export const ButtonTypeName = 'button';
 export const CheckboxTypeName = 'checkbox';
 export const MultiCheckboxTypeName = 'multi-checkbox';
+export const SelectTypeName = 'select';
 
 export const TextFieldTypeDisplayName = 'Text Field';
 export const TextAreaTypeDisplayName = 'Text Area';
@@ -118,6 +133,7 @@ export const EmailTypeDisplayName = 'Email';
 export const ButtonTypeDisplayName = 'Button';
 export const CheckboxTypeDisplayName = 'Checkbox';
 export const MultiCheckboxTypeDisplayName = 'Multi Checkbox';
+export const SelectTypeDisplayName = 'Select';
 
 export type TextFieldType = 'text';
 export type TextAreaType = 'textarea';
@@ -127,6 +143,7 @@ export type EmailType = 'email';
 export type ButtonType = 'button';
 export type CheckboxType = 'checkbox';
 export type MultiCheckboxType = 'multi-checkbox';
+export type SelectType = 'select';
 
 export interface TextFieldSchema extends TextFieldProps, BaseComponentSchema {
   type: TextFieldType;
@@ -159,6 +176,10 @@ export interface MultiCheckboxSchema extends MultiCheckboxProps, BaseComponentSc
   type: MultiCheckboxType,
 }
 
+export interface SelectSchema extends SelectProps, BaseComponentSchema {
+  type: SelectType,
+}
+
 export type InputComponentType =
   | TextFieldType
   | TextAreaType
@@ -167,7 +188,8 @@ export type InputComponentType =
   | ButtonType
   | PasswordType
   | CheckboxType
-  | MultiCheckboxType;
+  | MultiCheckboxType
+  | SelectType;
 
 export type InputComponentSchema =
   | TextFieldSchema
@@ -177,4 +199,5 @@ export type InputComponentSchema =
   | ButtonSchema
   | PasswordSchema
   | CheckboxSchema
-  | MultiCheckboxSchema;
+  | MultiCheckboxSchema
+  | SelectSchema;

@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
+
+import classNames from 'classnames';
+
 import Icon from './Icon';
 
 interface IconProps {
@@ -9,7 +11,7 @@ interface IconProps {
 }
 
 const IconButton: React.FC<IconProps> = (props) => (
-  <div className={classNames('appitsy-icon', props.className)} onClick={props.onClick}>
+  <div className={classNames('appitsy-icon-button', props.className)} onClick={props.onClick}>
     <Icon icon={props.icon} />
   </div>
 );

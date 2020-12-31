@@ -1,41 +1,51 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
+
 import _ from 'lodash';
 import ReactTooltip from 'react-tooltip';
-import Styled from '../../Styled';
 
+import Styled from '../../Styled';
+import { Condition } from '../../types/BaseComponentSchema';
+import { ComponentSchema } from '../../types/ComponentSchema';
 import {
-  ComponentSchema,
-} from '../../types/ComponentSchema';
+  ObjectComponentProps,
+  TableProps,
+} from '../../types/DataComponentSchema';
 import {
-  TextField,
-  TextArea,
-  Number,
-  Email,
-  Button,
-  Password,
-  Checkbox,
-} from '../Basic';
+  ButtonProps,
+  CheckboxProps,
+  EmailProps,
+  NumberProps,
+  PasswordProps,
+  SelectProps,
+  TextAreaProps,
+  TextFieldProps,
+} from '../../types/InputComponentSchema';
+import {
+  PanelProps,
+  TabsProps,
+} from '../../types/LayoutComponentSchema';
 import { Types } from '../../types/Types';
-import Panel from '../Layout/Panel';
+import { getRelativeComponentPath } from '../../utilities/ComponentPath';
 import evaluate from '../../utilities/Evaluator';
 import EvaluateLogic from '../../utilities/Logic';
 import {
-  TextFieldProps,
-  TextAreaProps,
-  EmailProps,
-  NumberProps,
-  ButtonProps,
-  PasswordProps,
-  CheckboxProps,
-} from '../../types/InputComponentSchema';
-import { PanelProps, TabsProps } from '../../types/LayoutComponentSchema';
-import Tabs from '../Layout/Tabs';
-import { ObjectComponent, Table } from '../Data';
-import { ObjectComponentProps, TableProps } from '../../types/DataComponentSchema';
-import { getRelativeComponentPath } from '../../utilities/ComponentPath';
-import { Condition } from '../../types/BaseComponentSchema';
+  Button,
+  Checkbox,
+  Email,
+  Number,
+  Password,
+  Select,
+  TextArea,
+  TextField,
+} from '../Basic';
 import MultiCheckbox from '../Basic/MultiCheckbox';
+import {
+  ObjectComponent,
+  Table,
+} from '../Data';
+import Panel from '../Layout/Panel';
+import Tabs from '../Layout/Tabs';
 
 const StyledPage = Styled.div`
   display: flex;
@@ -253,6 +263,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             key={componentPath}
             path={componentPath}
             {...(componentSchema as CheckboxProps)}
+          />
+        );
+
+      case Types.Select:
+        return (
+          <Select
+            value={value}
+            onValueChange={onValueChange}
+            className='appitsy-component'
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as SelectProps)}
           />
         );
 

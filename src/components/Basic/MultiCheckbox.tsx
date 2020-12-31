@@ -1,9 +1,14 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import { ValidateRequired } from '../../utilities/Validations';
+import classNames from 'classnames';
+import _ from 'lodash';
+
 import { AppComponent } from '../../types/AppComponent';
-import { MultiCheckboxProps, MultiCheckboxTypeName } from '../../types/InputComponentSchema';
+import {
+  MultiCheckboxProps,
+  MultiCheckboxTypeName,
+} from '../../types/InputComponentSchema';
+import { ValidateRequired } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface MultiCheckboxComponentProps extends MultiCheckboxProps {
@@ -21,13 +26,17 @@ const MultiCheckbox: AppComponent<MultiCheckboxComponentProps> = (props) => {
     return ValidateRequired(props.validations, value.toString());
   };
 
+  let value = props.value || props.data?.defaultValue;
+  if (!_.isArray(value)) {
+    value = [];
+  }
+
   return (
     <BaseInputComponent
       {...props}
       name={props.name}
-      value={props.value}
+      value={value}
       onValueChange={props.onValueChange}
-      defaultValue={false}
       validate={MultiCheckboxValidate}
       inputType={MultiCheckboxTypeName}
       className={classNames(props.className, `appitsy-${MultiCheckboxTypeName}`)}

@@ -17,6 +17,32 @@ const schema: ComponentSchema[] = [
     }
   },
   {
+    type: 'select',
+    name: 'Select1',
+    display: {
+      label: 'My Select',
+    },
+    data: {
+      options: [
+        {
+          label: 'label1',
+          value: 'name1',
+        },
+        {
+          label: 'label2',
+          value: 'name2',
+        }
+      ],
+      defaultValue: [
+        'name1'
+      ],
+      allowMultiSelection: true,
+    },
+    validations: {
+      required: true,
+    }
+  },
+  {
     type: 'multi-checkbox',
     name: 'multi-Checbox1',
     display: {

@@ -1,11 +1,18 @@
 import React from 'react';
-import _ from 'lodash';
-import classNames from 'classnames';
 
-import BaseTextInputComponent from '../BaseTextInputComponent';
-import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
+import classNames from 'classnames';
+import _ from 'lodash';
+
 import { AppComponent } from '../../types/AppComponent';
-import { TextFieldProps } from '../../types/InputComponentSchema';
+import {
+  TextFieldProps,
+  TextFieldTypeName,
+} from '../../types/InputComponentSchema';
+import {
+  ValidateMinMaxLength,
+  ValidateRequired,
+} from '../../utilities/Validations';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface TextFieldComponentProps extends TextFieldProps {
   className: string;
@@ -22,7 +29,13 @@ const TextField: AppComponent<TextFieldComponentProps> = (props) => {
   );
 
   return (
-    <BaseTextInputComponent {...props} className={classNames(['appitsy-textfield', props.className])} validate={textFieldValidate}/>
+    <BaseTextInputComponent
+      {...props}
+      value={props.value || props.data?.defaultValue || ''}
+      inputType={TextFieldTypeName}
+      className={classNames([`appitsy-${TextFieldTypeName}`, props.className])}
+      validate={textFieldValidate}
+    />
   );
 };
 

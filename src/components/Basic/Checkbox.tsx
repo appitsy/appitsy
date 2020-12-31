@@ -29,9 +29,8 @@ const Checkbox: AppComponent<CheckboxComponentProps> = (props) => {
     <BaseInputComponent
       name={props.name}
       display={props.display}
-      value={props.value}
+      value={props.value || props.data?.defaultValue || false}
       onValueChange={props.onValueChange}
-      defaultValue={false}
       validate={checkboxValidate}
       inputType={CheckboxTypeName}
       className={classNames(props.className, `appitsy-${CheckboxTypeName}`)}

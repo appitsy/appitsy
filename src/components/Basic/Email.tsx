@@ -1,10 +1,19 @@
 import React from 'react';
+
 import classNames from 'classnames';
 import _ from 'lodash';
-import { ValidateEmail, ValidateMinMaxLength, ValidateRequired } from '../../utilities/Validations';
-import BaseTextInputComponent from '../BaseTextInputComponent';
+
 import { AppComponent } from '../../types/AppComponent';
-import { EmailProps } from '../../types/InputComponentSchema';
+import {
+  EmailProps,
+  EmailTypeName,
+} from '../../types/InputComponentSchema';
+import {
+  ValidateEmail,
+  ValidateMinMaxLength,
+  ValidateRequired,
+} from '../../utilities/Validations';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface EmailComponentProps extends EmailProps {
   className: string;
@@ -23,8 +32,9 @@ const Email: AppComponent<EmailComponentProps> = (props) => {
   return (
     <BaseTextInputComponent
       {...props}
-      className={classNames(['appitsy-email', props.className])}
-      inputType='email'
+      inputType={EmailTypeName}
+      value={props.value || props.data?.defaultValue || ''}
+      className={classNames([`appitsy-${EmailTypeName}`, props.className])}
       validate={emailValidate}
     />
   );

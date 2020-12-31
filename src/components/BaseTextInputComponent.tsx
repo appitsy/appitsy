@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
 import classNames from 'classnames';
 
-import Label from './Basic/Label';
-import ErrorLabel from './Basic/ErrorLabel';
-import { Flex } from './Layout/Flex';
-import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
-import Description from './Basic/Description';
 import {
   BaseTextInputComponentProps,
   EmailType,
@@ -19,6 +18,11 @@ import {
   TextFieldType,
   TextFieldTypeName,
 } from '../types/InputComponentSchema';
+import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
+import Description from './Basic/Description';
+import ErrorLabel from './Basic/ErrorLabel';
+import Label from './Basic/Label';
+import { Flex } from './Layout/Flex';
 
 interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {
   inputType?: TextFieldType | TextAreaType | EmailType | NumberType | PasswordType;
@@ -36,8 +40,7 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
   const [state, setState] = useState<BaseTextInputState>({});
 
   useEffect(() => {
-    const defaultVal = (typeof props.value === 'number' ? 0 : '') as T;
-    props.onValueChange(props.value || props.data?.defaultValue || defaultVal);
+    props.onValueChange(props.value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

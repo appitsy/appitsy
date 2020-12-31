@@ -4,6 +4,8 @@ import React, {
 } from 'react';
 
 import classNames from 'classnames';
+import _ from 'lodash';
+import ReactSelect from 'react-select';
 
 import Styled from '../Styled';
 import {
@@ -13,6 +15,9 @@ import {
   MultiCheckboxProps,
   MultiCheckboxType,
   MultiCheckboxTypeName,
+  SelectProps,
+  SelectType,
+  SelectTypeName,
 } from '../types/InputComponentSchema';
 import { labelPositionToFlexDirection } from '../utilities/FlexPositions';
 import Description from './Basic/Description';
@@ -21,10 +26,9 @@ import Label from './Basic/Label';
 import { Flex } from './Layout/Flex';
 
 interface BaseInputProps<T> extends BaseInputComponentProps<T> {
-  inputType: CheckboxType | MultiCheckboxType;
+  inputType: CheckboxType | MultiCheckboxType | SelectType;
   className: string;
   value: T;
-  defaultValue: T;
   validate(value: T): string | null;
   onValueChange(value: T): void;
 }
@@ -41,7 +45,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
   const [state, setState] = useState<BaseInputState>({});
 
   useEffect(() => {
-    props.onValueChange(props.value || props.data?.defaultValue || props.defaultValue);
+    props.onValueChange(props.value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,13 +81,18 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       break;
     case MultiCheckboxTypeName:
       {
-        const value = props.value || props.data?.defaultValue || props.defaultValue || {};
+        const value: string[] = props.value as string[] || [];
         const checkboxes = (props as MultiCheckboxProps).data?.checkboxes;
         const checkboxesEl = checkboxes?.map((c, idx) => {
-          const onMultiCheckboxChange = (val: boolean) => onChange({
-            ...(props.value as any),
-            [c.name]: val,
-          });
+          const onMultiCheckboxChange = (val: boolean) => {
+            const newValue = [...value];
+            if (val) {
+              newValue.push(c.name);
+            } else {
+              _.pull(newValue, c.name);
+            }
+            onChange(newValue as T);
+          };
 
           return (
             <div>
@@ -91,7 +100,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
                 type='checkbox'
                 id={`${props.name}-${idx}`}
                 name={props.name}
-                checked={(value[c.name] || false)}
+                checked={value.includes(c.name)}
                 onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
               />
               <Label for={`${props.name}-${idx}`} text={c.label} />
@@ -101,6 +110,29 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
 
         const errorLabel = <ErrorLabel error={validationError} />;
         childEl = [...(checkboxesEl || []), errorLabel];
+      }
+      break;
+    case SelectTypeName:
+      {
+        const selectProps = props as SelectProps;
+        const options = selectProps.data?.options;
+        const allowMultiSelection = selectProps.data?.allowMultiSelection || false;
+        const value = props.value as string | string[];
+        childEl = (
+          <>
+            <Label for={props.name} text={props.display?.label || props.name} />
+            <ReactSelect
+              options={options}
+              // eslint-disable-next-line
+              onChange={(val: any) => onChange(allowMultiSelection ? (val?.map((x: any) => x.value)) as T : val.value as T)}
+              isClearable
+              isSearchable
+              isMulti={allowMultiSelection}
+              value={allowMultiSelection ? options?.filter(option => value.includes(option.value)) : options?.find(x => x.value === value)}
+            />
+            <ErrorLabel error={validationError} />
+          </>
+        );
       }
       break;
     default:

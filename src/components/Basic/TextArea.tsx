@@ -1,11 +1,18 @@
 import React from 'react';
+
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
-import BaseTextInputComponent from '../BaseTextInputComponent';
 import { AppComponent } from '../../types/AppComponent';
-import { TextAreaProps } from '../../types/InputComponentSchema';
+import {
+  TextAreaProps,
+  TextAreaTypeName,
+} from '../../types/InputComponentSchema';
+import {
+  ValidateMinMaxLength,
+  ValidateRequired,
+} from '../../utilities/Validations';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface TextAreaComponentProps extends TextAreaProps {
   className: string;
@@ -22,7 +29,13 @@ const TextArea: AppComponent<TextAreaComponentProps> = (props) => {
   );
 
   return (
-    <BaseTextInputComponent {...props} className={classNames(['appitsy-textarea', props.className])} validate={textAreaValidate}/>
+    <BaseTextInputComponent
+      {...props}
+      value={props.value || props.data?.defaultValue || ''}
+      inputType={TextAreaTypeName}
+      className={classNames([`appitsy-${TextAreaTypeName}`, props.className])}
+      validate={textAreaValidate}
+    />
   );
 };
 

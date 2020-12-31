@@ -1,25 +1,14 @@
-import TextField from './TextField';
-import TextArea from './TextArea';
-import Number from './Number';
-import Password from './Password';
-import Label from './Label';
-import ErrorLabel from './ErrorLabel';
 import Button from './Button';
+import Checkbox from './Checkbox';
 import Email from './Email';
+import ErrorLabel from './ErrorLabel';
 import Icon from './Icon';
 import IconButton from './IconButton';
-import Checkbox from './Checkbox';
+import Label from './Label';
+import Number from './Number';
+import Password from './Password';
+import Select from './Select';
+import TextArea from './TextArea';
+import TextField from './TextField';
 
-export {
-  TextField,
-  TextArea,
-  Number,
-  Password,
-  Label,
-  ErrorLabel,
-  Button,
-  Email,
-  Icon,
-  IconButton,
-  Checkbox,
-};
+export { Button, Checkbox, Email, ErrorLabel, Icon, IconButton, Label, Number, Password, Select, TextArea, TextField };

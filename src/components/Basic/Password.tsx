@@ -1,10 +1,18 @@
-import React, { } from 'react';
+import React from 'react';
+
 import classNames from 'classnames';
 import _ from 'lodash';
-import { ValidateRequired, ValidateMinMaxLength } from '../../utilities/Validations';
-import BaseTextInputComponent from '../BaseTextInputComponent';
+
 import { AppComponent } from '../../types/AppComponent';
-import { PasswordProps } from '../../types/InputComponentSchema';
+import {
+  PasswordProps,
+  PasswordTypeName,
+} from '../../types/InputComponentSchema';
+import {
+  ValidateMinMaxLength,
+  ValidateRequired,
+} from '../../utilities/Validations';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface PasswordComponentProps extends PasswordProps {
   className: string;
@@ -20,7 +28,13 @@ const Password: AppComponent<PasswordComponentProps> = (props) => {
   );
 
   return (
-    <BaseTextInputComponent inputType='password' {...props} className={classNames(['appitsy-password', props.className])} validate={passwordValidate} />
+    <BaseTextInputComponent
+      {...props}
+      inputType={PasswordTypeName}
+      value={props.value || ''}
+      className={classNames([`appitsy-${PasswordTypeName}`, props.className])}
+      validate={passwordValidate}
+    />
   );
 };
 

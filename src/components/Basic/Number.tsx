@@ -1,34 +1,44 @@
-import React, {  } from 'react';
-import { ValidateRequired, ValidateMinMaxNumber } from '../../utilities/Validations';
-import BaseTextInputComponent from '../BaseTextInputComponent';
+import React from 'react';
+
 import classNames from 'classnames';
+
 import { AppComponent } from '../../types/AppComponent';
-import { NumberProps } from '../../types/InputComponentSchema';
+import {
+  NumberProps,
+  NumberTypeName,
+} from '../../types/InputComponentSchema';
+import {
+  ValidateMinMaxNumber,
+  ValidateRequired,
+} from '../../utilities/Validations';
+import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface NumberComponentProps extends NumberProps {
-    className: string;
-    value: number;
-    path?: string;
-    onValueChange(value: number): void;
+  className: string;
+  value: number;
+  path?: string;
+  onValueChange(value: number): void;
 }
 
 const Number: AppComponent<NumberComponentProps> = (props) => {
-    const textFieldValidate = (value: number): string | null => {
-        return  ValidateRequired(props.validations!, value.toString()) ||
-                ValidateMinMaxNumber(props.validations!, value);
-    }
+  const textFieldValidate = (value: number): string | null => (
+    ValidateRequired(props.validations!, value.toString())
+      || ValidateMinMaxNumber(props.validations!, value)
+  );
 
-    return (
-        <BaseTextInputComponent inputType='number' {...props} className={classNames(['appitsy-number', props.className])} validate={textFieldValidate}/>
-    );
-}
-
-Number.validateSchema = (_component: any) => {
-    return true;
+  return (
+    <BaseTextInputComponent
+      {...props}
+      inputType={NumberTypeName}
+      value={props.value || props.data?.defaultValue || 0}
+      className={classNames([`appitsy-${NumberTypeName}`, props.className])}
+      validate={textFieldValidate}
+    />
+  );
 };
 
-Number.checkRerender = (prevProps, nextProps) => {
-    return prevProps.value === nextProps.value && prevProps.display === nextProps.display;
-}
+Number.validateSchema = (_component: any) => true;
+
+Number.checkRerender = (prevProps, nextProps) => prevProps.value === nextProps.value && prevProps.display === nextProps.display;
 
 export default React.memo<NumberComponentProps>(props => <Number {...props}/>, Number.checkRerender);
