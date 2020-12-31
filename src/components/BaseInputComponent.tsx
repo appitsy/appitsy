@@ -87,9 +87,9 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
           const onMultiCheckboxChange = (val: boolean) => {
             const newValue = [...value];
             if (val) {
-              newValue.push(c.name);
+              newValue.push(c.value);
             } else {
-              _.pull(newValue, c.name);
+              _.pull(newValue, c.value);
             }
             onChange(newValue as T);
           };
@@ -100,7 +100,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
                 type='checkbox'
                 id={`${props.name}-${idx}`}
                 name={props.name}
-                checked={value.includes(c.name)}
+                checked={value.includes(c.value)}
                 onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
               />
               <Label for={`${props.name}-${idx}`} text={c.label} />

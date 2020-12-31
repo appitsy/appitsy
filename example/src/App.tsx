@@ -51,17 +51,21 @@ const schema: ComponentSchema[] = [
     data: {
       checkboxes: [
         {
-          name: 'ch1',
+          value: 'ch1',
           label: 'Check1'
         },
         {
-          name: 'ch2',
+          value: 'ch2',
           label: 'Check2'
         },
         {
-          name: 'ch3',
+          value: 'ch3',
           label: 'Check3'
         }
+      ],
+      defaultValue: [
+        'ch1',
+        'ch3'
       ]
     }
   },

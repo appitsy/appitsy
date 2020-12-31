@@ -73,9 +73,8 @@ export interface CheckboxProps extends BaseInputComponentProps<boolean> {
 }
 
 interface Checkbox {
-  name: string;
+  value: string;
   label: string;
-  defaultValue?: boolean;
 }
 
 export interface MultiCheckboxDataProps extends BaseInputComponentDataProps<any> {
