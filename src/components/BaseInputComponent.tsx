@@ -118,13 +118,23 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
         const options = selectProps.data?.options;
         const allowMultiSelection = selectProps.data?.allowMultiSelection || false;
         const value = props.value as string | string[];
+        const onSelectChange = (val: any) => {
+          if (allowMultiSelection) {
+            // eslint-disable-next-line
+            onChange((val?.map((x: any) => x.value)) as T);
+          } else {
+            // eslint-disable-next-line
+            onChange(val?.value || '' as T);
+          }
+        };
+
         childEl = (
           <>
             <Label for={props.name} text={props.display?.label || props.name} />
             <ReactSelect
               options={options}
               // eslint-disable-next-line
-              onChange={(val: any) => onChange(allowMultiSelection ? (val?.map((x: any) => x.value)) as T : val.value as T)}
+              onChange={(val: any) => onSelectChange(val)}
               isClearable
               isSearchable
               isMulti={allowMultiSelection}

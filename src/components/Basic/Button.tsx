@@ -22,7 +22,7 @@ const Button: AppComponent<ButtonComponentProps> = (props) => {
     props.onClick();
   };
 
-  const buttonTypeClass = () => (props.style === undefined ? '' : `appitsy-button-${props.style}`);
+  const buttonTypeClass = () => (props.style === undefined ? 'appitsy-button-primary' : `appitsy-button-${props.style}`);
 
   const leftIcon = props.display?.leftIcon ? <Fragment><Icon icon={props.display.leftIcon} />&nbsp;</Fragment> : null;
   const rightIcon = props.display?.rightIcon ? <Fragment>&nbsp;<Icon icon={props.display.rightIcon} /></Fragment> : null;

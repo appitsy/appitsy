@@ -33,10 +33,7 @@ const schema: ComponentSchema[] = [
           value: 'name2',
         }
       ],
-      defaultValue: [
-        'name1'
-      ],
-      allowMultiSelection: true,
+      defaultValue: 'name1',
     },
     validations: {
       required: true,

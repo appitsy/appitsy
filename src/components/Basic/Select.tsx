@@ -35,7 +35,7 @@ const Select: AppComponent<SelectComponentProps> = (props) => {
       value = [];
     }
   } else {
-    value = props.value || props.data?.defaultValue;
+    value = props.value?.length >= 0 ? props.value : props.data?.defaultValue;
     if (!_.isString(value)) {
       value = '';
     }
