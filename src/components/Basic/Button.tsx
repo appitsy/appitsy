@@ -14,12 +14,12 @@ const StyledButton = styled.button`
 interface ButtonComponentProps extends ButtonProps {
   className?: string;
   path?: string;
-  onClick(): any;
+  onClick(buttonName: string): any;
 }
 
 const Button: AppComponent<ButtonComponentProps> = (props) => {
   const onClick = () => {
-    props.onClick();
+    props.onClick(props.name);
   };
 
   const buttonTypeClass = () => (props.style === undefined ? 'appitsy-button-primary' : `appitsy-button-${props.style}`);

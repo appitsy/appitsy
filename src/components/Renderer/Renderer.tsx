@@ -59,7 +59,7 @@ export type RendererProps = {
   schema: ComponentSchema[];
   data?: any;
   onDataChange?: (data: any) => void;
-  onSubmit?: (data: any) => void;
+  onSubmit?: (data: any, buttonName: string) => void;
 };
 
 interface RendererState {
@@ -122,9 +122,9 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     }
   };
 
-  handleClick = () => {
+  handleClick = (buttonName: string) => {
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.state.data);
+      this.props.onSubmit(this.state.data, buttonName);
     }
   };
 
