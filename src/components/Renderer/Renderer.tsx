@@ -65,6 +65,7 @@ export type RendererProps = {
 interface RendererState {
   schema: ComponentSchema[];
   data: any;
+  originalData: any;
   rendererUpdating: boolean;
 }
 
@@ -73,19 +74,22 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     super(props as any);
     this.state = {
       data: this.props.data || {},
+      originalData: this.props.data || {},
       schema: this.props.schema,
       rendererUpdating: false,
     };
   }
 
   shouldComponentUpdate(nextProps: RendererProps) {
-    return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
+    return nextProps.data !== this.state.originalData || nextProps.schema !== this.state.schema;
   }
 
   static getDerivedStateFromProps(nextProps: RendererProps, currentState: RendererState): any {
     const updatedState: any = {};
 
-    if (nextProps.data !== currentState.data) {
+    if (nextProps.data !== currentState.originalData) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      updatedState.originalData = nextProps.data || {};
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       updatedState.data = nextProps.data || {};
     }

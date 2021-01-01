@@ -1,6 +1,6 @@
 import '../../src/themes/bootstrap.scss';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Renderer } from '../../src/components/Renderer/Renderer';
 import { ComponentSchema } from '../../src/types/ComponentSchema';
@@ -300,20 +300,11 @@ const data: any = {
 
 
 const App = () => {
-  const [dataState, setData] = useState(data);
-  const [schemaState, ] = useState(schema);
   const submit = (_data: any) => {
     alert(JSON.stringify(_data));
-    // setData({...data, ...{
-    //   'table 1': [],
-    // }})
   }
 
-  const changeData = (data: any) => {
-    setData(data);
-  }
-
-  return <Renderer schema={schemaState} data={dataState} onSubmit={submit} onDataChange={changeData} />
+  return <Renderer schema={schema} data={data} onSubmit={submit} />
 }
 
 export default App
