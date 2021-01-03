@@ -1,14 +1,21 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import _ from 'lodash';
 
 import classNames from 'classnames';
-import { AppComponent } from '../../types/AppComponent';
-import { TableProps, TableTypeName } from '../../types/DataComponentSchema';
-import { ComponentSchema } from '../../types/ComponentSchema';
-import { Button, IconButton } from '../Basic';
+import _ from 'lodash';
+
 import Styled from '../../Styled';
+import { AppComponent } from '../../types/AppComponent';
+import { ComponentSchema } from '../../types/ComponentSchema';
+import {
+  TableProps,
+  TableTypeName,
+} from '../../types/DataComponentSchema';
 import evaluate from '../../utilities/Evaluator';
+import {
+  Button,
+  IconButton,
+} from '../Basic';
 
 interface TableComponentProps extends TableProps {
   className?: string;

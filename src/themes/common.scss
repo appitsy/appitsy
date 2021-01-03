@@ -12,7 +12,7 @@
 
 .appitsy-component  {
   margin: 7px;
-  width: calc(100% - 14px);
+  width: calc(100% - 14px) !important;
 
   &.appitsy-object{
     margin: 0px;

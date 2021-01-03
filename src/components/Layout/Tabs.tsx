@@ -21,6 +21,10 @@ const NavTabsList = styled.div`
   border: none;
 `;
 
+const TabBody = styled.div`
+  padding: 0.75rem 0.5rem;
+`;
+
 interface TabsComponentProps extends TabsProps {
   className?: string;
   path?: string;
@@ -45,7 +49,7 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => {
         </HeaderTitle>
       </Header>
 
-      <div className='card-body'>
+      <TabBody className='card-body'>
         <div className='tab-content'>
           {props.components?.map((tab, idx) => {
             let tabPath: string;
@@ -62,7 +66,7 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => {
             );
           })}
         </div>
-      </div>
+      </TabBody>
     </div>
   );
 };
