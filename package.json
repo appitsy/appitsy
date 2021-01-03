@@ -74,7 +74,6 @@
     "node-sass": "^4.14.1",
     "react-select": "^3.1.1",
     "react-tabs": "^3.1.1",
-    "react-tooltip": "^4.2.11",
     "uuid": "^8.3.2"
   },
   "browserslist": {

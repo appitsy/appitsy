@@ -2,7 +2,6 @@
 import React, { Fragment } from 'react';
 
 import _ from 'lodash';
-import ReactTooltip from 'react-tooltip';
 
 import Styled from '../../Styled';
 import { Condition } from '../../types/BaseComponentSchema';
@@ -365,7 +364,6 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     return (
       <StyledPage>
         {this.renderChildren()}
-        <ReactTooltip />
       </StyledPage>
     );
   }
