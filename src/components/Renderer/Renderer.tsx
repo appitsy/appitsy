@@ -80,7 +80,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
   }
 
   shouldComponentUpdate(nextProps: RendererProps) {
-    return nextProps.data !== this.state.originalData || nextProps.schema !== this.state.schema;
+    return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
   }
 
   static getDerivedStateFromProps(nextProps: RendererProps, currentState: RendererState): any {
