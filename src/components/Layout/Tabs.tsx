@@ -39,8 +39,14 @@ const TabsComponent: AppComponent<TabsComponentProps> = (props) => {
         <HeaderTitle className='card-title'>
           <NavTabsList className='nav nav-tabs'>
             {props.components?.map((tab, idx) => (
-              <li className={activeTabIndex === idx ? 'active' : undefined} onClick={() => setActiveTabIndex(idx)}>
-                <a className={classNames('nav-item nav-link', activeTabIndex === idx ? 'active show' : undefined)} id={tab.name} data-toggle='tab' href={`#${tab.name}`}>
+              <li className={activeTabIndex === idx ? 'active' : undefined}>
+                <a
+                  id={tab.name}
+                  href={`#${tab.name}`}
+                  data-toggle='tab'
+                  onClick={() => setActiveTabIndex(idx)}
+                  className={classNames('nav-item nav-link', activeTabIndex === idx ? 'active show' : undefined)}
+                >
                   {tab.display?.label}
                 </a>
               </li>
