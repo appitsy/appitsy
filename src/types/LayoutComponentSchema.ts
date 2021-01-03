@@ -41,6 +41,7 @@ export type TabsDataProps = BaseComponentDataProps;
 
 export interface TabsProps extends BaseComponentProps {
   components?: TabSchema[];
+  activeTabOnLoad: number;
   display: TabsDisplayProps;
   data?: TabsDataProps;
 }
