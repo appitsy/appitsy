@@ -241,10 +241,32 @@ const schema: ComponentSchema[] = [
     }
   },
   {
+    name: 'columns1',
+    type: 'columns',
+    display: {
+      label: 'My Column',
+    },
+    components: [
+      {
+        name: 'textField+1',
+        type: 'text',
+        display: {
+          tooltip: 'Hola!',
+        },
+        data: { defaultValue: 'hello textfield+1!' },
+      },
+      {
+        name: 'textField+2',
+        type: 'text',
+        data: { defaultValue: 'hello textfield+2!' },
+      }
+    ]
+  },
+  {
     name: 'panel1',
     type: 'panel',
     display: {
-      title: 'Panel 1',
+      label: 'Panel 1',
       expandable: true,
       expanded: true,
     },

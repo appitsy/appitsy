@@ -10,15 +10,18 @@ import { ComponentSchema } from './ComponentSchema';
 // LAYOUT COMPONENTS
 export type PanelType = 'panel';
 export type TabsType = 'tabs';
+export type ColumnsType = 'columns';
 
 export const PanelTypeName = 'panel';
 export const TabsTypeName = 'tabs';
+export const ColumnsTypeName = 'columns';
 
 export const PanelTypeDisplayName = 'Panel';
 export const TabsTypeDisplayName = 'Tabs';
+export const ColumnsTypeDisplayName = 'Columns';
 
 export interface PanelDisplayProps extends BaseComponentDisplayProps {
-  title: string;
+  label: string;
   expandable?: boolean;
   expanded?: boolean;
 }
@@ -57,9 +60,24 @@ export interface TabProps extends BaseComponentProps {
 // don't extend from BaseComponentSchema as we don't want type to be added here
 export type TabSchema = TabProps;
 
+export interface ColumnsDisplayProps extends BaseComponentDisplayProps {
+  label: string;
+}
+
+export interface ColumnsProps extends BaseComponentProps {
+  components?: ComponentSchema[];
+  display: ColumnsDisplayProps;
+}
+
+export interface ColumnsSchema extends PanelProps, BaseComponentSchema {
+  type: ColumnsType;
+}
+
 export type LayoutComponentType =
   | PanelType
+  | ColumnsType
   | TabsType;
 export type LayoutComponentSchema =
   | PanelSchema
+  | ColumnsSchema
   | TabsSchema;

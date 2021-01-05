@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
-import Styled from '../../Styled';
 
-import Icon from '../Basic/Icon';
+import classNames from 'classnames';
+
+import Styled from '../../Styled';
 import { AppComponent } from '../../types/AppComponent';
-import { PanelProps, PanelTypeName } from '../../types/LayoutComponentSchema';
 import { ComponentSchema } from '../../types/ComponentSchema';
+import {
+  PanelProps,
+  PanelTypeName,
+} from '../../types/LayoutComponentSchema';
+import Icon from '../Basic/Icon';
 
 interface PanelComponentProps extends PanelProps {
   className?: string;
@@ -43,7 +47,7 @@ const Panel: AppComponent<PanelComponentProps> = (props) => {
     <div className={classNames(['appitsy-panel', props.className])}>
       <PanelHeading onClick={toggleExpand} className='appitsy-panel-heading'>
         <PanelIcon icon={state.expanded ? 'caret-down' : 'caret-right'} />
-        {props.display.title}
+        {props.display.label}
       </PanelHeading>
       <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
         {state.expanded ? props.renderChildComponents(props.components, props.path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
@@ -60,7 +64,7 @@ Panel.checkRerender = (_prevProps, _nextProps) => false;
 
 Panel.defaultProps = {
   display: {
-    title: '',
+    label: '',
     expandable: true,
     expanded: true,
   },

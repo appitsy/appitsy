@@ -58,6 +58,14 @@ const TableRowActionButton = Styled(IconButton)`
   line-height: 0;
 `;
 
+const AddButtonRow = Styled.div`
+  margin-top: 6px;
+
+  button {
+    width: 100px !important;
+  }
+`;
+
 const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) => {
   // const [state, setState] = useState({});
 
@@ -157,7 +165,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
           }
         </tbody>
       </table>
-      { props.data.allowAddRemove !== false ? (<Button name='add' onClick={addRow} text='+ Add' />) : null }
+      { props.data.allowAddRemove !== false ? (<AddButtonRow><Button name='add' onClick={addRow} text='+ Add' /></AddButtonRow>) : null }
     </div>
   );
 };

@@ -22,6 +22,7 @@ import {
   TextFieldProps,
 } from '../../types/InputComponentSchema';
 import {
+  ColumnsProps,
   PanelProps,
   TabsProps,
 } from '../../types/LayoutComponentSchema';
@@ -45,6 +46,7 @@ import {
   ObjectComponent,
   Table,
 } from '../Data';
+import { Columns } from '../Layout';
 import Panel from '../Layout/Panel';
 import Tabs from '../Layout/Tabs';
 
@@ -303,6 +305,18 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
             key={componentPath}
             path={componentPath}
             {...(componentSchema as PanelProps)}
+          />
+        );
+      }
+
+      case Types.Columns: {
+        return (
+          <Columns
+            className='appitsy-component'
+            renderChildComponents={this.renderChildComponents.bind(this)}
+            key={componentPath}
+            path={componentPath}
+            {...(componentSchema as ColumnsProps)}
           />
         );
       }

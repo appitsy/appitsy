@@ -29,6 +29,8 @@ import {
   TextFieldTypeName,
 } from './InputComponentSchema';
 import {
+  ColumnsTypeDisplayName,
+  ColumnsTypeName,
   LayoutComponentType,
   PanelTypeDisplayName,
   PanelTypeName,
@@ -49,6 +51,7 @@ export const Types = {
   Button: ButtonTypeName,
 
   Panel: PanelTypeName,
+  Columns: ColumnsTypeName,
   Tabs: TabsTypeName,
 
   Table: TableTypeName,
@@ -68,6 +71,7 @@ export const TypeDisplayNames = {
   Button: ButtonTypeDisplayName,
 
   Panel: PanelTypeDisplayName,
+  Columns: ColumnsTypeDisplayName,
   Tabs: TabsTypeDisplayName,
 
   Table: TableTypeDisplayName,
@@ -87,6 +91,7 @@ export const getDisplayNameForType = (type: string): string => {
     case Types.Radio: return RadioTypeDisplayName;
     case Types.Button: return ButtonTypeDisplayName;
     case Types.Panel: return PanelTypeDisplayName;
+    case Types.Columns: return ColumnsTypeDisplayName;
     case Types.Tabs: return TabsTypeDisplayName;
     case Types.Table: return TableTypeDisplayName;
     case Types.ObjectComponent: return ObjectComponentTypeDisplayName;
