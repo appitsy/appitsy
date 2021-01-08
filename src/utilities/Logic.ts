@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import { BaseComponentProps } from '../types/BaseComponentSchema';
+
+import {
+  BaseComponentProps,
+  LogicActionType,
+} from '../types/BaseComponentSchema';
 import evaluate from './Evaluator';
 
 const EvaluateLogic = (component: BaseComponentProps, state: any): any => {
@@ -10,10 +14,13 @@ const EvaluateLogic = (component: BaseComponentProps, state: any): any => {
   _.flatMap(triggers, trigger => trigger.actions)
     .forEach((x) => {
       switch (x.type) {
-        case 'updateComponent':
-          schema = Object.assign(component, x.schema || {});
+        case LogicActionType.SetProperty:
+          schema = _.set(_.cloneDeep(component), x.property.path, x.property.value);
           break;
-        case 'value':
+        case LogicActionType.UpdateComponent:
+          schema = Object.assign(component, x.updateComponent || {});
+          break;
+        case LogicActionType.Value:
           value = evaluate(x.value || '', { ...component });
           break;
         default:

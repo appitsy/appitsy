@@ -17,10 +17,20 @@ export interface BaseComponentDisplayProps {
   condition?: Condition;
 }
 
+export enum LogicActionType {
+  Value = 'value',
+  UpdateComponent = 'updateComponent',
+  SetProperty = 'setProperty',
+}
+
 export interface LogicAction {
-  type: 'value' | 'updateComponent';
+  type: LogicActionType;
   value?: Code;
-  schema?: any;
+  updateComponent?: any;
+  property: {
+    path: string;
+    value: string;
+  }
 }
 
 export interface LogicProps {
