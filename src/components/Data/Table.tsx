@@ -143,22 +143,34 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
                 deleteButton = <TableRowActionButton key={`${props.name}[${rIdx}]-delete`} icon='trash-alt' onClick={() => deleteRow(rIdx)} />;
               }
 
-              return (
-                <TableRow>
-                  {
-                    props.renderChildComponents(columns, rowPath, { ...props, type: TableTypeName } as ComponentSchema).map(c => (
-                      <TableRowColumn>
-                        { c }
-                      </TableRowColumn>
-                    ))
-                  }
+              const rowActions = [
+                (
                   <TableRowActions>
                     { (rIdx > 0) ? moveUpButton : null }
                     { (rIdx < value.length - 1) ? moveDownButton : null }
                   </TableRowActions>
+                ),
+                (
                   <TableRowActions>
                     { deleteButton }
                   </TableRowActions>
+                ),
+              ];
+
+              const rowColumns = props.renderChildComponents(columns, rowPath, { ...props, type: TableTypeName } as ComponentSchema).map(c => (
+                <TableRowColumn>
+                  { c }
+                </TableRowColumn>
+              ));
+
+              const row: JSX.Element[] = [
+                ...rowColumns,
+                ...rowActions,
+              ];
+
+              return (
+                <TableRow>
+                  { row }
                 </TableRow>
               );
             })
