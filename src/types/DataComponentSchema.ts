@@ -19,20 +19,21 @@ export const TableTypeDisplayName = 'Table';
 export const ObjectComponentTypeDisplayName = 'Object';
 
 export interface TableDisplayProps extends BaseComponentDisplayProps {
-  label: string;
-}
-
-export interface TableDataProps extends BaseComponentDataProps {
-  columns: ComponentSchema[];
+  label?: string;
   atleastOneRow?: boolean;
-  addNewDefault?: Code;
   allowSorting?: boolean;
   allowAddRemove?: boolean;
 }
 
+export interface TableDataProps extends BaseComponentDataProps {
+  addNewDefault?: Code;
+}
+
 export interface TableProps extends BaseComponentProps {
   display?: TableDisplayProps;
-  data: TableDataProps;
+  data?: TableDataProps;
+  columns: ComponentSchema[];
+  expandablePanel?: ComponentSchema[];
 }
 
 export interface TableSchema extends TableProps, BaseComponentSchema {

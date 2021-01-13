@@ -97,37 +97,46 @@ const schema: ComponentSchema[] = [
     type: 'table',
     display: {
       label: 'Table 1',
+      atleastOneRow: true,
     },
     data: {
       addNewDefault: '({ "table-textField1": "my add new default", "table-textField2-object": { "table-textField2": uuid() } })',
-      atleastOneRow: true,
-      columns: [
-        {
-          name: 'table-textField1',
-          type: 'text',
-          display: {
-            label: '1st Text Field in Table'
-          }
+    },
+    columns: [
+      {
+        name: 'table-textField1',
+        type: 'text',
+        display: {
+          label: '1st Text Field in Table'
+        }
+      },
+      {
+        name: 'table-textField2-object',
+        display: {
+          label: 'table-textField2-phh',
+          hideLabel: true,
         },
-        {
-          name: 'table-textField2-object',
-          display: {
-            label: 'table-textField2-phh',
-            hideLabel: true,
+        type: 'text',
+        components: [
+          {
+            name: 'table-textField2',
+            type: 'text',
+            display: {
+              hideLabel: true,
+            }
           },
-          type: 'object',
-          components: [
-            {
-              name: 'table-textField2',
-              type: 'text',
-              display: {
-                hideLabel: true,
-              }
-            },
-          ]
-        },
-      ]
-    }
+        ]
+      },
+    ],
+    expandablePanel: [
+      {
+        name: 'table-textField2',
+        type: 'text',
+        display: {
+          label: 'Inside expanded row'
+        }
+      },
+    ]
   },
   {
     name: 'tabs1',

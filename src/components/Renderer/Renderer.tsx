@@ -382,11 +382,12 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public renderChildComponents(childComponents?: ComponentSchema[], parentPath?: string, _parentComponent?: ComponentSchema): JSX.Element[] {
     return childComponents?.map(c => this.renderComponent(c, parentPath)) || [];
   }
 
-  public render() {
+  public render(): JSX.Element {
     this.props.schema.forEach((component) => {
       this.validateComponentName(component.name);
     });
