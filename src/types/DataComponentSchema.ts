@@ -32,8 +32,7 @@ export interface TableDataProps extends BaseComponentDataProps {
 export interface TableProps extends BaseComponentProps {
   display?: TableDisplayProps;
   data?: TableDataProps;
-  columns: ComponentSchema[];
-  expandablePanel?: ComponentSchema[];
+  components: ComponentSchema[];
 }
 
 export interface TableSchema extends TableProps, BaseComponentSchema {

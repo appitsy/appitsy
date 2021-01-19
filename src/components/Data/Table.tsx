@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React from 'react';
 
 import classNames from 'classnames';
 import _ from 'lodash';
@@ -12,10 +12,8 @@ import {
   TableTypeName,
 } from '../../types/DataComponentSchema';
 import evaluate from '../../utilities/Evaluator';
-import {
-  Button,
-  IconButton,
-} from '../Basic';
+import { Button } from '../Basic';
+import TableRow, { TableRowExpandedTypeName } from './TableRow';
 
 interface TableComponentProps extends TableProps {
   className?: string;
@@ -25,38 +23,16 @@ interface TableComponentProps extends TableProps {
   onValueChange(value: any[]): void;
 }
 
-const TableRow = Styled.tr<any>`
+const StyledTableRow = Styled.tr<any>`
   border-style: solid;
   border-color: #dddddd;
   border-width: ${({ isExpanded }) => (isExpanded ? '1px 1px 0px 1px' : '1px')};
 `;
 
-const TableHeader = Styled(TableRow)``;
-const TableExpandedRow = Styled(TableRow)`
-  border-top-width: 0px;
-`;
-
+const TableHeader = Styled(StyledTableRow)``;
 const TableHeaderColumn = Styled.th`
   text-align: left;
   padding: 5px 8px;
-`;
-
-const TableRowColumn = Styled.td`
-  text-align: left;
-`;
-
-const ExpandRowButtonColumn = Styled(TableRowColumn)`
-  width: 30px;
-  text-align: center;
-`;
-
-const TableRowActions = Styled(TableRowColumn)`
-  width: 16px;
-  padding: 0px 4px;
-`;
-
-const TableRowActionButton = Styled(IconButton)`
-  line-height: 0;
 `;
 
 const AddButtonRow = Styled.div`
@@ -67,109 +43,7 @@ const AddButtonRow = Styled.div`
   }
 `;
 
-interface TableRowProps {
-  path: string;
-  key: string;
 
-  isExpandable: boolean;
-
-  allowAddRemove: boolean;
-  allowSorting: boolean;
-
-  showUpButton: boolean;
-  showDownButton: boolean;
-
-  columns: ComponentSchema[];
-  expandablePanel: ComponentSchema[];
-  parentComponent: ComponentSchema;
-
-  moveUp: () => void;
-  moveDown: () => void;
-  deleteRow: () => void;
-
-  renderChildComponents: (components?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
-}
-
-const TR = (props: TableRowProps) => {
-  let [isExpanded, setIsExpanded] = useState(false);
-
-  let moveUpButton;
-  let moveDownButton;
-  let deleteButton;
-
-  if (props.allowSorting !== false) {
-    moveUpButton = <TableRowActionButton key={`${props.key}-moveup`} icon='caret-up' onClick={() => props.moveUp()} />;
-    moveDownButton = <TableRowActionButton key={`${props.key}-movedown`} icon='caret-down' onClick={() => props.moveDown()} />;
-  }
-
-  if (props.allowAddRemove !== false) {
-    deleteButton = <TableRowActionButton key={`${props.key}-delete`} icon='trash-alt' onClick={() => props.deleteRow()} />;
-  }
-
-  const rowActions = [
-    (
-      <TableRowActions>
-        { props.showUpButton ? moveUpButton : null }
-        { props.showDownButton ? moveDownButton : null }
-      </TableRowActions>
-    ),
-    (
-      <TableRowActions>
-        { deleteButton }
-      </TableRowActions>
-    ),
-  ];
-
-  const expandableButton = (
-    <ExpandRowButtonColumn>
-      <IconButton icon={isExpanded ? 'chevron-down' : 'chevron-right'} onClick={() => setIsExpanded(!isExpanded)} />
-    </ExpandRowButtonColumn>
-  );
-
-  const rowColumns = props.renderChildComponents(props.columns, props.path, props.parentComponent).map(c => (
-    <TableRowColumn>
-      { c }
-    </TableRowColumn>
-  ));
-
-  const rowElements: JSX.Element[] = [
-    ...(props.isExpandable ? [expandableButton] : []),
-    ...rowColumns,
-    ...rowActions,
-  ];
-
-  const expandedRowElements: JSX.Element[] = props.renderChildComponents(props.expandablePanel, props.path, props.parentComponent).map(c => (
-    <>
-      {/* Space for our expandable button */}
-      <TableRowColumn />
-      <TableRowColumn colSpan={rowElements.length - rowActions.length - 1}>
-        { c }
-      </TableRowColumn>
-      {/* Space for our row actions */}
-      <TableRowColumn />
-      <TableRowColumn />
-    </>
-  ));
-
-  if (!props.isExpandable || !isExpanded) {
-    return (
-      <TableRow key={props.key}>
-        { rowElements }
-      </TableRow>
-    );
-  }
-
-  return (
-    <>
-      <TableRow isExpanded={true} key={props.key}>
-        { rowElements }
-      </TableRow>
-      <TableExpandedRow key={`${props.key}-expanded`}>
-        { expandedRowElements }
-      </TableExpandedRow>
-    </>
-  );
-};
 
 const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) => {
   // const [state, setState] = useState({});
@@ -206,14 +80,20 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
     props.onValueChange(newValue);
   };
 
-  const areRowsExpandable = (props.expandablePanel && props.expandablePanel.length > 0) || false;
+  const expandablePanelIndex = _.findIndex(props.components, x => x.type === TableRowExpandedTypeName);
+  const expandablePanel = expandablePanelIndex !== -1 ? props.components[expandablePanelIndex] : undefined;
+  const areRowsExpandable = expandablePanel !== undefined;
 
-  const columns = props.columns.map((column) => {
+  const columns = props.components.map((column) => {
     const component = _.cloneDeep(column);
     component.display = component.display === undefined ? {} : component.display;
     component.display.hideLabel = true;
     return component;
   });
+
+  if (areRowsExpandable) {
+    columns.splice(expandablePanelIndex, 1);
+  }
 
   const value = props.value || (props.display?.atleastOneRow === true ? [{}] : []);
 
@@ -227,7 +107,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
             {/* for expanding rows */}
             { areRowsExpandable ? <TableHeaderColumn /> : null }
             {
-              props.columns?.map((column) => (
+              columns?.map((column) => (
                 <TableHeaderColumn>
                   {column.display?.label || column.name}
                 </TableHeaderColumn>
@@ -242,7 +122,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
         <tbody>
           {
             value.map((_row, rIdx) => (
-              <TR
+              <TableRow
                 path={props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`}
                 key={`${props.name}[${rIdx}]`}
                 allowSorting={props.display?.allowSorting || true}
@@ -254,7 +134,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
                 moveDown={() => moveDown(rIdx)}
                 deleteRow={() => deleteRow(rIdx)}
                 columns={columns}
-                expandablePanel={props.expandablePanel || []}
+                expandablePanel={expandablePanel as any}
                 parentComponent={{ ...props, type: TableTypeName } as ComponentSchema}
                 renderChildComponents={props.renderChildComponents}
               />
