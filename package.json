@@ -1,10 +1,10 @@
 {
-  "name": "appitsy",
-  "version": "0.0.1",
+  "name": "@appitsy/forms",
+  "version": "0.1.0",
   "description": "Made with create-react-library",
   "author": "parasgera",
   "license": "MIT",
-  "repository": "appitsy/appitsy",
+  "repository": "appitsy/forms",
   "engines": {
     "node": ">=10"
   },
