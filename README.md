@@ -1,30 +1,51 @@
 # appitsy
 
-> Made with create-react-library
-
-[![NPM](https://img.shields.io/npm/v/appitsy.svg)](https://www.npmjs.com/package/appitsy) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/appitsy.svg)](https://www.npmjs.com/package/@appitsy/forms)
 
 ## Install
 
 ```bash
-npm install --save appitsy
+npm install --save @appitsy/forms
 ```
 
 ## Usage
 
+1. Add Bootstrap bundle - CSS, JS & Popper JS to your application.
+2. Build a form with [our form builder](https://appitsy.com/form-builder/)
+3. Copy the form from 'Schema JSON' section.
+4. Use it in your app like this:
+
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'appitsy'
-import 'appitsy/dist/index.css'
+import { Renderer } from '@appitsy/forms';
+
+const formSchema = [
+  {
+    "type": "text",
+    "name": "My Text Field",
+    "display": {
+      "label": "My First Text Field",
+    }
+  },
+  {
+    "text": "Submit",
+    "style": "primary",
+    "type": "button",
+    "name": "submitButton"
+  }
+]
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <Renderer
+              schema={formSchema}
+              data={data}
+              onSubmit={data => submitForm(data)}
   }
 }
 ```
 
 ## License
 
-MIT © [parasgera](https://github.com/parasgera)
+MIT © [AppItsy](https://github.com/appitsy)

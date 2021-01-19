@@ -9,7 +9,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && npm run buildThemes && shx cp package.json dist/",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && npm run buildThemes && shx cp package.json dist/ && shx cp README.md dist/",
     "buildThemes": "node-sass src/themes/bootstrap.scss dist/themes/bootstrap.css && node-sass src/themes/foundation.scss dist/themes/foundation.css",
     "clean": "shx rm -rf dist lib lib-esm",
     "pack": "npm run build && npm pack ./dist",
