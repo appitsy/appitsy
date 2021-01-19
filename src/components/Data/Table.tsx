@@ -12,6 +12,7 @@ import {
   TableTypeName,
 } from '../../types/DataComponentSchema';
 import evaluate from '../../utilities/Evaluator';
+import { getBooleanOrDefault } from '../../utilities/Utilities';
 import { Button } from '../Basic';
 import TableRow, { TableRowExpandedTypeName } from './TableRow';
 
@@ -125,8 +126,8 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
               <TableRow
                 path={props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`}
                 key={`${props.name}[${rIdx}]`}
-                allowSorting={props.display?.allowSorting || true}
-                allowAddRemove={props.display?.allowAddRemove || true}
+                allowSorting={getBooleanOrDefault(props.display?.allowSorting, true)}
+                allowAddRemove={getBooleanOrDefault(props.display?.allowAddRemove, true)}
                 showUpButton={(rIdx > 0)}
                 showDownButton={(rIdx < value.length - 1)}
                 isExpandable={areRowsExpandable}
