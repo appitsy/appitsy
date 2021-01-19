@@ -23,15 +23,25 @@ export enum LogicActionType {
   SetProperty = 'setProperty',
 }
 
-export interface LogicAction {
-  type: LogicActionType;
-  value?: Code;
-  updateComponent?: any;
+interface ValueLogicAction {
+  type: LogicActionType.Value;
+  value: Code;
+}
+
+interface UpdateComponentLogicAction {
+  type: LogicActionType.UpdateComponent;
+  updateComponent: any;
+}
+
+interface SetPropertyLogicAction {
+  type: LogicActionType.SetProperty;
   property: {
     path: string;
     value: string;
   }
 }
+
+export type LogicAction = ValueLogicAction | UpdateComponentLogicAction | SetPropertyLogicAction;
 
 export interface LogicProps {
   name: string;
