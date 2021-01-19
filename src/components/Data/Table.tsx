@@ -9,12 +9,13 @@ import { AppComponent } from '../../types/AppComponent';
 import { ComponentSchema } from '../../types/ComponentSchema';
 import {
   TableProps,
+  TableRowExpandedTypeName,
   TableTypeName,
 } from '../../types/DataComponentSchema';
 import evaluate from '../../utilities/Evaluator';
 import { getBooleanOrDefault } from '../../utilities/Utilities';
 import { Button } from '../Basic';
-import TableRow, { TableRowExpandedTypeName } from './TableRow';
+import TableRow from './TableRow';
 
 interface TableComponentProps extends TableProps {
   className?: string;

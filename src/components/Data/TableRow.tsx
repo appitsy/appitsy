@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IconButton } from '..';
 import Styled from '../../Styled';
 import { ComponentSchema } from '../../types/ComponentSchema';
+import { TableRowExpandedType } from '../../types/DataComponentSchema';
 
 const StyledTableRow = Styled.tr<any>`
   border-style: solid;
@@ -48,9 +49,6 @@ const TableRowDeleteActionButton = Styled(TableRowActionButton)`
   color: red;
   font-size: 18px;
 `;
-
-export type TableRowExpandedType = 'table-row-expand';
-export const TableRowExpandedTypeName = 'table-row-expand';
 
 export interface TableRowExpandedSchema {
   type: TableRowExpandedType,

@@ -10,9 +10,11 @@ import { ComponentSchema } from './ComponentSchema';
 
 // DATA COMPONENTS
 export type TableType = 'table';
+export type TableRowExpandedType = 'table-row-expand';
 export type ObjectComponentType = 'object';
 
 export const TableTypeName = 'table';
+export const TableRowExpandedTypeName = 'table-row-expand';
 export const ObjectComponentTypeName = 'object';
 
 export const TableTypeDisplayName = 'Table';
