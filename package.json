@@ -19,7 +19,6 @@
     "buildThemes": "node-sass src/themes/bootstrap.scss dist/themes/bootstrap.css && node-sass src/themes/foundation.scss dist/themes/foundation.css",
     "clean": "shx rm -rf dist lib lib-esm",
     "pack": "npm run build && npm pack ./dist",
-    "publish": "npm run build && npm publish ./dist --access public",
     "dev": "webpack-cli serve --mode development --config ./webpack.dev.config.js --entry ./example/src/index.tsx",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
