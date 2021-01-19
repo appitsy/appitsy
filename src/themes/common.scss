@@ -1,15 +1,3 @@
-// override react-tabs
-
-.react-tabs__tab-list {
-  margin: 0px;
-}
-
-.appitsy-component .react-tabs__tab-panel--selected {
-  border-width: 1px 1px 1px 1px;
-  border-style: solid;
-  border-color: #aaa;
-}
-
 .appitsy-component  {
   margin: 7px;
   width: calc(100% - 14px) !important;
@@ -17,8 +5,4 @@
   &.appitsy-object{
     margin: 0px;
   }
-}
-
-.react-tabs__tab-list {
-    border-bottom: none;
 }

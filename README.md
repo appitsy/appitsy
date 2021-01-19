@@ -1,6 +1,6 @@
 # appitsy
 
-[![NPM](https://img.shields.io/npm/v/appitsy.svg)](https://www.npmjs.com/package/@appitsy/forms)
+[![NPM](https://img.shields.io/npm/v/@appitsy/forms)](https://www.npmjs.com/package/@appitsy/forms)
 
 ## Install
 
