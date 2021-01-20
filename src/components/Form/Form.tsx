@@ -56,36 +56,36 @@ const StyledPage = Styled.div`
   padding: 7px;
 `;
 
-export type RendererProps = {
+export type FormProps = {
   schema: ComponentSchema[];
   data?: any;
   onDataChange?: (data: any) => void;
   onSubmit?: (data: any, buttonName: string) => void;
 };
 
-interface RendererState {
+interface FormState {
   schema: ComponentSchema[];
   data: any;
   originalData: any;
-  rendererUpdating: boolean;
+  formUpdating: boolean;
 }
 
-export class Renderer<T extends RendererProps = RendererProps> extends React.Component<T, RendererState> {
-  constructor(props: RendererProps) {
+export class Form<T extends FormProps = FormProps> extends React.Component<T, FormState> {
+  constructor(props: FormProps) {
     super(props as any);
     this.state = {
       data: this.props.data || {},
       originalData: this.props.data || {},
       schema: this.props.schema,
-      rendererUpdating: false,
+      formUpdating: false,
     };
   }
 
-  shouldComponentUpdate(nextProps: RendererProps) {
+  shouldComponentUpdate(nextProps: FormProps) {
     return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
   }
 
-  static getDerivedStateFromProps(nextProps: RendererProps, currentState: RendererState): any {
+  static getDerivedStateFromProps(nextProps: FormProps, currentState: FormState): any {
     const updatedState: any = {};
 
     if (nextProps.data !== currentState.originalData) {
@@ -112,7 +112,7 @@ export class Renderer<T extends RendererProps = RendererProps> extends React.Com
   validateComponentName = (_componentName: string) => true;
 
   handleChange = (componentPath: string, value: any): void => {
-    if (this.state.rendererUpdating === true) {
+    if (this.state.formUpdating === true) {
       return;
     }
 

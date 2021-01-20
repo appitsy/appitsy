@@ -1,4 +1,7 @@
-import { Renderer, RendererProps } from './components/Renderer/Renderer';
+import {
+  Form,
+  FormProps,
+} from './components/Form/Form';
 
-export { Renderer };
-export type { RendererProps };
+export { Form };
+export type { FormProps };

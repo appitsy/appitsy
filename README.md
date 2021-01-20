@@ -18,7 +18,7 @@ npm install --save @appitsy/forms
 ```tsx
 import React, { Component } from 'react'
 
-import { Renderer } from '@appitsy/forms';
+import { Form } from '@appitsy/forms';
 
 const formSchema = [
   {
@@ -38,7 +38,7 @@ const formSchema = [
 
 class Example extends Component {
   render() {
-    return <Renderer
+    return <Form
               schema={formSchema}
               data={data}
               onSubmit={data => submitForm(data)}

@@ -2,7 +2,7 @@ import '../../src/themes/bootstrap.scss';
 
 import React from 'react';
 
-import { Renderer } from '../../src/components/Renderer/Renderer';
+import { Form } from '../../src/components/Form/Form';
 import { ComponentSchema } from '../../src/types/ComponentSchema';
 
 const schema: ComponentSchema[] = [
@@ -339,7 +339,7 @@ const App = () => {
     alert(JSON.stringify(_data));
   }
 
-  return <Renderer schema={schema} data={data} onSubmit={submit} />
+  return <Form schema={schema} data={data} onSubmit={submit} />
 }
 
 export default App
