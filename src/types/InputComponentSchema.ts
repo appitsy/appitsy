@@ -116,7 +116,6 @@ export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
 }
 
 export interface ButtonProps extends BaseComponentProps {
-  text: string;
   display?: ButtonDisplaySchema;
   style?: ButtonStyle;
 }

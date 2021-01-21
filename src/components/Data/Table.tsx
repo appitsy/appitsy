@@ -145,7 +145,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
           }
         </tbody>
       </table>
-      { props.display?.allowAddRemove !== false ? (<AddButtonRow><Button name='add' onClick={addRow} text='+ Add' /></AddButtonRow>) : null }
+      { props.display?.allowAddRemove !== false ? (<AddButtonRow><Button name='add' onClick={addRow} display={{label: '+ Add'}} /></AddButtonRow>) : null }
     </div>
   );
 };

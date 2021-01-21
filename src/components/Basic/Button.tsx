@@ -36,7 +36,7 @@ const Button: AppComponent<ButtonComponentProps> = (props) => {
       disabled={props.disabled}
     >
       { leftIcon }
-      { props.text }
+      { props.display?.label }
       { rightIcon }
     </StyledButton>
   );
@@ -45,7 +45,7 @@ const Button: AppComponent<ButtonComponentProps> = (props) => {
 Button.validateSchema = (_component: any) => true;
 
 Button.checkRerender = (prevProps, nextProps) => (
-  prevProps.text === nextProps.text
+  prevProps.display?.label === nextProps.display?.label
   && prevProps.display === nextProps.display
   && prevProps.onClick === nextProps.onClick
   && prevProps.disabled === nextProps.disabled

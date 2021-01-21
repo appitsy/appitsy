@@ -317,13 +317,17 @@ const schema: ComponentSchema[] = [
   {
     name: 'errorButton',
     type: 'button',
-    text: 'Error!',
+    display: {
+      label: 'Error!',
+    },
     style: "warning",
   },
   {
     name: 'button1',
     type: 'button',
-    text: 'Submit',
+    display: {
+      label: 'Submit',
+    },
   },
 ];
 
