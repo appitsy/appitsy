@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import styled from '../../Styled';
 import { AppComponent } from '../../types/AppComponent';
 import { ButtonProps } from '../../types/InputComponentSchema';
+import { getBooleanOrDefault } from '../../utilities/Utilities';
 import Icon from './Icon';
 
 const StyledButton = styled.button`
@@ -28,12 +29,14 @@ const Button: AppComponent<ButtonComponentProps> = (props) => {
   const leftIcon = props.display?.leftIcon ? <Fragment><Icon icon={props.display.leftIcon} />&nbsp;</Fragment> : null;
   const rightIcon = props.display?.rightIcon ? <Fragment>&nbsp;<Icon icon={props.display.rightIcon} /></Fragment> : null;
 
+  const disableButtonOnFormInvalid = getBooleanOrDefault(props.display?.disableOnInvalidForm, true);
+
   return (
     <StyledButton
       name={props.name}
       onClick={onClick}
       className={classNames(['appitsy-button', buttonTypeClass(), props.className])}
-      disabled={props.disabled}
+      disabled={disableButtonOnFormInvalid && props.disabled}
     >
       { leftIcon }
       { props.display?.label }

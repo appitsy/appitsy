@@ -319,6 +319,7 @@ const schema: ComponentSchema[] = [
     type: 'button',
     display: {
       label: 'Error!',
+      disableOnInvalidForm: false,
     },
     style: "warning",
   },

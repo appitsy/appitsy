@@ -111,6 +111,7 @@ export interface RadioProps extends BaseInputComponentProps<string> {
 export type ButtonStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
 
 export interface ButtonDisplaySchema extends BaseComponentDisplayProps {
+  disableOnInvalidForm?: boolean;
   leftIcon?: string;
   rightIcon?: string;
 }
