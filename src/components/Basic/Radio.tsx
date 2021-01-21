@@ -7,6 +7,7 @@ import {
   RadioProps,
   RadioTypeName,
 } from '../../types/InputComponentSchema';
+import { ValidateRequired } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface RadioComponentProps extends RadioProps {
@@ -17,13 +18,12 @@ interface RadioComponentProps extends RadioProps {
 }
 
 const Radio: AppComponent<RadioComponentProps> = (props) => {
-  const radioValidate = (_value: string): string | null => {
+  const radioValidate = (value: string): string | null => {
     if (props.validations === undefined) {
       return null;
     }
 
-    // TODO: add some validations
-    return '';
+    return ValidateRequired(props.validations, value);
   };
 
   const value = (props.value?.length >= 0 ? props.value : props.data?.defaultValue) || '';

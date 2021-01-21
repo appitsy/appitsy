@@ -86,7 +86,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       {
         const value: string[] = props.value as string[] || [];
         const checkboxes = (props as MultiCheckboxProps).data?.checkboxes;
-        const checkboxesEl = checkboxes?.map((c, idx) => {
+        childEl = checkboxes?.map((c, idx) => {
           const onMultiCheckboxChange = (val: boolean) => {
             const newValue = [...value];
             if (val) {
@@ -110,16 +110,13 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
             </div>
           );
         });
-
-        const errorLabel = <ErrorLabel error={validationError} />;
-        childEl = [...(checkboxesEl || []), errorLabel];
       }
       break;
     case RadioTypeName:
       {
         const value: string = props.value as string;
         const radioButtons = (props as RadioProps).data?.options;
-        const radioButtonsEl = radioButtons?.map((c, idx) => {
+        childEl = radioButtons?.map((c, idx) => {
           const onRadioButtonChange = (val?: string) => {
             onChange(val as T);
           };
@@ -144,9 +141,6 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
             </div>
           );
         });
-
-        const errorLabel = <ErrorLabel error={validationError} />;
-        childEl = [...(radioButtonsEl || []), errorLabel];
       }
       break;
     case SelectTypeName:

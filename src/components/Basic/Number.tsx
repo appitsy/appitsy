@@ -21,9 +21,9 @@ interface NumberComponentProps extends NumberProps {
 }
 
 const Number: AppComponent<NumberComponentProps> = (props) => {
-  const textFieldValidate = (value: number): string | null => (
-    ValidateRequired(props.validations!, value.toString())
-      || ValidateMinMaxNumber(props.validations!, value)
+  const textFieldValidate = (value?: number): string | null => (
+    ValidateRequired(props.validations!, value?.toString())
+      || ValidateMinMaxNumber(props.validations!, value!)
   );
 
   return (

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 export interface RequiredValidations {
   required?: boolean;
@@ -38,8 +38,8 @@ export const ValidateRequiredBool = (validations: RequiredValidations, value: bo
     : null
 );
 
-export const ValidateRequired = (validations: RequiredValidations, value: string): string | null => (
-  validations.required && value?.length === 0
+export const ValidateRequired = (validations: RequiredValidations, value?: string): string | null => (
+  validations.required && (value === undefined || value.length === 0)
     ? 'Field is required'
     : null
 );

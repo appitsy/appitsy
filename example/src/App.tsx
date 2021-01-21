@@ -12,6 +12,11 @@ const schema: ComponentSchema[] = [
     display: {
       label: 'My Number',
     },
+    validations: {
+      required: true,
+      min: 100,
+      max: 200
+    }
   },
   {
     type: 'checkbox',
@@ -38,8 +43,15 @@ const schema: ComponentSchema[] = [
         {
           label: 'Radio 2',
           value: 'r2'
+        },
+        {
+          label: 'Radio 3',
+          value: 'r3'
         }
       ]
+    },
+    validations: {
+      required: true,
     }
   },
   {
@@ -90,6 +102,9 @@ const schema: ComponentSchema[] = [
         'ch1',
         'ch3'
       ]
+    },
+    validations: {
+      required: true,
     }
   },
   {
