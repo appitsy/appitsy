@@ -29,6 +29,7 @@ interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {
   className: string;
   value: T | undefined;
   validate(value: T | undefined): string | null;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: T | undefined): void;
 }
 
@@ -54,8 +55,9 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
     return props.onValueChange(value);
   };
 
-  if (props.validations && state.touched) {
+  if (props.validations) {
     validationError = (props.validate(props.value)) || '';
+    props.onValidationError(props.name, validationError);
   }
 
   let childEl;
@@ -118,16 +120,18 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
 
   const classes = classNames(props.className, { 'appitsy-hidden': props.display?.hidden }, 'appitsy-input');
 
+  const label = <Label for={props.name} text={props.display?.label || props.name} tooltip={props.display?.tooltip} requiredAsterisk={props.validations?.required === true} />;
+
   return (
     <Flex className={classes} flexDirection={labelPositionToFlexDirection(props.display?.labelPosition)}>
       {
-              props.display?.hideLabel === true ? null : (<Label for={props.name} text={props.display?.label || props.name} tooltip={props.display?.tooltip} />)
-            }
+        props.display?.hideLabel === true ? null : label
+      }
       {/* errorPositionToFlexDirection(props.display?.errorPosition) */}
       <Flex flexDirection='column'>
         { props.display?.prefix || props.display?.suffix ? wrapInPrefixSuffix(childEl) : childEl }
         <Description text={props.display?.description} />
-        <ErrorLabel error={validationError} />
+        { state.touched ? <ErrorLabel error={validationError} /> : null }
       </Flex>
     </Flex>
   );

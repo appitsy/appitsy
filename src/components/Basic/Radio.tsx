@@ -14,6 +14,7 @@ interface RadioComponentProps extends RadioProps {
   className: string;
   value: string;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: string): void;
 }
 
@@ -36,6 +37,7 @@ const Radio: AppComponent<RadioComponentProps> = (props) => {
       value={value}
       onValueChange={props.onValueChange}
       validate={radioValidate}
+      onValidationError={props.onValidationError}
       inputType={RadioTypeName}
       className={classNames(props.className, `appitsy-${RadioTypeName}`)}
     />

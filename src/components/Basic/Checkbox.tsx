@@ -14,6 +14,7 @@ interface CheckboxComponentProps extends CheckboxProps {
   className: string;
   value: boolean;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: boolean): void;
 }
 
@@ -32,6 +33,7 @@ const Checkbox: AppComponent<CheckboxComponentProps> = (props) => {
       value={props.value || props.data?.defaultValue || false}
       onValueChange={props.onValueChange}
       validate={checkboxValidate}
+      onValidationError={props.onValidationError}
       inputType={CheckboxTypeName}
       className={classNames(props.className, `appitsy-${CheckboxTypeName}`)}
     />

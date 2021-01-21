@@ -17,6 +17,7 @@ interface NumberComponentProps extends NumberProps {
   className: string;
   value: number;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: number): void;
 }
 

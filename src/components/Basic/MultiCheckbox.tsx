@@ -15,6 +15,7 @@ interface MultiCheckboxComponentProps extends MultiCheckboxProps {
   className: string;
   value: boolean;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: boolean): void;
 }
 
@@ -38,6 +39,7 @@ const MultiCheckbox: AppComponent<MultiCheckboxComponentProps> = (props) => {
       value={value}
       onValueChange={props.onValueChange}
       validate={MultiCheckboxValidate}
+      onValidationError={props.onValidationError}
       inputType={MultiCheckboxTypeName}
       className={classNames(props.className, `appitsy-${MultiCheckboxTypeName}`)}
     />

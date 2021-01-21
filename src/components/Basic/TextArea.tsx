@@ -9,6 +9,7 @@ import {
   TextAreaTypeName,
 } from '../../types/InputComponentSchema';
 import {
+  ValidateInvalidChars,
   ValidateMinMaxLength,
   ValidateRequired,
 } from '../../utilities/Validations';
@@ -18,7 +19,7 @@ interface TextAreaComponentProps extends TextAreaProps {
   className: string;
   value: string;
   path?: string;
-  validate?(value: string, textFieldValidate: () => string | null): string | null;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: string): void;
 }
 
@@ -26,6 +27,7 @@ const TextArea: AppComponent<TextAreaComponentProps> = (props) => {
   const textAreaValidate = (value: string): string | null => (
     ValidateRequired(props.validations!, value)
     || ValidateMinMaxLength(props.validations!, value)
+    || ValidateInvalidChars(props.validations!, value)
   );
 
   return (

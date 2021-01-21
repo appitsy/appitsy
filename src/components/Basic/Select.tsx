@@ -14,6 +14,7 @@ interface SelectComponentProps extends SelectProps {
   className: string;
   value: string;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: string): void;
 }
 
@@ -49,6 +50,7 @@ const Select: AppComponent<SelectComponentProps> = (props) => {
       value={value}
       onValueChange={props.onValueChange}
       validate={selectValidate}
+      onValidationError={props.onValidationError}
       inputType={SelectTypeName}
       className={classNames(props.className, `appitsy-${SelectTypeName}`)}
     />

@@ -19,6 +19,7 @@ interface EmailComponentProps extends EmailProps {
   className: string;
   value: string;
   path?: string;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: string): void;
 }
 

@@ -9,6 +9,10 @@ export interface MinMaxLengthValidations {
   maxLength?: number;
 }
 
+export interface InvalidCharsValidations {
+  invalidChars?: string[];
+}
+
 export interface MinMaxNumberValidations {
   min?: number;
   max?: number;
@@ -25,8 +29,8 @@ export interface RegexValidations {
 
 export interface BaseInputComponentValidations extends RequiredValidations {}
 export interface BaseTextComponentValidations extends RequiredValidations, MinMaxLengthValidations {}
-export type TextFieldValidations = BaseTextComponentValidations;
-export type TextAreaValidations = BaseTextComponentValidations;
+export interface TextFieldValidations extends BaseTextComponentValidations, InvalidCharsValidations {}
+export interface TextAreaValidations extends BaseTextComponentValidations, InvalidCharsValidations {}
 export type PasswordValidations = BaseTextComponentValidations;
 export interface NumberValidations extends RequiredValidations, MinMaxLengthValidations, MinMaxNumberValidations { }
 export type CheckboxValidations = RequiredValidations;
@@ -51,6 +55,20 @@ export const ValidateMinMaxLength = (validations: MinMaxLengthValidations, value
 
   if (validations.maxLength && value?.length > validations.maxLength) {
     return `Field should have a max of ${validations.maxLength} chars`;
+  }
+
+  return null;
+};
+
+export const ValidateInvalidChars = (validations: InvalidCharsValidations, value: string): string | null => {
+  if (validations.invalidChars === undefined || validations.invalidChars.length === 0) {
+    return null;
+  }
+
+  const invalidCharsRegex = new RegExp(validations.invalidChars.join('|'));
+
+  if (invalidCharsRegex.test(value)) {
+    return `Field should not contain ${validations.invalidChars.map(x => `'${x}'`).join(',')}`;
   }
 
   return null;

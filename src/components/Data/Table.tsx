@@ -22,6 +22,7 @@ interface TableComponentProps extends TableProps {
   path?: string;
   renderChildComponents: (components?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
   value: any[];
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: any[]): void;
 }
 

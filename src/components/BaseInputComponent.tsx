@@ -33,6 +33,7 @@ interface BaseInputProps<T> extends BaseInputComponentProps<T> {
   className: string;
   value: T;
   validate(value: T): string | null;
+  onValidationError(name: string, errorMsg?: string): void;
   onValueChange(value: T): void;
 }
 
@@ -62,8 +63,9 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
     return props.onValueChange(value);
   };
 
-  if (props.validate && state.touched) {
+  if (props.validate) {
     validationError = (props.validate(props.value)) || '';
+    props.onValidationError(props.name, validationError);
   }
 
   let childEl;
@@ -188,7 +190,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       <Flex flexDirection='column'>
         { childEl }
         <Description text={props.display?.description} />
-        <ErrorLabel error={validationError} />
+        { state.touched ? <ErrorLabel error={validationError} /> : null }
       </Flex>
     </Flex>
   );

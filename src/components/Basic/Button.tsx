@@ -14,6 +14,7 @@ const StyledButton = styled.button`
 interface ButtonComponentProps extends ButtonProps {
   className?: string;
   path?: string;
+  disabled?: boolean;
   onClick(buttonName: string): any;
 }
 
@@ -28,7 +29,12 @@ const Button: AppComponent<ButtonComponentProps> = (props) => {
   const rightIcon = props.display?.rightIcon ? <Fragment>&nbsp;<Icon icon={props.display.rightIcon} /></Fragment> : null;
 
   return (
-    <StyledButton name={props.name} onClick={onClick} className={classNames(['appitsy-button', buttonTypeClass(), props.className])}>
+    <StyledButton
+      name={props.name}
+      onClick={onClick}
+      className={classNames(['appitsy-button', buttonTypeClass(), props.className])}
+      disabled={props.disabled}
+    >
       { leftIcon }
       { props.text }
       { rightIcon }
@@ -42,6 +48,7 @@ Button.checkRerender = (prevProps, nextProps) => (
   prevProps.text === nextProps.text
   && prevProps.display === nextProps.display
   && prevProps.onClick === nextProps.onClick
+  && prevProps.disabled === nextProps.disabled
 );
 
 // Update Button when onClick also changes.

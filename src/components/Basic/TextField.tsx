@@ -9,6 +9,7 @@ import {
   TextFieldTypeName,
 } from '../../types/InputComponentSchema';
 import {
+  ValidateInvalidChars,
   ValidateMinMaxLength,
   ValidateRequired,
 } from '../../utilities/Validations';
@@ -18,7 +19,7 @@ interface TextFieldComponentProps extends TextFieldProps {
   className: string;
   value: string;
   path?: string;
-  validate?(value: string, textFieldValidate: () => string | null): string | null;
+  onValidationError(name: string, error?: string): void;
   onValueChange(value: string): void;
 }
 
@@ -26,6 +27,7 @@ const TextField: AppComponent<TextFieldComponentProps> = (props) => {
   const textFieldValidate = (value: string): string | null => (
     ValidateRequired(props.validations!, value)
     || ValidateMinMaxLength(props.validations!, value)
+    || ValidateInvalidChars(props.validations!, value)
   );
 
   return (

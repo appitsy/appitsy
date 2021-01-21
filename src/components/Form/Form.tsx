@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react';
 
-import _ from 'lodash';
+import _, { cloneDeep } from 'lodash';
 
 import Styled from '../../Styled';
 import { Condition } from '../../types/BaseComponentSchema';
@@ -58,31 +58,40 @@ const StyledPage = Styled.div`
 
 export type FormProps = {
   schema: ComponentSchema[];
-  data?: any;
+  data: any;
   onDataChange?: (data: any) => void;
   onSubmit?: (data: any, buttonName: string) => void;
 };
+
+interface ValidationError {
+  fieldName: string;
+  error: string;
+}
 
 interface FormState {
   schema: ComponentSchema[];
   data: any;
   originalData: any;
   formUpdating: boolean;
+  validationErrors: ValidationError[],
 }
 
 export class Form<T extends FormProps = FormProps> extends React.Component<T, FormState> {
   constructor(props: FormProps) {
     super(props as any);
     this.state = {
-      data: this.props.data || {},
-      originalData: this.props.data || {},
+      data: this.props.data,
+      originalData: this.props.data,
       schema: this.props.schema,
       formUpdating: false,
+      validationErrors: [],
     };
   }
 
-  shouldComponentUpdate(nextProps: FormProps) {
-    return nextProps.data !== this.state.data || nextProps.schema !== this.state.schema;
+  shouldComponentUpdate(nextProps: FormProps, nextState: FormState) {
+    return nextProps.data !== this.state.data
+            || nextProps.schema !== this.state.schema
+            || this.state.validationErrors.length !== nextState.validationErrors.length;
   }
 
   static getDerivedStateFromProps(nextProps: FormProps, currentState: FormState): any {
@@ -90,9 +99,9 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
 
     if (nextProps.data !== currentState.originalData) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      updatedState.originalData = nextProps.data || {};
+      updatedState.originalData = nextProps.data;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      updatedState.data = nextProps.data || {};
+      updatedState.data = nextProps.data;
     }
 
     if (nextProps.schema !== currentState.schema) {
@@ -159,6 +168,34 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
     return true;
   };
 
+  setValidationErrorForField = (fieldName: string, errorMsg?: string) => {
+    const validationErrors = cloneDeep(this.state.validationErrors);
+    const fieldErrorIdx = validationErrors.findIndex(x => x.fieldName === fieldName);
+
+    if (fieldErrorIdx === -1) {
+      if (errorMsg === undefined || errorMsg.length === 0) {
+        // no change needed.
+        return;
+      }
+
+      validationErrors.push({
+        fieldName,
+        error: errorMsg,
+      });
+    } else if (errorMsg === undefined || errorMsg.length === 0) {
+      validationErrors.splice(fieldErrorIdx, 1);
+    } else {
+      // don't update state if already that error is set
+      if (validationErrors[fieldErrorIdx].error === errorMsg) {
+        return;
+      }
+
+      validationErrors[fieldErrorIdx].error = errorMsg;
+    }
+
+    this.setState({ validationErrors });
+  };
+
   public renderComponent(component: ComponentSchema, parentPath?: string): JSX.Element {
     const condition = component.display?.condition;
     if (condition && !this.shouldShow(condition)) {
@@ -178,51 +215,47 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
     const componentSchema = { ...component, ...logicResult.schema };
 
     const value = _.get(this.state.data, componentPath);
-    const onValueChange = (val: any) => this.handleChange(componentPath, val);
+
+    const commonProperties = {
+      className: 'appitsy-component',
+      key: componentPath,
+      path: componentPath,
+    };
+
+    const commonPropertiesWithValue = {
+      ...commonProperties,
+      value,
+      onValidationError: this.setValidationErrorForField,
+      onValueChange: (val: any) => this.handleChange(componentPath, val),
+    };
 
     const componentType = component.type.toLowerCase();
     switch (componentType) {
       case Types.TextField:
         return (
           <TextField
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as TextFieldProps)}
           />
         );
       case Types.TextArea:
         return (
           <TextArea
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as TextAreaProps)}
           />
         );
       case Types.Email:
         return (
           <Email
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as EmailProps)}
           />
         );
       case Types.Number:
         return (
           <Number
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as NumberProps)}
           />
         );
@@ -230,21 +263,16 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
         return (
           // eslint-disable-next-line prettier/prettier
           <Button
+            {...commonProperties}
             onClick={this.handleClick}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            disabled={this.state.validationErrors.length > 0}
             {...(componentSchema as ButtonProps)}
           />
         );
       case Types.Password:
         return (
           <Password
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as PasswordProps)}
           />
         );
@@ -252,11 +280,7 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Checkbox:
         return (
           <Checkbox
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as CheckboxProps)}
           />
         );
@@ -264,11 +288,7 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.MultiCheckbox:
         return (
           <MultiCheckbox
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as CheckboxProps)}
           />
         );
@@ -276,11 +296,7 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Radio:
         return (
           <Radio
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as RadioProps)}
           />
         );
@@ -288,11 +304,7 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Select:
         return (
           <Select
-            value={value}
-            onValueChange={onValueChange}
-            className='appitsy-component'
-            key={componentPath}
-            path={componentPath}
+            {...commonPropertiesWithValue}
             {...(componentSchema as SelectProps)}
           />
         );
@@ -300,10 +312,8 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Panel: {
         return (
           <Panel
-            className='appitsy-component'
+            {...commonProperties}
             renderChildComponents={this.renderChildComponents.bind(this)}
-            key={componentPath}
-            path={componentPath}
             {...(componentSchema as PanelProps)}
           />
         );
@@ -312,10 +322,8 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Columns: {
         return (
           <Columns
-            className='appitsy-component'
+            {...commonProperties}
             renderChildComponents={this.renderChildComponents.bind(this)}
-            key={componentPath}
-            path={componentPath}
             {...(componentSchema as ColumnsProps)}
           />
         );
@@ -324,10 +332,8 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Tabs: {
         return (
           <Tabs
-            className='appitsy-component'
+            {...commonProperties}
             renderChildComponents={this.renderChildComponents.bind(this)}
-            key={componentPath}
-            path={componentPath}
             {...(componentSchema as TabsProps)}
           />
         );
@@ -336,12 +342,8 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.Table: {
         return (
           <Table
-            className='appitsy-component'
+            {...commonPropertiesWithValue}
             renderChildComponents={this.renderChildComponents.bind(this)}
-            key={componentPath}
-            path={componentPath}
-            value={value}
-            onValueChange={onValueChange}
             {...(componentSchema as TableProps)}
           />
         );
@@ -350,10 +352,8 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
       case Types.ObjectComponent: {
         return (
           <ObjectComponent
-            className='appitsy-component'
+            {...commonProperties}
             renderChildComponents={this.renderChildComponents.bind(this)}
-            key={componentPath}
-            path={componentPath}
             {...(componentSchema as ObjectComponentProps)}
           />
         );
