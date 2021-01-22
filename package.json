@@ -3,8 +3,13 @@
   "version": "0.1.9",
   "description": "Build Effortless Forms in React",
   "author": "parasgera",
+  "homepage": "https://appitsy.com",
   "license": "MIT",
   "repository": "appitsy/forms",
+  "bugs": {
+    "url": "https://github.com/appitsy/forms/issues",
+    "email": "paras@appitsy.com"
+  },
   "keywords": [
     "react",
     "forms",
