@@ -77,6 +77,8 @@ interface FormState {
 }
 
 export class Form<T extends FormProps = FormProps> extends React.Component<T, FormState> {
+  formId = _.uniqueId();
+
   constructor(props: FormProps) {
     super(props as any);
     this.state = {
@@ -116,6 +118,14 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
     }
 
     return null;
+  }
+
+  componentDidMount() {
+    // Focus the first input element on form load
+    const firstInputEl = document.getElementById(this.formId)?.querySelector('input');
+    if (firstInputEl) {
+      firstInputEl.focus();
+    }
   }
 
   validateComponentName = (_componentName: string) => true;
@@ -376,7 +386,7 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
 
   public renderRoot() {
     return (
-      <StyledPage>
+      <StyledPage id={this.formId}>
         {this.renderChildren()}
       </StyledPage>
     );
