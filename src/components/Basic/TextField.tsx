@@ -33,7 +33,7 @@ const TextField: AppComponent<TextFieldComponentProps> = (props) => {
   return (
     <BaseTextInputComponent
       {...props}
-      value={props.value || props.data?.defaultValue || ''}
+      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       inputType={TextFieldTypeName}
       className={classNames([`appitsy-${TextFieldTypeName}`, props.className])}
       validate={textFieldValidate}

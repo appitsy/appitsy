@@ -7,6 +7,16 @@ import { ComponentSchema } from '../../src/types/ComponentSchema';
 
 const schema: ComponentSchema[] = [
   {
+    type: 'text',
+    name: 'Text1',
+    display: {
+      label: 'Text -- One',
+    },
+    data: {
+      defaultValue: '123'
+    }
+  },
+  {
     type: 'number',
     name: 'Number1',
     display: {

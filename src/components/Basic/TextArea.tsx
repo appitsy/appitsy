@@ -33,7 +33,7 @@ const TextArea: AppComponent<TextAreaComponentProps> = (props) => {
   return (
     <BaseTextInputComponent
       {...props}
-      value={props.value || props.data?.defaultValue || ''}
+      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       inputType={TextAreaTypeName}
       className={classNames([`appitsy-${TextAreaTypeName}`, props.className])}
       validate={textAreaValidate}

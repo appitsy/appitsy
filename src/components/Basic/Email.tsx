@@ -34,7 +34,7 @@ const Email: AppComponent<EmailComponentProps> = (props) => {
     <BaseTextInputComponent
       {...props}
       inputType={EmailTypeName}
-      value={props.value || props.data?.defaultValue || ''}
+      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       className={classNames([`appitsy-${EmailTypeName}`, props.className])}
       validate={emailValidate}
     />
