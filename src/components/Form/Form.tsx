@@ -90,7 +90,15 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
     };
   }
 
-  shouldComponentUpdate(nextProps: FormProps, nextState: FormState) {
+  componentDidMount(): void {
+    // Focus the first input element on form load
+    const firstInputEl = document.getElementById(this.formId)?.querySelector('input');
+    if (firstInputEl) {
+      firstInputEl.focus();
+    }
+  }
+
+  shouldComponentUpdate(nextProps: FormProps, nextState: FormState): boolean {
     return nextProps.data !== this.state.data
             || nextProps.schema !== this.state.schema
             || this.state.validationErrors.length !== nextState.validationErrors.length;
@@ -118,14 +126,6 @@ export class Form<T extends FormProps = FormProps> extends React.Component<T, Fo
     }
 
     return null;
-  }
-
-  componentDidMount() {
-    // Focus the first input element on form load
-    const firstInputEl = document.getElementById(this.formId)?.querySelector('input');
-    if (firstInputEl) {
-      firstInputEl.focus();
-    }
   }
 
   validateComponentName = (_componentName: string) => true;
