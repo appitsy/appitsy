@@ -1,6 +1,8 @@
 # appitsy
 
 [![NPM](https://img.shields.io/npm/v/@appitsy/forms)](https://www.npmjs.com/package/@appitsy/forms)
+![CI](https://github.com/appitsy/forms/workflows/CI/badge.svg)
+![npm type definitions](https://img.shields.io/npm/types/@appitsy/forms)
 
 ## Install
 
