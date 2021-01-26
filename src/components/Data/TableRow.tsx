@@ -28,11 +28,11 @@ const TableRowActions = Styled(TableRowColumn)`
   width: 16px;
   padding: 0px 8px;
 
-  &:nth-last-of-type(2) {
+  &.appitsy-table-sorting-buttons {
     padding: 0px 4px 0px 8px;
   }
 
-  &:last-of-type {
+  &.appitsy-table-delete-button {
     padding: 0px 8px 0px 4px;
   }
 `;
@@ -94,19 +94,24 @@ const TableRow = (props: TableRowProps) => {
     deleteButton = <TableRowDeleteActionButton key={`${props.key}-delete`} icon='times' onClick={() => props.deleteRow()} />;
   }
 
-  const rowActions = [
-    (
-      <TableRowActions>
-        { props.showUpButton ? moveUpButton : null }
-        { props.showDownButton ? moveDownButton : null }
+  const rowActions = [];
+
+  if (props.allowSorting) {
+    rowActions.push((
+      <TableRowActions className='appitsy-table-sorting-buttons'>
+        {props.showUpButton ? moveUpButton : null}
+        {props.showDownButton ? moveDownButton : null}
       </TableRowActions>
-    ),
-    (
-      <TableRowActions>
-        { deleteButton }
+    ));
+  }
+
+  if (props.allowAddRemove) {
+    rowActions.push((
+      <TableRowActions className='appitsy-table-delete-button'>
+        {deleteButton}
       </TableRowActions>
-    ),
-  ];
+    ));
+  }
 
   const expandableButton = (
     <ExpandRowButtonColumn>
@@ -134,8 +139,8 @@ const TableRow = (props: TableRowProps) => {
         { c }
       </TableRowColumn>
       {/* Space for our row actions */}
-      <TableRowColumn />
-      <TableRowColumn />
+      { props.allowSorting ? <TableRowColumn /> : null }
+      { props.allowAddRemove ? <TableRowColumn /> : null }
     </>
   ));
 
@@ -158,6 +163,5 @@ const TableRow = (props: TableRowProps) => {
     </>
   );
 };
-
 
 export default TableRow;

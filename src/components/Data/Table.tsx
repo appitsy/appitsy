@@ -86,6 +86,8 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
   const expandablePanelIndex = _.findIndex(props.components, x => x.type === TableRowExpandedTypeName);
   const expandablePanel = expandablePanelIndex !== -1 ? props.components[expandablePanelIndex] : undefined;
   const areRowsExpandable = expandablePanel !== undefined;
+  const allowSorting = getBooleanOrDefault(props.display?.allowSorting, true);
+  const allowAddRemove = getBooleanOrDefault(props.display?.allowAddRemove, true);
 
   const columns = props.components.map((column) => {
     const component = _.cloneDeep(column);
@@ -117,8 +119,8 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
               ))
             }
             {/* For actions and delete button */}
-            <TableHeaderColumn />
-            <TableHeaderColumn />
+            { allowSorting ? <TableHeaderColumn /> : null }
+            { allowAddRemove ? <TableHeaderColumn /> : null }
           </TableHeader>
         </thead>
 
@@ -128,8 +130,8 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
               <TableRow
                 path={props.path ? `${props.path}[${rIdx}]` : `[${rIdx}]`}
                 key={`${props.name}[${rIdx}]`}
-                allowSorting={getBooleanOrDefault(props.display?.allowSorting, true)}
-                allowAddRemove={getBooleanOrDefault(props.display?.allowAddRemove, true)}
+                allowSorting={allowSorting}
+                allowAddRemove={allowAddRemove}
                 showUpButton={(rIdx > 0)}
                 showDownButton={(rIdx < value.length - 1)}
                 isExpandable={areRowsExpandable}
@@ -145,7 +147,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
           }
         </tbody>
       </table>
-      { props.display?.allowAddRemove !== false ? (<AddButtonRow><Button name='add' onClick={addRow} display={{label: '+ Add'}} /></AddButtonRow>) : null }
+      { props.display?.allowAddRemove !== false ? (<AddButtonRow><Button name='add' onClick={addRow} display={{ label: '+ Add' }} /></AddButtonRow>) : null }
     </div>
   );
 };

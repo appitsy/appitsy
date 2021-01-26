@@ -163,7 +163,7 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
 
         childEl = (
           <>
-            <Label for={props.name} text={props.display?.label || props.name} />
+            { props.display?.hideLabel === true ? null : <Label for={props.name} text={props.display?.label || props.name} /> }
             <ReactSelect
               options={options}
               // eslint-disable-next-line

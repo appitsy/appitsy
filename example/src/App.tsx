@@ -130,6 +130,7 @@ const schema: ComponentSchema[] = [
     display: {
       label: 'Table 1',
       atleastOneRow: true,
+      allowAddRemove: false,
     },
     data: {
       addNewDefault: '({ "table-textField1": "my add new default", "table-textField2-object": { "table-textField2": uuid() } })',
