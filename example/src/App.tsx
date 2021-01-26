@@ -7,26 +7,33 @@ import { ComponentSchema } from '../../src/types/ComponentSchema';
 
 const schema: ComponentSchema[] = [
   {
-    type: 'text',
-    name: 'Text1',
-    display: {
-      label: 'Text -- One',
-    },
-    data: {
-      defaultValue: '123'
-    }
-  },
-  {
-    type: 'number',
-    name: 'Number1',
-    display: {
-      label: 'My Number',
-    },
-    validations: {
-      required: true,
-      min: 100,
-      max: 200
-    }
+    name: 'columns2',
+    type: 'columns',
+    label: 'Co',
+    components: [
+      {
+        type: 'text',
+        name: 'Text1',
+        display: {
+          label: 'Text -- One',
+        },
+        data: {
+          defaultValue: '123'
+        }
+      },
+      {
+        type: 'number',
+        name: 'Number1',
+        display: {
+          label: 'My Number',
+        },
+        validations: {
+          required: true,
+          min: 100,
+          max: 200
+        }
+      },
+    ]
   },
   {
     type: 'checkbox',
