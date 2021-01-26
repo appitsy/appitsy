@@ -1,4 +1,7 @@
 # appitsy
+<p align="center"><img height="100" src="https://github.com/appitsy/forms/blob/main/logo.ico?raw=true" /></p>
+
+### <center> Build Effortless Forms In Your App! </center>
 
 [![NPM](https://img.shields.io/npm/v/@appitsy/forms)](https://www.npmjs.com/package/@appitsy/forms)
 ![CI](https://github.com/appitsy/forms/workflows/CI/badge.svg)
