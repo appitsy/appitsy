@@ -129,7 +129,7 @@ const schema: ComponentSchema[] = [
     type: 'table',
     display: {
       label: 'Table 1',
-      atleastOneRow: true,
+      minOneRow: true,
       allowAddRemove: false,
     },
     data: {

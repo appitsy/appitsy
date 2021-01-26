@@ -22,7 +22,7 @@ export const ObjectComponentTypeDisplayName = 'Object';
 
 export interface TableDisplayProps extends BaseComponentDisplayProps {
   label?: string;
-  atleastOneRow?: boolean;
+  minOneRow?: boolean;
   allowSorting?: boolean;
   allowAddRemove?: boolean;
 }

@@ -100,7 +100,7 @@ const Table: AppComponent<TableComponentProps> = (props: TableComponentProps) =>
     columns.splice(expandablePanelIndex, 1);
   }
 
-  const value = props.value || (props.display?.atleastOneRow === true ? [{}] : []);
+  const value = props.value || (props.display?.minOneRow === true ? [{}] : []);
 
   return (
     <div className={classNames(['appitsy-table', props.className])}>
