@@ -10,6 +10,7 @@ import {
   PanelTypeName,
 } from '../../types/LayoutComponentSchema';
 import { getParentComponentPath } from '../../utilities/ComponentPath';
+import { getBooleanOrDefault } from '../../utilities/Utilities';
 import Icon from '../Basic/Icon';
 
 interface PanelComponentProps extends PanelProps {
@@ -29,8 +30,8 @@ const PanelIcon = Styled(Icon)`
 
 const Panel: AppComponent<PanelComponentProps> = (props) => {
   const [state, setState] = useState({
-    expandable: props.display?.expandable || true,
-    expanded: props.display?.expanded || true,
+    expandable: getBooleanOrDefault(props.display?.expandable, true),
+    expanded: getBooleanOrDefault(props.display?.expanded, true),
   });
 
   const path = getParentComponentPath(props.path);
