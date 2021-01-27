@@ -16,9 +16,14 @@ interface ColumnsComponentProps extends ColumnsProps {
   renderChildComponents: (components?: ComponentSchema[], parentPath?: string, parentComponent?: ComponentSchema) => JSX.Element[];
 }
 
+const ColumnWrapper = Styled.div`
+  margin: 0px !important;
+  width: 100% !important;
+`;
+
 const ColumnsHeading = Styled.h5`
-    margin: 0px;
-    padding: 10px;
+  margin: 0px;
+  padding: 10px;
 `;
 
 const Row = Styled.div`
@@ -27,12 +32,12 @@ const Row = Styled.div`
 `;
 
 const Columns: AppComponent<ColumnsComponentProps> = (props) => (
-  <div className={classNames([`appitsy-${ColumnsTypeName}`, props.className])}>
+  <ColumnWrapper className={classNames([`appitsy-${ColumnsTypeName}`, props.className])}>
     <ColumnsHeading>{props.display.label}</ColumnsHeading>
     <Row>
       { props.renderChildComponents(props.components, props.path, { ...props, type: ColumnsTypeName } as ComponentSchema) }
     </Row>
-  </div>
+  </ColumnWrapper>
 );
 
 Columns.validateSchema = (_component: any) => true;

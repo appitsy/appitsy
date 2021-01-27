@@ -1,6 +1,7 @@
-.appitsy-component  {
+// adding body & * to make css at a precedence
+body *.appitsy-component  {
   margin: 7px;
-  width: calc(100% - 14px) !important;
+  width: calc(100% - 14px);
 
   &.appitsy-object{
     margin: 0px;
