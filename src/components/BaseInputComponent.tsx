@@ -88,61 +88,75 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       {
         const value: string[] = props.value as string[] || [];
         const checkboxes = (props as MultiCheckboxProps).data?.checkboxes;
-        childEl = checkboxes?.map((c, idx) => {
-          const onMultiCheckboxChange = (val: boolean) => {
-            const newValue = [...value];
-            if (val) {
-              newValue.push(c.value);
-            } else {
-              _.pull(newValue, c.value);
-            }
-            onChange(newValue as T);
-          };
+        childEl = (
+          <div>
+            { props.display?.hideLabel === true ? null : <Label for={props.name} text={props.display?.label || props.name} /> }
+            {
+              checkboxes?.map((c, idx) => {
+                const onMultiCheckboxChange = (val: boolean) => {
+                  const newValue = [...value];
+                  if (val) {
+                    newValue.push(c.value);
+                  } else {
+                    _.pull(newValue, c.value);
+                  }
+                  onChange(newValue as T);
+                };
 
-          return (
-            <div>
-              <CheckboxInput
-                type='checkbox'
-                id={`${props.name}-${idx}`}
-                name={props.name}
-                checked={value.includes(c.value)}
-                onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
-              />
-              <Label for={`${props.name}-${idx}`} text={c.label} />
-            </div>
-          );
-        });
+                return (
+                  <div>
+                    <CheckboxInput
+                      type='checkbox'
+                      id={`${props.name}-${idx}`}
+                      name={props.name}
+                      checked={value.includes(c.value)}
+                      onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
+                    />
+                    <Label for={`${props.name}-${idx}`} text={c.label} />
+                  </div>
+                );
+              })
+            }
+          </div>
+        )
       }
       break;
     case RadioTypeName:
       {
         const value: string = props.value as string;
         const radioButtons = (props as RadioProps).data?.options;
-        childEl = radioButtons?.map((c, idx) => {
-          const onRadioButtonChange = (val?: string) => {
-            onChange(val as T);
-          };
+        childEl = (
+          <div>
+            { props.display?.hideLabel === true ? null : <Label for={props.name} text={props.display?.label || props.name} /> }
+            {
+            radioButtons?.map((c, idx) => {
+              const onRadioButtonChange = (val?: string) => {
+                onChange(val as T);
+              };
 
-          return (
-            <div>
-              <input
-                type='radio'
-                name={c.value}
-                id={`${props.name}-${idx}`}
-                value={c.value}
-                checked={value === c.value}
-                onClick={() => {
-                  if (c.value === value) {
-                    onRadioButtonChange(undefined);
-                  } else {
-                    onRadioButtonChange(c.value);
-                  }
-                }}
-              />
-              <Label for={`${props.name}-${idx}`} text={c.label} />
-            </div>
-          );
-        });
+              return (
+                <div>
+                  <input
+                    type='radio'
+                    name={c.value}
+                    id={`${props.name}-${idx}`}
+                    value={c.value}
+                    checked={value === c.value}
+                    onClick={() => {
+                      if (c.value === value) {
+                        onRadioButtonChange(undefined);
+                      } else {
+                        onRadioButtonChange(c.value);
+                      }
+                    }}
+                  />
+                  <Label for={`${props.name}-${idx}`} text={c.label} />
+                </div>
+              );
+            })
+          }
+          </div>
+        );
       }
       break;
     case SelectTypeName:
