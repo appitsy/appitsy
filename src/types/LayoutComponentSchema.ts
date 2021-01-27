@@ -26,12 +26,9 @@ export interface PanelDisplayProps extends BaseComponentDisplayProps {
   expanded?: boolean;
 }
 
-export type PanelDataProps = BaseComponentDataProps;
-
 export interface PanelProps extends BaseComponentProps {
   components?: ComponentSchema[];
   display: PanelDisplayProps;
-  data?: PanelDataProps;
 }
 
 export interface PanelSchema extends PanelProps, BaseComponentSchema {
