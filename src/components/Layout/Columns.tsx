@@ -9,6 +9,7 @@ import {
   ColumnsProps,
   ColumnsTypeName,
 } from '../../types/LayoutComponentSchema';
+import { getParentComponentPath } from '../../utilities/ComponentPath';
 
 interface ColumnsComponentProps extends ColumnsProps {
   className?: string;
@@ -31,14 +32,18 @@ const Row = Styled.div`
   flex-direction: row;
 `;
 
-const Columns: AppComponent<ColumnsComponentProps> = (props) => (
-  <ColumnWrapper className={classNames([`appitsy-${ColumnsTypeName}`, props.className])}>
-    { props.display?.hideLabel === true || !props.display?.label ? null : <ColumnsHeading>{props.display?.label}</ColumnsHeading> }
-    <Row>
-      { props.renderChildComponents(props.components, props.path, { ...props, type: ColumnsTypeName } as ComponentSchema) }
-    </Row>
-  </ColumnWrapper>
-);
+const Columns: AppComponent<ColumnsComponentProps> = (props) => {
+  const path = getParentComponentPath(props.path);
+
+  return (
+    <ColumnWrapper className={classNames([`appitsy-${ColumnsTypeName}`, props.className])}>
+      { props.display?.hideLabel === true || !props.display?.label ? null : <ColumnsHeading>{props.display?.label}</ColumnsHeading> }
+      <Row>
+        { props.renderChildComponents(props.components, path, { ...props, type: ColumnsTypeName } as ComponentSchema) }
+      </Row>
+    </ColumnWrapper>
+  );
+};
 
 Columns.validateSchema = (_component: any) => true;
 
