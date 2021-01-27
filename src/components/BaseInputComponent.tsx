@@ -45,6 +45,16 @@ const CheckboxInput = Styled.input`
   margin-right: 4px;
 `;
 
+const RadioInput = Styled.input`
+  margin-right: 4px;
+`;
+
+const ComponentsFlex = Styled(Flex)`
+  &>* {
+    margin-right: 15px;
+  }
+`;
+
 const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Element => {
   const [state, setState] = useState<BaseInputState>({});
 
@@ -87,74 +97,78 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
     case MultiCheckboxTypeName:
       {
         const value: string[] = props.value as string[] || [];
-        const checkboxes = (props as MultiCheckboxProps).data?.checkboxes;
+        const checkboxProps = (props as MultiCheckboxProps);
         childEl = (
           <div>
             { props.display?.hideLabel === true ? null : <Label for={props.name} text={props.display?.label || props.name} /> }
-            {
-              checkboxes?.map((c, idx) => {
-                const onMultiCheckboxChange = (val: boolean) => {
-                  const newValue = [...value];
-                  if (val) {
-                    newValue.push(c.value);
-                  } else {
-                    _.pull(newValue, c.value);
-                  }
-                  onChange(newValue as T);
-                };
+            <ComponentsFlex flexDirection={checkboxProps.display?.inline === true ? 'row' : 'column'}>
+              {
+                checkboxProps.data?.checkboxes?.map((c, idx) => {
+                  const onMultiCheckboxChange = (val: boolean) => {
+                    const newValue = [...value];
+                    if (val) {
+                      newValue.push(c.value);
+                    } else {
+                      _.pull(newValue, c.value);
+                    }
+                    onChange(newValue as T);
+                  };
 
-                return (
-                  <div>
-                    <CheckboxInput
-                      type='checkbox'
-                      id={`${props.name}-${idx}`}
-                      name={props.name}
-                      checked={value.includes(c.value)}
-                      onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
-                    />
-                    <Label for={`${props.name}-${idx}`} text={c.label} />
-                  </div>
-                );
-              })
-            }
+                  return (
+                    <div>
+                      <CheckboxInput
+                        type='checkbox'
+                        id={`${props.name}-${idx}`}
+                        name={props.name}
+                        checked={value.includes(c.value)}
+                        onChange={(evt) => onMultiCheckboxChange(evt.target.checked)}
+                      />
+                      <Label for={`${props.name}-${idx}`} text={c.label} />
+                    </div>
+                  );
+                })
+              }
+            </ComponentsFlex>
           </div>
-        )
+        );
       }
       break;
     case RadioTypeName:
       {
         const value: string = props.value as string;
-        const radioButtons = (props as RadioProps).data?.options;
+        const radioButtonProps = (props as RadioProps);
         childEl = (
           <div>
             { props.display?.hideLabel === true ? null : <Label for={props.name} text={props.display?.label || props.name} /> }
-            {
-            radioButtons?.map((c, idx) => {
-              const onRadioButtonChange = (val?: string) => {
-                onChange(val as T);
-              };
+            <ComponentsFlex flexDirection={radioButtonProps.display?.inline === true ? 'row' : 'column'}>
+              {
+                radioButtonProps.data?.options?.map((c, idx) => {
+                  const onRadioButtonChange = (val?: string) => {
+                    onChange(val as T);
+                  };
 
-              return (
-                <div>
-                  <input
-                    type='radio'
-                    name={c.value}
-                    id={`${props.name}-${idx}`}
-                    value={c.value}
-                    checked={value === c.value}
-                    onClick={() => {
-                      if (c.value === value) {
-                        onRadioButtonChange(undefined);
-                      } else {
-                        onRadioButtonChange(c.value);
-                      }
-                    }}
-                  />
-                  <Label for={`${props.name}-${idx}`} text={c.label} />
-                </div>
-              );
-            })
-          }
+                  return (
+                    <div>
+                      <RadioInput
+                        type='radio'
+                        name={c.value}
+                        id={`${props.name}-${idx}`}
+                        value={c.value}
+                        checked={value === c.value}
+                        onClick={() => {
+                          if (c.value === value) {
+                            onRadioButtonChange(undefined);
+                          } else {
+                            onRadioButtonChange(c.value);
+                          }
+                        }}
+                      />
+                      <Label for={`${props.name}-${idx}`} text={c.label} />
+                    </div>
+                  );
+                })
+              }
+            </ComponentsFlex>
           </div>
         );
       }

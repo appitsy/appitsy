@@ -61,12 +61,12 @@ export interface TabProps extends BaseComponentProps {
 export type TabSchema = TabProps;
 
 export interface ColumnsDisplayProps extends BaseComponentDisplayProps {
-  label: string;
+  label?: string;
 }
 
 export interface ColumnsProps extends BaseComponentProps {
   components?: ComponentSchema[];
-  display: ColumnsDisplayProps;
+  display?: ColumnsDisplayProps;
 }
 
 export interface ColumnsSchema extends PanelProps, BaseComponentSchema {

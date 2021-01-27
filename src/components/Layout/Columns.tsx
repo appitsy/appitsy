@@ -33,7 +33,7 @@ const Row = Styled.div`
 
 const Columns: AppComponent<ColumnsComponentProps> = (props) => (
   <ColumnWrapper className={classNames([`appitsy-${ColumnsTypeName}`, props.className])}>
-    <ColumnsHeading>{props.display.label}</ColumnsHeading>
+    { props.display?.hideLabel === true || !props.display?.label ? null : <ColumnsHeading>{props.display?.label}</ColumnsHeading> }
     <Row>
       { props.renderChildComponents(props.components, props.path, { ...props, type: ColumnsTypeName } as ComponentSchema) }
     </Row>

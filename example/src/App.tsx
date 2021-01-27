@@ -50,6 +50,7 @@ const schema: ComponentSchema[] = [
     name: 'radio1',
     display: {
       label: 'My Radio Buttons',
+      inline: true,
     },
     data: {
       options: [
@@ -99,6 +100,7 @@ const schema: ComponentSchema[] = [
     name: 'multi-Checbox1',
     display: {
       label: 'My Checkbox',
+      inline: true,
     },
     data: {
       checkboxes: [

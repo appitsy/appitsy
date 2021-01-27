@@ -81,7 +81,12 @@ export interface MultiCheckboxDataProps extends BaseInputComponentDataProps<any>
   checkboxes?: Checkbox[];
 }
 
+export interface MultiCheckboxDisplayProps extends BaseInputComponentDisplayProps {
+  inline?: boolean;
+}
+
 export interface MultiCheckboxProps extends BaseInputComponentProps<any> {
+  display?: MultiCheckboxDisplayProps;
   data?: MultiCheckboxDataProps;
   validations?: MultiCheckboxValidations;
 }
@@ -100,11 +105,16 @@ export interface SelectProps extends BaseInputComponentProps<string | string[]> 
   data?: SelectDataProps;
 }
 
+export interface RadioDisplayProps extends BaseInputComponentDisplayProps {
+  inline?: boolean;
+}
+
 export interface RadioDataProps extends BaseInputComponentDataProps<string> {
   options: Option[];
 }
 
 export interface RadioProps extends BaseInputComponentProps<string> {
+  display?: RadioDisplayProps;
   data?: RadioDataProps;
 }
 
