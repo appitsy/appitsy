@@ -29,32 +29,27 @@ const PanelIcon = Styled(Icon)`
 `;
 
 const Panel: AppComponent<PanelComponentProps> = (props) => {
-  const [state, setState] = useState({
-    expandable: getBooleanOrDefault(props.display?.expandable, true),
-    expanded: getBooleanOrDefault(props.display?.expanded, true),
-  });
+  const expandable = getBooleanOrDefault(props.display?.expandable, true);
+  const [expanded, setExpanded] = useState(!expandable || getBooleanOrDefault(props.display?.expanded, true));
 
   const path = getParentComponentPath(props.path);
 
   const toggleExpand = () => {
-    if (!state.expandable) {
+    if (!expandable) {
       return;
     }
 
-    setState((prevState) => ({
-      ...prevState,
-      expanded: !prevState.expanded,
-    }));
+    setExpanded(!expanded);
   };
 
   return (
     <div className={classNames(['appitsy-panel', props.className])}>
       <PanelHeading onClick={toggleExpand} className='appitsy-panel-heading'>
-        <PanelIcon icon={state.expanded ? 'caret-down' : 'caret-right'} />
+        { expandable ? <PanelIcon icon={expanded ? 'caret-down' : 'caret-right'} /> : null}
         {props.display.label}
       </PanelHeading>
-      <div className={classNames(['appitsy-panel-body', state.expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
-        {state.expanded ? props.renderChildComponents(props.components, path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
+      <div className={classNames(['appitsy-panel-body', expanded ? 'appitsy-panel-body-expanded' : 'appitsy-panel-body-collapsed'])}>
+        {expanded ? props.renderChildComponents(props.components, path, { ...props, type: PanelTypeName } as ComponentSchema) : null}
       </div>
     </div>
   );

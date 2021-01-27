@@ -315,7 +315,7 @@ const schema: ComponentSchema[] = [
     type: 'panel',
     display: {
       label: 'Panel 1',
-      expandable: true,
+      expandable: false,
       expanded: true,
     },
     components: [
