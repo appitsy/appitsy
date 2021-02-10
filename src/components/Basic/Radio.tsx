@@ -11,11 +11,11 @@ import { ValidateRequired } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface RadioComponentProps extends RadioProps {
-  className: string;
+  className?: string;
   value: string;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | undefined) => void;
 }
 
 const Radio: AppComponent<RadioComponentProps> = (props) => {

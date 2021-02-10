@@ -16,11 +16,11 @@ import {
 import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface TextAreaComponentProps extends TextAreaProps {
-  className: string;
+  className?: string;
   value: string;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | undefined) => void;
 }
 
 const TextArea: AppComponent<TextAreaComponentProps> = (props) => {
@@ -33,7 +33,7 @@ const TextArea: AppComponent<TextAreaComponentProps> = (props) => {
   return (
     <BaseTextInputComponent
       {...props}
-      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
+      defaultValue={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       inputType={TextAreaTypeName}
       className={classNames([`appitsy-${TextAreaTypeName}`, props.className])}
       validate={textAreaValidate}

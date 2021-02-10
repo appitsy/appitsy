@@ -16,11 +16,11 @@ import {
 import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface TextFieldComponentProps extends TextFieldProps {
-  className: string;
-  value: string;
+  className?: string;
+  value: string | undefined;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | undefined) => void;
 }
 
 const TextField: AppComponent<TextFieldComponentProps> = (props) => {
@@ -33,7 +33,7 @@ const TextField: AppComponent<TextFieldComponentProps> = (props) => {
   return (
     <BaseTextInputComponent
       {...props}
-      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
+      defaultValue={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       inputType={TextFieldTypeName}
       className={classNames([`appitsy-${TextFieldTypeName}`, props.className])}
       validate={textFieldValidate}

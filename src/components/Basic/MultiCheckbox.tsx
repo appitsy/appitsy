@@ -12,11 +12,11 @@ import { ValidateRequired } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface MultiCheckboxComponentProps extends MultiCheckboxProps {
-  className: string;
+  className?: string;
   value: boolean;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: boolean): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange?: (value: boolean) => void;
 }
 
 const MultiCheckbox: AppComponent<MultiCheckboxComponentProps> = (props) => {

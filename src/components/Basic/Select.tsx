@@ -11,11 +11,11 @@ import {
 import BaseInputComponent from '../BaseInputComponent';
 
 interface SelectComponentProps extends SelectProps {
-  className: string;
+  className?: string;
   value: string;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | string [] | undefined) => void;
 }
 
 const Select: AppComponent<SelectComponentProps> = (props) => {
@@ -43,7 +43,7 @@ const Select: AppComponent<SelectComponentProps> = (props) => {
   }
 
   return (
-    <BaseInputComponent
+    <BaseInputComponent<string | string[]>
       name={props.name}
       display={props.display}
       data={props.data}

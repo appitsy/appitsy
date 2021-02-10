@@ -23,9 +23,9 @@ const Asterisk = Styled.span`
 const LabelTypeName = 'label';
 
 const Label: React.FC<LabelProps> = (props) => (
-  <StyledLabel htmlFor={props.for} className={classNames([`appitsy-${LabelTypeName}`, props.className])}>
+  <StyledLabel htmlFor={props.for} className={classNames([`appitsy-${LabelTypeName}`, props.className])} data-testid='label'>
     { props.text }
-    { props.requiredAsterisk === true ? <Asterisk>&nbsp;*</Asterisk> : null }
+    { props.requiredAsterisk === true ? <Asterisk data-testid='labelRequiredAsterisk'>&nbsp;*</Asterisk> : null }
     { props.tooltip ? <span data-toggle='tooltip' title={props.tooltip}>?</span> : null }
   </StyledLabel>
 );

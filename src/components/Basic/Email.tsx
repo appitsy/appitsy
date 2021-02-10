@@ -16,11 +16,11 @@ import {
 import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface EmailComponentProps extends EmailProps {
-  className: string;
+  className?: string;
   value: string;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | undefined) => void;
 }
 
 const Email: AppComponent<EmailComponentProps> = (props) => {
@@ -34,7 +34,7 @@ const Email: AppComponent<EmailComponentProps> = (props) => {
     <BaseTextInputComponent
       {...props}
       inputType={EmailTypeName}
-      value={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
+      defaultValue={props.value !== undefined ? props.value : (props.data?.defaultValue || '')}
       className={classNames([`appitsy-${EmailTypeName}`, props.className])}
       validate={emailValidate}
     />

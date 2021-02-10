@@ -11,11 +11,11 @@ import { ValidateRequiredBool } from '../../utilities/Validations';
 import BaseInputComponent from '../BaseInputComponent';
 
 interface CheckboxComponentProps extends CheckboxProps {
-  className: string;
+  className?: string;
   value: boolean;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: boolean): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange?: (value: boolean) => void;
 }
 
 const Checkbox: AppComponent<CheckboxComponentProps> = (props) => {

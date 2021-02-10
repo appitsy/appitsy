@@ -30,11 +30,11 @@ import { Flex } from './Layout/Flex';
 
 interface BaseInputProps<T> extends BaseInputComponentProps<T> {
   inputType: CheckboxType | MultiCheckboxType | SelectType | RadioType;
-  className: string;
+  className?: string;
   value: T;
   validate(value: T): string | null;
-  onValidationError(name: string, errorMsg?: string): void;
-  onValueChange(value: T): void;
+  onValidationError?: (name: string, errorMsg?: string) => void;
+  onValueChange?: (value: T) => void;
 }
 
 interface BaseInputState {
@@ -59,8 +59,10 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
   const [state, setState] = useState<BaseInputState>({});
 
   useEffect(() => {
-    props.onValueChange(props.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (props.onValueChange) {
+      props.onValueChange(props.value);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let validationError = '';
@@ -70,12 +72,17 @@ const BaseInputComponent = <T extends any>(props: BaseInputProps<T>): JSX.Elemen
       touched: true,
     }));
 
-    return props.onValueChange(value);
+    if (props.onValueChange) {
+      props.onValueChange(value);
+    }
   };
 
   if (props.validate) {
     validationError = (props.validate(props.value)) || '';
-    props.onValidationError(props.name, validationError);
+
+    if (props.onValidationError) {
+      props.onValidationError(props.name, validationError);
+    }
   }
 
   let childEl;

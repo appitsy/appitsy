@@ -26,11 +26,11 @@ import { Flex } from './Layout/Flex';
 
 interface BaseTextInputProps<T> extends BaseTextInputComponentProps<T> {
   inputType?: TextFieldType | TextAreaType | EmailType | NumberType | PasswordType;
-  className: string;
-  value: T | undefined;
+  className?: string;
+  defaultValue: T | undefined;
   validate(value: T | undefined): string | null;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: T | undefined): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange?: (value: T | undefined) => void;
 }
 
 interface BaseTextInputState {
@@ -41,8 +41,10 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
   const [state, setState] = useState<BaseTextInputState>({});
 
   useEffect(() => {
-    props.onValueChange(props.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (props.onValueChange) {
+      props.onValueChange(props.defaultValue);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let validationError = '';
@@ -52,12 +54,16 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
       touched: true,
     }));
 
-    return props.onValueChange(value);
+    if (props.onValueChange) {
+      props.onValueChange(value);
+    }
   };
 
   if (props.validations) {
-    validationError = (props.validate(props.value)) || '';
-    props.onValidationError(props.name, validationError);
+    validationError = (props.validate(props.defaultValue)) || '';
+    if (props.onValidationError) {
+      props.onValidationError(props.name, validationError);
+    }
   }
 
   let childEl;
@@ -70,11 +76,12 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
           id={props.name}
           type={props.inputType}
           name={props.name}
-          value={props.value || ''}
+          defaultValue={props.defaultValue || ''}
           placeholder={props.display?.placeholder}
           onChange={(evt) => onChange(evt.target.value as T)}
           disabled={props.display?.disabled}
           className='appitsy-form-control'
+          data-testid='textInputComponent'
         />
       );
       break;
@@ -83,11 +90,12 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
         <textarea
           id={props.name}
           name={props.name}
-          value={props.value || ''}
+          value={props.defaultValue || ''}
           placeholder={props.display?.placeholder}
           onChange={(evt) => onChange(evt.target.value as T)}
           disabled={props.display?.disabled}
           className='appitsy-form-control'
+          data-testid='textInputComponent'
         />
       );
       break;
@@ -97,11 +105,12 @@ const BaseTextInputComponent = <T extends string | number>(props: BaseTextInputP
           id={props.name}
           type={props.inputType}
           name={props.name}
-          value={props.value}
+          value={props.defaultValue}
           placeholder={props.display?.placeholder}
           onChange={(evt) => onChange(evt.target.value as T)}
           disabled={props.display?.disabled}
           className='appitsy-form-control'
+          data-testid='textInputComponent'
         />
       );
       break;

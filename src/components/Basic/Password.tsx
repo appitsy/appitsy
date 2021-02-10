@@ -15,11 +15,11 @@ import {
 import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface PasswordComponentProps extends PasswordProps {
-  className: string;
+  className?: string;
   value: string;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: string): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange? : (value: string | undefined) => void;
 }
 
 const Password: AppComponent<PasswordComponentProps> = (props) => {
@@ -32,7 +32,7 @@ const Password: AppComponent<PasswordComponentProps> = (props) => {
     <BaseTextInputComponent
       {...props}
       inputType={PasswordTypeName}
-      value={props.value || ''}
+      defaultValue={props.value || ''}
       className={classNames([`appitsy-${PasswordTypeName}`, props.className])}
       validate={passwordValidate}
     />

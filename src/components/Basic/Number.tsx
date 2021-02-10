@@ -14,24 +14,28 @@ import {
 import BaseTextInputComponent from '../BaseTextInputComponent';
 
 interface NumberComponentProps extends NumberProps {
-  className: string;
+  className?: string;
   value: number;
   path?: string;
-  onValidationError(name: string, error?: string): void;
-  onValueChange(value: number): void;
+  onValidationError?: (name: string, error?: string) => void;
+  onValueChange?: (value: number | undefined) => void;
 }
 
 const Number: AppComponent<NumberComponentProps> = (props) => {
-  const textFieldValidate = (value?: number): string | null => (
-    ValidateRequired(props.validations!, value?.toString())
-      || ValidateMinMaxNumber(props.validations!, value!)
-  );
+  const textFieldValidate = (value?: number): string | null => {
+    if (!props.validations) {
+      return null;
+    }
+
+    return ValidateRequired(props.validations, value?.toString())
+      || ValidateMinMaxNumber(props.validations, value!);
+  };
 
   return (
     <BaseTextInputComponent
       {...props}
       inputType={NumberTypeName}
-      value={props.value || props.data?.defaultValue}
+      defaultValue={props.value || props.data?.defaultValue}
       className={classNames([`appitsy-${NumberTypeName}`, props.className])}
       validate={textFieldValidate}
     />
