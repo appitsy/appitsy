@@ -2,6 +2,7 @@
 [![NPM](https://img.shields.io/npm/v/@appitsy/forms)](https://www.npmjs.com/package/@appitsy/forms)
 [![CI](https://github.com/appitsy/forms/workflows/CI/badge.svg)](https://github.com/appitsy/forms/actions?query=workflow%3ACI)
 ![npm type definitions](https://img.shields.io/npm/types/@appitsy/forms)
+[![codecov](https://img.shields.io/codecov/c/github/appitsy/forms/main.svg?style=flat-square)](https://codecov.io/gh/appitsy/forms/)
 
 <p align="center"><img height="60" src="https://github.com/appitsy/forms/blob/main/logo.ico?raw=true" /></p>
 
